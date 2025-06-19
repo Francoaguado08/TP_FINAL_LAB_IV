@@ -1,0 +1,77 @@
+:root { /* pseudoselectores de CSS */
+    --color-principal: #7bb3ea; /*    se pueden usar en cualquier parte del CSS,*/
+    --color-secundario: #f4f6f7; /*  variables o custom properties */
+    --color-texto: #1e2b37;
+    --color-blanco: #fff;
+    --color-negro: #000
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box; /*para padding, etc*/
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 16px; /* 1rem = 10px */
+    margin: 0;
+    padding: 0;
+    background: var(--color-principal);
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3 {
+	color: var(--color-texto);
+}
+
+h1 {
+    font-size: 3.8rem;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 4rem;
+    color: var(--color-texto);
+}
+
+.contenedor {
+	width: 30rem;
+    margin: 10rem auto;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    background: var(--color-blanco);
+    border-radius: 1rem;
+    text-align:center;
+}
+
+.contenedor form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contenedor form input {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}
+
+
+
+
+
