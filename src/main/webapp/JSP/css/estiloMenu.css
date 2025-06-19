@@ -128,5 +128,65 @@ h3 {
 	height: auto;
 	border-radius: 1rem;
 }
+body table.Movimientos {
+    width: 100%;
+    border-collapse: collapse; 
+    margin: 20px 0 !important;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /*sombritas*/
+}
 
+body h1.movTitulo {
+    text-align: center;
+    width: 100%;
+}
+
+body table.Prestamos {
+    width: 100%;
+    border-collapse: collapse; 
+    margin: 20px 0 !important;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+/*por ver*/
+.Prestamos select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Prestamos select:hover {
+    border-color: #7bb3ea;
+    box-shadow: 0 0 0 2px rgba(123, 179, 234, 0.2);
+}
+
+body h1.misP {
+	font-family: arial;
+    text-align: center;
+    width: 100%;
+}
+
+body .btnPago{
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    color: Black;
+    border: none;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btnPago:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+}
 
