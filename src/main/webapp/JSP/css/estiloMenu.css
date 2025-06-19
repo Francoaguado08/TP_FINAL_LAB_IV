@@ -190,3 +190,37 @@ body .btnPago{
     box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
 }
 
+.btnFiltrar {
+    background-color: silver;
+    color: Black;
+    border: medium;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnFiltrar:hover {
+    background-color: #6aa3da;
+}
+
+.filtros-container {
+    background-color: #F0F8FF;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filtros-form {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.filtro {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
