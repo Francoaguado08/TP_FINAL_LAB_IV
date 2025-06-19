@@ -37,10 +37,10 @@
     <h3 class="filtros-titulo">Filtrar por Importe</h3>
     <form class="filtros-form">
         <div class="filtro">
-           Minimo: <input type="text" class="filtro-input" placeholder="Ej: 1000">
+           Minimo<input type="text" class="filtro-input" placeholder="Ej: 1000">
         </div>
-        <div class="filtro-group">
-            maximo: <input type="text" class="filtro-input" placeholder="Ej: 5000">
+        <div class="filtro">
+            Maximo<input type="text" class="filtro-input" placeholder="Ej: 5000">
         </div>
         <button type="submit" class="btnFiltrar">Aplicar Filtros</button>
           </form>
