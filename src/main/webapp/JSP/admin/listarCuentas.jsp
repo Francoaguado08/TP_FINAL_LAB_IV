@@ -43,16 +43,16 @@
 
             <!-- Títulos -->
             <section class="hospital-info">
-                <h1>LISTADO DE CLIENTES</h1>
+                <h1>LISTADO DE CUENTAS</h1>
             </section>
             <!-- Filtros -->
             <section class="filter-box">
                 <form method="get" action="ListadoClientesServlet">
-                    <label for="dni">Buscar por DNI</label>
-                    <input type="text" name="dni" id="dni" placeholder="Ingrese DNI">
+                    <label for="dni">Buscar por Número de cuenta</label>
+                    <input type="text" name="nCuenta" id="nCuenta" placeholder="Ingrese Número de Cuenta">
 
-                    <label for="usuario">Buscar por Usuario</label>
-                    <input type="text" name="usuario" id="usuario" placeholder="Ingrese Usuario">
+                    <label for="usuario">Buscar por CUIL</label>
+                    <input type="text" name="cuil" id="cuil" placeholder="Ingrese el CUIL">
 
                     <button type="submit" class="button">Filtrar</button>
                 </form>
@@ -63,7 +63,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID Cuenta</th>
+                            <th>N° Cuenta</th>
                             <th>Tipo de Cuenta</th>
                             <th>CBU</th>
                             <th>CUIL</th>
@@ -74,7 +74,7 @@
                     <tbody>
                         <c:forEach var="cuenta" items="${listaCuentas}">
                             <tr>
-                                <td>${cuenta.id}</td>
+                                <td>${cuenta.numero}</td>
                                 <td>${cuenta.tipo}</td>
                                 <td>${cuenta.cbu}</td>
                                 <td>${cuenta.cuil}</td>
