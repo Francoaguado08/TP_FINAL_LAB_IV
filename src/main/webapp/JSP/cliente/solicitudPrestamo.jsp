@@ -38,7 +38,7 @@
 	
 	<section class="hospital-info">
             <h1>Solicitar un Préstamo</h1>
-        </section>
+    </section>
 	<!-- Form -->
 	<main class="contenido-principal">
 	

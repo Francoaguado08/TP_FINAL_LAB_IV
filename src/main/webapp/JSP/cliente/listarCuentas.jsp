@@ -50,6 +50,7 @@
                             <th>CUIL</th>
                             <th>Saldo</th>
                             <th>Fecha de creación</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
