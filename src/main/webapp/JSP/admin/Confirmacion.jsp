@@ -4,9 +4,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link href="../css/normalize.css" rel="stylesheet">
+<link href="../css/estilos.css" rel="stylesheet">
+<link href="../css/estiloLista.css" rel="stylesheet"> 
+<title>Confirmacion</title>
+
 </head>
 <body>
+
+
+ 	  <section class="contenedor-confirmacion">
+        <h2>¡Operación exitosa!</h2>
+
+        <!-- Simulación de mensaje de éxito -->
+        <p>El cliente fue registrado correctamente.</p>
+
+        <!-- Botón de regreso (simulado) -->
+        <a href="listarClientes.jsp" class="btnVolver">Volver al listado</a>
+    </section>
+
+
+
+
+
 
 </body>
 </html>
