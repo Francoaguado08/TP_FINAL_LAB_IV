@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+/* COLORES GLOBALES */
+
+:root {
+    --color-principal: #7bb3ea;
+    --color-secundario: #f6f4f0;
+    --color-texto: #1e2b37;
+    --color-blanco: #fff;
+    --color-negro: #000;
+    --color-eliminar: #d32f2f;
+    font-size: 62.5%; 
+}
+
+
+/* NAVBAR GLOBAL */
+.nav-bg {
+    background-color: var(--color-secundario);
+    padding: 1rem 0;
+}
+
+.navegacion-principal .menu {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu > li {
+    position: relative;
+}
+
+.menu a {
+    display: block;
+    text-align: center;
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.menu a:hover {
+    background-color: var(--color-blanco);
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-secundario);
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    list-style: none;
+    z-index: 1000;
+}
+
+.submenu li a {
+    padding: 1rem;
+    font-size: 1.4rem;
+    border-radius: 0;
+    text-align: left;
+}
+
+.submenu li a:hover {
+    background-color: var(--color-blanco);
+}
+
+.dropdown:hover .submenu {
+    display: block;
+}
