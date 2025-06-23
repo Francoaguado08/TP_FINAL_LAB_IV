@@ -1,26 +1,6 @@
-:root { /* pseudoselectores de CSS */
-    --color-principal: #7bb3ea; /*    se pueden usar en cualquier parte del CSS,*/
-    --color-secundario: #f6f4f0; /*  variables o custom properties */
-    --color-texto: #1e2b37;
-    --color-blanco: #fff;
-    --color-negro: #000
-}
-
-html {
-    font-size: 62.5%;
-    box-sizing: border-box; /*para padding, etc*/
-}
 
 *, *:before, *:after {
     box-sizing: inherit;
-}
-
-body {
-    font-size: 16px; /* 1rem = 10px */
-    margin: 0;
-    padding: 0;
-    background: var(--color-principal);
-    font-family: Arial, sans-serif;
 }
 
 h1, h2, h3 {
@@ -37,80 +17,6 @@ h2 {
 
 h3 {
     font-size: 1.8rem;
-}
-
-.contenedor {
-    max-width: 120rem;
-    margin: 0 auto;
-}
-
-.nav-bg {
-    background-color: var(--color-secundario);
-    padding: 1rem 0;
-}
-
-.navegacion-principal .menu {
-	display:flex;
-	gap: 2rem;
-	justify-content: space-between;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-/*menu*/
-.menu > li {
-	position: relative;
-}
-
-.menu a {
-	display: block;
-    text-align: center;
-    color: var(--color-texto);
-    text-decoration: none;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 1rem;
-    border-radius: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.menu a:hover {
-	background-color: var(--color-blanco);
-	
-}
-
-/*Submenú descolgable*/
-
-.submenu {
-	display: none;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	background-color: var(--color-secundario);
-	padding: 0.5rem 0;
-	border-radius: 0.5rem;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-	min-width: 180px;
-	list-style: none;
-	z-index: 1000; /*para mostrar por encima de otros elementos*/
-}
-
-.submenu li a {
-	padding: 1rem;
-	font-size: 1.4rem;
-	border-radius: 0;
-	text-align: left;
-
-}
-
-.submenu li a:hover {
-	background-color: var(--color-blanco);
-}
-
-/* Mostrar submenú al hacer hover */
-.dropdown:hover .submenu {
-	display: block;
 }
 
 /*contenido central*/

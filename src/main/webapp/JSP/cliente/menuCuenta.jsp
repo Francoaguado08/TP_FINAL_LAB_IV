@@ -1,40 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Menú Cuenta</title>
-<link href="../css/normalize.css" rel="stylesheet">
-<link href="../css/estilos.css" rel="stylesheet">
-<link href="../css/estiloMenu.css" rel="stylesheet">
-<link href="../css/estiloLista.css" rel="stylesheet"> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link href="../css/normalize.css" rel="stylesheet">
+	<link href="../css/estilos.css" rel="stylesheet">
+	<link href="../css/estiloMenu.css" rel="stylesheet">
+	<link href="../css/estiloLista.css" rel="stylesheet">
+	<title>Menú Cuenta</title>
 </head>
+
 <body>
-	<header>
-		<div class="nav-bg">
-			<nav class="navegacion-principal contenedor">
-				<ul class="menu">
-					<li>
-						<a href="#">Cuentas</a>
-					</li>
-					<li>
-						<a href="#">Transferencias</a>
-					</li>
-					<li>
-						<a href="#">Solicitar Préstamo</a>
-					</li>
-					<li>
-						<a href="#">Pagar Préstamos</a>
-					</li>
-					<li>
-						<a href="#">Información Personal</a>
-					</li>	
-				</ul>
-			</nav>
-		</div>
-	</header>
+	<jsp:include page="../navbar/navCliente.jsp"/>
 	
 	 <!-- Contenido principal -->
     <main class="contenido-listado">

@@ -1,40 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-
-<link href="../css/normalize.css" rel="stylesheet">
-<link href="../css/estilos.css" rel="stylesheet">
-<link href="../css/estiloForm.css" rel="stylesheet">
-
-<title>Información Usuario</title>
-
+	<meta charset="UTF-8">
+	<link href="../css/normalize.css" rel="stylesheet">
+	<link href="../css/estilos.css" rel="stylesheet">
+	<link href="../css/estiloForm.css" rel="stylesheet">
+	
+	<title>Información Usuario</title>
 </head>
+
 <body>
-<!-- NAVBAR -->
-	<header class="nav-bg">
-		<nav class="navegacion-principal">
-			<ul class="menu">
-				<li>
-						<a href="#">Cuentas</a>
-					</li>
-					<li>
-						<a href="#">Transferencias</a>
-					</li>
-					<li>
-						<a href="#">Solicitar Préstamo</a>
-					</li>
-					<li>
-						<a href="#">Pagar Préstamos</a>
-					</li>
-					<li>
-						<a href="#">Información Personal</a>
-					</li>	
-			</ul>
-		</nav>
-	</header>
+	<jsp:include page="../navbar/navCliente.jsp"/>
 
 <!-- FORM SOLO LECTURA -->
 	<main class="contenido-principal">

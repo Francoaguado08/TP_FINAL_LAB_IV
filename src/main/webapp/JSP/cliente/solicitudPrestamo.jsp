@@ -1,40 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<link href="../css/normalize.css" rel="stylesheet">
-<link href="../css/estilos.css" rel="stylesheet">
-<link href="../css/estiloForm.css" rel="stylesheet"> 
-<link href="../css/estiloLista.css" rel="stylesheet"> 
-
-<title>Solicitar préstamo</title>
-
+	<meta charset="UTF-8">
+	<link href="../css/normalize.css" rel="stylesheet">
+	<link href="../css/estilos.css" rel="stylesheet">
+	<link href="../css/estiloForm.css" rel="stylesheet"> 
+	<link href="../css/estiloLista.css" rel="stylesheet"> 
+	
+	<title>Solicitar préstamo</title>
 </head>
 
 <body>
-	<header class="nav-bg">
-			<nav class="navegacion-principal">
-				<ul class="menu">
-					<li>
-						<a href="#">Cuentas</a>
-					</li>
-					<li>
-						<a href="#">Transferencias</a>
-					</li>
-					<li>
-						<a href="#">Solicitar Préstamo</a>
-					</li>
-					<li>
-						<a href="#">Pagar Préstamos</a>
-					</li>
-					<li>
-						<a href="#">Información Personal</a>
-					</li>	
-				</ul>
-			</nav>
-	</header>
+	<jsp:include page="../navbar/navCliente.jsp"/>
 	
 	<section class="hospital-info">
             <h1>Solicitar un Préstamo</h1>

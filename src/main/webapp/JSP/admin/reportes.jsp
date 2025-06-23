@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link href="../css/normalize.css" rel="stylesheet">
-<link href="../css/estilos.css" rel="stylesheet">
-<link href="../css/estiloLista.css" rel="stylesheet"> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<title>Reportes</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link href="../css/normalize.css" rel="stylesheet">
+	<link href="../css/estilos.css" rel="stylesheet">
+	<link href="../css/estiloLista.css" rel="stylesheet"> 
+	
+	<title>Reportes</title>
 </head>
+
 <body>
 
 <h2>Generar Reporte de Ingresos/Egresos</h2>

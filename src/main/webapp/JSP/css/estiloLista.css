@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-
-body {
-    margin: 0;
-    padding: 0;
-    background: var(--color-principal);
-    font-family: Arial, sans-serif;
-}
 /* Contenedor general de filtros */
 .filter-box {
     max-width: 600px;

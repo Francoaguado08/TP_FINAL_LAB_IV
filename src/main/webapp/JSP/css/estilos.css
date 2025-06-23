@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 /* COLORES GLOBALES */
-
 :root {
     --color-principal: #7bb3ea;
     --color-secundario: #f6f4f0;
@@ -12,6 +11,18 @@
     font-size: 62.5%; 
 }
 
+body {
+    font-size: 16px; /* 1rem = 10px */
+    margin: 0;
+    padding: 0;
+    background: var(--color-principal);
+    font-family: Arial, sans-serif;
+}
+
+.contenedor {
+    max-width: 120rem;
+    margin: 0 auto;
+}
 
 /* NAVBAR GLOBAL */
 .nav-bg {
@@ -48,31 +59,36 @@
     background-color: var(--color-blanco);
 }
 
+/*Submenú descolgable*/
+
 .submenu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--color-secundario);
-    padding: 0.5rem 0;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    min-width: 180px;
-    list-style: none;
-    z-index: 1000;
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: var(--color-secundario);
+	padding: 0.5rem 0;
+	border-radius: 0.5rem;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+	min-width: 180px;
+	list-style: none;
+	z-index: 1000; /*para mostrar por encima de otros elementos*/
 }
 
 .submenu li a {
-    padding: 1rem;
-    font-size: 1.4rem;
-    border-radius: 0;
-    text-align: left;
+	padding: 1rem;
+	font-size: 1.4rem;
+	border-radius: 0;
+	text-align: left;
+
 }
 
 .submenu li a:hover {
-    background-color: var(--color-blanco);
+	background-color: var(--color-blanco);
 }
 
+/* Mostrar submenú al hacer hover */
 .dropdown:hover .submenu {
-    display: block;
+	display: block;
 }
+

@@ -1,34 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Movimientos</title>
-<link href="../css/estiloMenu.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<link href="../css/normalize.css" rel="stylesheet">
+	<link href="../css/estilos.css" rel="stylesheet">
+	<link href="../css/estiloMenu.css" rel="stylesheet">
+	
+	<title>Movimientos</title>
 </head>
+
 <body>
-		<div class="nav-bg">
-			<nav class="navegacion-principal contenedor">
-				<ul class="menu">
-					<li>
-						<a href="#">Cuentas</a>
-					</li>
-					<li>
-						<a href="#">Transferencias</a>
-					</li>
-					<li>
-						<a href="#">Solicitar Préstamo</a>
-					</li>
-					<li>
-						<a href="#">Pagar Préstamos</a>
-					</li>
-					<li>
-						<a href="#">Información Personal</a>
-					</li>	
-				</ul>
-			</nav>
-		</div>
+	<jsp:include page="../navbar/navCliente.jsp"/>
 
 
 <h1 class="movTitulo">Movimientos</h1>
