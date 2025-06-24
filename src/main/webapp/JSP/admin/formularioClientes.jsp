@@ -12,13 +12,17 @@
 </head>
 
 <body>
+	
+	<!--  Menú de navegación para el administrador -->
 	<jsp:include page="../navbar/navAdmin.jsp"/>
 
     <main class="contenido-principal">
     
-		<form method="post" action="AgregarClienteServlet">
+		<!-- Formulario que envía los datos al servlet ClientesServlet -->
+		<form method="post" action="${pageContext.request.contextPath}/ClientesServlet">
+			<input type="hidden" name="accion" value="insertar" />
 		
-			<h2>Agregar Cliente</h2>
+			<h2>Agregar nuevo cliente</h2>
 
 			<div>
 				<label for="dni">DNI</label>
@@ -42,22 +46,26 @@
 
 			<div>
 				<label for="sexo">Sexo</label>
-				<select name="sexo" id="sexo">
+				<select name="sexo" id="sexo" required>
 					<option value="M">Masculino</option>
 					<option value="F">Femenino</option>
 					<option value="X">Otro</option>
 				</select>
 			</div>
 
+
 			<div>
 				<label for="nacionalidad">Nacionalidad</label>
-				<select name="nacionalidad" id="nacionalidad">
-					<option value="AR">Argentina</option>
-					<option value="CL">Chile</option>
-					<option value="OT">Otro</option>
+				<select name="nacionalidad" id="nacionalidad" required>
+					<option value="">-- Seleccione --</option>
+					<option value="Argentina">Argentina</option>
+					<option value="Chile">Chile</option>
+					<option value="Otro">Otro</option>
 				</select>
 			</div>
-
+			
+			
+			
 			<div>
 				<label for="fechaNacimiento">Fecha de Nacimiento</label>
 				<input type="date" name="fechaNacimiento" id="fechaNacimiento" required>
@@ -68,23 +76,35 @@
 				<input type="text" name="direccion" id="direccion" placeholder="Ingrese dirección" required>
 			</div>
 
+			
+			
+			<!-- Provincia con valores fijos (sin base de datos) -->
 			<div>
 				<label for="provincia">Provincia</label>
-				<select name="provincia" id="provincia" onchange="this.form.submit()">
-					<c:forEach var="prov" items="${listaProvincias}">
-						<option value="${prov.id}">${prov.nombre}</option>
-					</c:forEach>
+				<select name="provincia" id="provincia" required>
+					<option value="">-- Seleccione una provincia --</option>
+					<option value="Buenos Aires">Buenos Aires</option>
+					<option value="CABA">CABA</option>
+					<option value="Córdoba">Córdoba</option>
+					<option value="Santa Fe">Santa Fe</option>
+					<option value="Mendoza">Mendoza</option>
+					<option value="Otra">Otra</option>
 				</select>
 			</div>
+			
+			
+			
+			
+			
 
+				<!-- Localidad como texto (sin tabla en BD) -->
 			<div>
 				<label for="localidad">Localidad</label>
-				<select name="localidad" id="localidad">
-					<c:forEach var="loc" items="${listaLocalidades}">
-						<option value="${loc.id}">${loc.nombre}</option>
-					</c:forEach>
-				</select>
+				<input type="text" name="localidad" id="localidad" placeholder="Ingrese localidad" required />
 			</div>
+			
+			
+			
 
 			<div>
 				<label for="email">Correo Electrónico</label>

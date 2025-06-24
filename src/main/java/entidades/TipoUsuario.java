@@ -6,6 +6,14 @@ public class TipoUsuario {
 	 private String descripcion;
 	
 	 
+	 // Constructor con parámetros
+	    public TipoUsuario(int codTipoUsuario, String descripcion) {
+	        this.codTipoUsuario = codTipoUsuario;
+	        this.descripcion = descripcion;
+	    }
+	 
+	
+	 
 	 public int getCodTipoUsuario() {
 		return codTipoUsuario;
 	}
