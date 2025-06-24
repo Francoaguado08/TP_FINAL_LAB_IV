@@ -7,7 +7,6 @@
 	<link href="../css/normalize.css" rel="stylesheet">
 	<link href="../css/estilos.css" rel="stylesheet">
 	<link href="../css/estiloForm.css" rel="stylesheet"> 
-	<link href="../css/estiloLista.css" rel="stylesheet"> 
 	
 	<title>Solicitar préstamo</title>
 </head>
@@ -15,16 +14,14 @@
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
-	<section class="hospital-info">
-            <h1>Solicitar un Préstamo</h1>
-    </section>
-	<!-- Form -->
 	<main class="contenido-principal">
 	
 		<form>
+			<h2>Solicitar un Préstamo</h2>
+			
 		    <div>
 		        <label for="suma">Suma solicitada</label>
-		        <input type="number" id="suma" name="suma" placeholder="Ingrese la suma solicitada" required>
+		        <input type="number" id="suma" name="suma" min="1" step="any" placeholder="Ingrese la suma solicitada" required>
 		    </div>
 		
 		    <div>

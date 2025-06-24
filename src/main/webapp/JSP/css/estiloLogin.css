@@ -1,10 +1,3 @@
-:root { /* pseudoselectores de CSS */
-    --color-principal: #7bb3ea; /*    se pueden usar en cualquier parte del CSS,*/
-    --color-secundario: #f4f6f7; /*  variables o custom properties */
-    --color-texto: #1e2b37;
-    --color-blanco: #fff;
-    --color-negro: #000
-}
 
 html {
     font-size: 62.5%;
@@ -13,14 +6,6 @@ html {
 
 *, *:before, *:after {
     box-sizing: inherit;
-}
-
-body {
-    font-size: 16px; /* 1rem = 10px */
-    margin: 0;
-    padding: 0;
-    background: var(--color-principal);
-    font-family: Arial, sans-serif;
 }
 
 h1, h2, h3 {

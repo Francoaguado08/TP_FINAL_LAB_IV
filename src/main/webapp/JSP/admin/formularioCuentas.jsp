@@ -7,7 +7,6 @@
 	<link href="../css/normalize.css" rel="stylesheet">
 	<link href="../css/estilos.css" rel="stylesheet">
 	<link href="../css/estiloForm.css" rel="stylesheet">
-	<link href="../css/estiloLista.css" rel="stylesheet"> 
 
 	<title>Crear Cuenta</title>
 </head>
@@ -15,12 +14,11 @@
 <body>
 	<jsp:include page="../navbar/navAdmin.jsp"/>
 	
-	<section class="hospital-info">
-		<h1>Crear Cuenta</h1>
-    </section>
-	
 	<main class="contenido-principal">
+	
 		<form>
+			<h2>Crear Cuenta</h2>
+			
 		    <div>
 		        <label for="nCuenta">N° Cuenta</label>
 		        <input type="text" id="ncuenta" name="ncuenta" value="123456789" readonly>

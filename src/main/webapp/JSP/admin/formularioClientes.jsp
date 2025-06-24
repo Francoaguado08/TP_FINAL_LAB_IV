@@ -15,6 +15,7 @@
 	<jsp:include page="../navbar/navAdmin.jsp"/>
 
     <main class="contenido-principal">
+    
 		<form method="post" action="AgregarClienteServlet">
 		
 			<h2>Agregar Cliente</h2>

@@ -1,30 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="css/normalize.css" rel="stylesheet">
-<link href="css/estiloLogin.css" rel="stylesheet">
-
-<title>Login</title>
+	<meta charset="UTF-8">
+	<link href="css/normalize.css" rel="stylesheet">
+	<link href="css/estilos.css" rel="stylesheet">
+	<link href="css/estiloForm.css" rel="stylesheet">
+	
+	<title>Login</title>
 </head>
-<body>
 
+<body>
 	<header>
-		<h1 class="titulo">Banco <b>BussBank</b></h1>	
+		<h1>Banco<b>BussBank</b></h1>	
 	</header>
 	
-	<div class="contenedor">
-		<h2>Login</h2>
-
-        <form >
-            <input placeholder="Usuario" type="text" name="usuario">
-            <input placeholder="Contraseña" type="password" name="clave">
-            <input type="submit" value="Ingresar" name="btnIngresar">
+	<main class="contenido-principal">
+		
+        <form>
+			<h2>Iniciar sesión</h2>
+		
+        	<div>
+        		<input placeholder="Usuario" type="text" name="usuario" required>
+        	</div>
+        	
+            <div>
+            	<input placeholder="Contraseña" type="password" name="clave" required>
+            </div>
+            
+            <div>
+		        <button type="submit">Enviar</button>
+		    </div>
         </form>
 		
-	</div>
+	</main>
 
 </body>
 </html>

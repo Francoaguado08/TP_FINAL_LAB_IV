@@ -16,7 +16,14 @@
 	
 	<!-- Form -->
 	<main class="contenido-principal">
+		
 		<form>
+			<h2>Transferencia</h2>
+			<div>
+			
+			<h3>Estas utilizando la cuenta: Cuenta</h3>
+			</div>
+			
 		    <div>
 		        <label for="cbu">CBU</label>
 		        <input type="number" id="cbu" name="cbu" placeholder="Ingrese el cbu a transferir" required>
@@ -24,7 +31,7 @@
 		
 		    <div>
 		        <label for="suma">Suma a transferir</label>
-		        <input type="number" id="suma" name="suma" placeholder="Ingrese la suma a transferir" required>
+		        <input type="number" id="suma" name="suma" min="1" step="any" placeholder="Ingrese la suma a transferir" required>
 		    </div>
 		
 		    <div>
