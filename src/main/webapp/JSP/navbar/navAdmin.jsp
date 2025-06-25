@@ -21,6 +21,10 @@
 				</li>
 				<li><a href="${pageContext.request.contextPath}/JSP/admin/solicitudesPrestamo.jsp">Préstamos</a></li>
 				<li><a href="${pageContext.request.contextPath}/JSP/admin/reportes.jsp">Reportes</a></li>
+				<li>
+					<a>Usuario: <%=session.getAttribute("usuario") %></a> <!-- habria que darle un estilo propio estatico para que no interactue con el hover de la etiqueta <a> si les parece mas optimo -->
+				</li>
+						
 			</ul>
 		</nav>
 	</div>

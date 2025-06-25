@@ -1,7 +1,5 @@
-/entidades/
+/controller/
 /dao/
 /daoImpl/
 /negocio/
 /negocioImpl/
-/servlets/
-/controller/

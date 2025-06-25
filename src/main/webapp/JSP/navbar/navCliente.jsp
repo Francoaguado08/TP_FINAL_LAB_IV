@@ -19,7 +19,11 @@
 					</li>
 					<li>
 						<a href="verDatosCliente.jsp">Información Personal</a>
-					</li>	
+					</li>
+					<li>
+					<a>Usuario: <%=session.getAttribute("usuario") %></a> <!-- habria que darle un estilo propio estatico para que no interactue con el hover de la etiqueta <a> si les parece mas optimo -->
+					</li>
+						
 				</ul>
 			</nav>
 		</div>

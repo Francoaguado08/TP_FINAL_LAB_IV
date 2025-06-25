@@ -16,9 +16,10 @@
 		<h1>Banco<b>BussBank</b></h1>	
 	</header>
 	
+
 	<main class="contenido-principal">
 		
-        <form>
+        <form method="POST" action="${pageContext.request.contextPath}/LoginServlet">
 			<h2>Iniciar sesión</h2>
 		
         	<div>
@@ -33,6 +34,13 @@
 		        <button type="submit">Enviar</button>
 		    </div>
         </form>
+        
+ 	<% if(request.getAttribute("error") != null) { %>
+  	<div style="color:red">
+   	<%= request.getAttribute("error") %>
+   	 </div>
+	<% } %>
+
 		
 	</main>
 
