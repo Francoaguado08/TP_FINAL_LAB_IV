@@ -1,15 +1,17 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" session="true" %>
+
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8" />
 	<link href="../css/normalize.css" rel="stylesheet">
 	<link href="../css/estilos.css" rel="stylesheet">
 	<link href="../css/estiloForm.css" rel="stylesheet">
-	
 	<title>Agregar Cliente</title>
 </head>
+	
 
 <body>
 	
@@ -20,7 +22,7 @@
     
 		<!-- Formulario que envía los datos al servlet ClientesServlet -->
 		<form method="post" action="${pageContext.request.contextPath}/ClientesServlet">
-			<input type="hidden" name="accion" value="insertar" />
+			 <input type="hidden" name="accion" value="insertar" />
 		
 			<h2>Agregar nuevo cliente</h2>
 
@@ -135,9 +137,17 @@
 				<button type="submit">Agregar Cliente</button>
 			</div>
 
-			<div class="mensaje-resultado">
-				<span>${mensaje}</span>
-			</div>
+			<%
+				String mensaje = (String)session.getAttribute("mensaje");
+				if (mensaje != null) {
+			%>
+				<div class="mensaje-resultado">
+					<span><%= mensaje %></span>
+				</div>
+			<%
+					session.removeAttribute("mensaje");
+				}
+			%>
 
 		</form>
 	</main>
