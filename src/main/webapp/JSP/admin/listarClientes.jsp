@@ -13,27 +13,37 @@
 
 <body>
 	<jsp:include page="../navbar/navAdmin.jsp"/>
-
-    <!-- Encabezado -->
-    <div class="hospital-info">
-        <h1>EL BANCO QUE TE BANCA</h1>
-    </div>
-
-    <!-- Caja de Filtros -->
-    <div class="filter-box">
-        <h2>LISTADO DE CLIENTES</h2>
-        <form method="get" action="ListadoClientesServlet">
-            <div class="filter-group">
-                <label for="dni">Buscar por DNI</label>
-                <input type="text" name="dni" id="dni" class="input" placeholder="Ingrese DNI">
-
-                <label for="usuario">Buscar por Usuario</label>
-                <input type="text" name="usuario" id="usuario" class="input" placeholder="Ingrese Usuario">
-
-                <button type="submit" class="button">Filtrar</button>
-            </div>
-        </form>
-    </div>
+	
+	<!-- Títulos -->
+	<h1>Listado Clientes</h1>
+	
+	
+	<main class="contenido-principal">
+	
+	 <!-- Caja de Filtros -->
+	    <section class="filter-box">
+	    
+	        <h3>Filtros</h3>
+	        
+	        <form method="get" action="ListadoClientesServlet">
+	                <label for="dni">Buscar por DNI</label>
+	                <input type="text" name="dni" id="dni" class="input" placeholder="Ingrese DNI">
+	
+	                <label for="usuario">Buscar por Usuario</label>
+	                <input type="text" name="usuario" id="usuario" class="input" placeholder="Ingrese Usuario">
+	
+	                <button type="submit">Filtrar</button>
+	        </form>
+	        
+	    </section>
+		
+	
+	
+	
+	
+	
+	</main>
+   
 
     <!-- Tabla de clientes -->
     <div class="grid-container">
@@ -65,7 +75,7 @@
                         <td>${cliente.email}</td>
                         <td>${cliente.telefono}</td>
                         <td>
-                            <a href="EditarClienteServlet?id=${cliente.id}" class="btnEditar">Editar</a>
+                            <a href="EditarClienteServlet?id=${cliente.id}" class="btnAccion">Editar</a>
                             <a href="EliminarClienteServlet?id=${cliente.id}" class="btnEliminar">Eliminar</a>
                         </td>
                     </tr>

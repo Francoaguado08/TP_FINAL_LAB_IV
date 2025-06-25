@@ -6,36 +6,52 @@
 	<meta charset="UTF-8">
 	<link href="../css/normalize.css" rel="stylesheet">
 	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloMenu.css" rel="stylesheet">
+	<link href="../css/estiloLista.css" rel="stylesheet">
 	
-	<title>Pagos</title>
+	<title>Pago de cuotas</title>
 </head>
 
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
 
-	<h1 class="misP">Mis prestamos</h1>
+	<main class="contenido-principal">
 	
-	<table class="Prestamos" border="1">  
-	<tr>
-		<th>Cliente</th>
-		<th>Fecha de prestamo</th>
-		<th>Fecha actual</th>
-		<th>Cuenta</th>             
-		<th>Importe a pagar</th>
-	</tr>           
-	<tr>
-		<td></td>
-	 	<td></td>
-	 	<td></td>
-	 	<td><select>
-	 	
-	 	</select>
-	 	</td>  
-	 	<td></td>
-	 	<td><input class="btnPago" type="submit" name="btnPagar" value="Pagar"></td>        
-	</tr>
-	</table>
+		<h1>Mis prestamos</h1>
+	
+		<section class="grid-container">
+		
+			<table>
+				<thead>
+					<tr>
+						<th>ID Préstamo</th>
+						<th>Número de cuota</th>
+						<th>Monto a pagar</th>             
+						<th>Cuenta para abonar</th>
+						<th></th>
+					</tr>   
+				</thead>
+				
+				<tbody>
+		            <c:forEach var="cuota" items="${listaCuotasPendientes}">
+		                <tr>
+		                    <td>${cuota.idPrestamo}</td>
+		                    <td>${cuota.numero}</td>
+		                    <td>${cuota.monto}</td>
+		                    <td>
+		                    	<select>
+		                    	  <option value="cuenta">Seleccione una cuenta</option>
+		                    	</select>
+		                    </td>
+		                    <td>
+		                        <a href="#" class="btnAccion">Pagar</a>
+		                    </td>
+		                </tr>
+		            </c:forEach>
+	           	</tbody>
+			</table>
+		</section>
+	
+	</main>
 
 </body>
 </html>

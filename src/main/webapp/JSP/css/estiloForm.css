@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 .contenido-principal {
     display: flex;
     flex-direction: column; 
@@ -10,7 +9,7 @@
     padding: 2rem;
 }
 
-form {
+form{
     background: var(--color-secundario);
     padding: 2rem;
     border-radius: 1rem;
@@ -68,7 +67,7 @@ button {
     font-weight: bold;
     font-size: 1.6rem;
     border: none;
-     outline: 0.1rem solid var(--color-principal);
+    outline: 0.1rem solid var(--color-principal);
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;

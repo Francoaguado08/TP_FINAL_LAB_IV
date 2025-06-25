@@ -40,7 +40,7 @@
                                 <td>12</td>
                                 <td>$12.520,00</td>
                                 <td>
-                                    <a href="#" class="btnEditar">Aprobar</a>
+                                    <a href="#" class="btnAccion">Aprobar</a>
                                     <a href="#" class="btnEliminar">Rechazar</a>
                                 </td>
                             </tr>

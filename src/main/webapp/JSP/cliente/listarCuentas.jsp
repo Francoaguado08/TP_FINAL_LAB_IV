@@ -7,19 +7,18 @@
 	<title>Listado Cuentas</title>
 	<link href="../css/normalize.css" rel="stylesheet">
 	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloMenu.css" rel="stylesheet">
-	<link href="../css/estiloLista.css" rel="stylesheet"> 
+	<link href="../css/estiloLista.css" rel="stylesheet">
 </head>
 
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
 	<section class="grid-container">
-		<section class="hospital-info">
+			<section>
                 <h1>Acceder a una Cuenta</h1>
             </section>
 	
-                <table>
+                <table class="contenido.listado">
                     <thead>
                         <tr>
                             <th>N° Cuenta</th>
@@ -40,7 +39,7 @@
                                 <td>$150.250,00</td>
                                 <td>28/9/2009</td>
                                 <td>
-                                    <a href="#" class="btnEditar">Seleccionar</a>
+                                	<a href="#" class="btnAccion">Seleccionar</a>
                                 </td>
                             </tr>
                     </tbody>

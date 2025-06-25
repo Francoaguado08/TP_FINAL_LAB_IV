@@ -6,19 +6,19 @@
 			<nav class="navegacion-principal contenedor">
 				<ul class="menu">
 					<li>
-						<a href="#">Cuentas</a>
+						<a href="listarCuentas.jsp">Cuentas</a>
 					</li>
 					<li>
-						<a href="#">Transferencias</a>
+						<a href="transferencia.jsp">Transferencias</a>
 					</li>
 					<li>
-						<a href="#">Solicitar Préstamo</a>
+						<a href="solicitudPrestamo.jsp">Solicitar Préstamo</a>
 					</li>
 					<li>
-						<a href="#">Pagar Préstamos</a>
+						<a href="pagoCuotas.jsp">Pagar Préstamos</a>
 					</li>
 					<li>
-						<a href="#">Información Personal</a>
+						<a href="verDatosCliente.jsp">Información Personal</a>
 					</li>	
 				</ul>
 			</nav>

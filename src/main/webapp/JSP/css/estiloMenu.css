@@ -1,24 +1,4 @@
 
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-h1, h2, h3 {
-	color: var(--color-texto);
-}
-
-h1 {
-    font-size: 3.8rem;
-}
-
-h2 {
-    font-size: 2.8rem;
-}
-
-h3 {
-    font-size: 1.8rem;
-}
-
 /*contenido central*/
 
 .contenido-central {

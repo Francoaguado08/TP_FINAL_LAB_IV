@@ -19,9 +19,8 @@
         <div class="contenido-listado">
 
             <!-- Títulos -->
-            <section class="hospital-info">
-                <h1>LISTADO DE CUENTAS</h1>
-            </section>
+			<h2>Listado de cuentas</h2>
+            
             <!-- Filtros -->
             <section class="filter-box">
                 <form method="get" action="ListadoClientesServlet">
@@ -31,7 +30,7 @@
                     <label for="usuario">Buscar por CUIL</label>
                     <input type="text" name="cuil" id="cuil" placeholder="Ingrese el CUIL">
 
-                    <button type="submit" class="button">Filtrar</button>
+                    <button type="submit">Filtrar</button>
                 </form>
             </section>
 
@@ -59,7 +58,7 @@
                                 <td>${cuenta.saldo}</td>
                                 <td>${cuenta.fechaCreacion}</td>
                                 <td>
-                                    <a href="#" class="btnEditar">Editar</a>
+                                    <a href="#" class="btnAccion">Editar</a>
                                     <a href="#" class="btnEliminar">Eliminar</a>
                                 </td>
                             </tr>
