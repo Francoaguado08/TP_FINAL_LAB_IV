@@ -19,8 +19,7 @@ public class ClienteNegocio implements IClienteNegocio{
 
 	@Override
 	public List<Cliente> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return clienteDAO.obtenerTodos();
 	}
 
 	@Override

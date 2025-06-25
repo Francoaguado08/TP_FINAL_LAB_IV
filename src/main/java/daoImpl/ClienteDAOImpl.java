@@ -82,15 +82,79 @@ public class ClienteDAOImpl implements IClienteDAO{
 	}
 
 	@Override
-	public List<Cliente> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Cliente> obtenerTodos() 
+	{
+		
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		String query ="{CALL sp_obtener_clientes()}";
+		
+	    List<Cliente> clientes = new ArrayList<>();
+		
+		try 
+		{
+			CallableStatement cs = cn.prepareCall(query);
+	        ResultSet rs = cs.executeQuery();
+	        
+	        while(rs.next()) 
+	        {
+	        	
+	        	// Cargar el TipoUsuario
+	            TipoUsuario tipoUsuario = new TipoUsuario();
+	            tipoUsuario.setCodTipoUsuario(rs.getInt("TipoUsuario_Cod"));
+	            tipoUsuario.setDescripcion(rs.getString("TipoUsuario_Descripcion"));
+	
+	            // Cargar el Usuario
+	            Usuario usuario = new Usuario();
+	            usuario.setIdUsuario(rs.getInt("Usuario_ID"));
+	            usuario.setUser(rs.getString("Usuario_User"));
+	            usuario.setContrasena(rs.getString("Usuario_Pass"));
+	            usuario.setTipoUsuario(tipoUsuario);
+	
+	            // Cargar el Cliente
+	            Cliente cliente = new Cliente();
+	            cliente.setIdCliente(rs.getInt("ID_Cliente"));
+	            cliente.setCuil(rs.getString("CUIL"));
+	            cliente.setDni(rs.getString("DNI"));
+	            cliente.setUsuario(usuario);
+	            cliente.setNombre(rs.getString("Nombre"));
+	            cliente.setApellido(rs.getString("Apellido"));
+	            cliente.setSexo(rs.getString("Sexo"));
+	            cliente.setNacionalidad(rs.getString("Nacionalidad"));
+	            cliente.setFechaNacimiento(rs.getDate("Fecha_nacimiento"));
+	            cliente.setDireccion(rs.getString("Direccion"));
+	            cliente.setLocalidad(rs.getString("Localidad"));
+	            cliente.setProvincia(rs.getString("Provincia"));
+	            cliente.setCorreoElectronico(rs.getString("Correo_electronico"));
+	            cliente.setTelefono(rs.getString("Telefono"));
+	            cliente.setEstado(rs.getBoolean("Estado"));
+	            
+	            //TEMPORAL VEREMOS SI SE QUEDA
+	            //Salteamos clientes que esten dados de baja.
+	            if (!rs.getBoolean("Estado")) continue;  
+	            
+	            
+	            // Agregar a la lista
+	            clientes.add(cliente);
+	        }
+	        
+	        rs.close();
+	        cs.close();
+	        
+		}
+		catch(Exception e) {e.printStackTrace();}
+		
+		
+		return clientes;
 	}
 
+	
 	@Override
 	public boolean existeClientePorDNI(String dni) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	
+	
+	
 }

@@ -11,6 +11,9 @@ public class TipoUsuario {
 	        this.codTipoUsuario = codTipoUsuario;
 	        this.descripcion = descripcion;
 	    }
+	    
+	// Constructor sin parámetros
+	    public TipoUsuario() {}
 	 
 	
 	 

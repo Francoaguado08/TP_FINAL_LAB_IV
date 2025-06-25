@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,18 +31,40 @@ public class ClientesServlet extends HttpServlet {
 	}
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		//  usar GET para listar clientes, por ejemplo
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(request.getParameter("Param")!=null)
+		{
+			String accion = request.getParameter("Param").toString();
+			
+			switch (accion) 
+			{
+				case "lista":
+				{
+					request.setAttribute("listaClientes", clienteNegocio.listar());
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/admin/listarClientes.jsp");
+					dispatcher.forward(request, response);
+					break;
+				}
+			
+			
+			}
+			
+			
+		}
+	
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		// Obtenemos la acción (por ejemplo: insertar, eliminar, modificar)
 		String accion = request.getParameter("accion");
 
 		// Si la acción es "insertar", llamamos al método insertarCliente()
-		if ("insertar".equals(accion)) {
+		if ("insertar".equals(accion)) 
+		{
 			insertarCliente(request, response);
 		}
 	}
@@ -67,7 +91,8 @@ public class ClientesServlet extends HttpServlet {
 	    String confirmPassword = request.getParameter("confirmPassword");
 
 	    // 2. Verificar contraseñas
-	    if (!password.equals(confirmPassword)) {
+	    if (!password.equals(confirmPassword)) 
+	    {
 	        request.setAttribute("mensaje", "⚠ Las contraseñas no coinciden.");
 	        request.getRequestDispatcher("/JSP/admin/formularioClientes.jsp").forward(request, response);
 	        return;
