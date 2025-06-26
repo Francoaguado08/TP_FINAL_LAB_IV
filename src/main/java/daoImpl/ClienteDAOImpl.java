@@ -12,16 +12,16 @@ import entidades.Usuario;
 import entidades.TipoUsuario;
 
 
-
-
-
 public class ClienteDAOImpl implements IClienteDAO{
-
+	
+	Conexion conexion; // es necesaria para poder cerrar la conexión al terminar cada operacion
+	
 	@Override
 	public boolean insertar(Cliente cliente) {
 	   
 		boolean insertado = false;
-	    Connection cn = Conexion.getConexion().getSQLConexion();
+		conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
 
 	    String query = "{CALL sp_insertar_cliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
@@ -54,6 +54,9 @@ public class ClienteDAOImpl implements IClienteDAO{
 	        }
 	        System.out.println("Error al insertar cliente (SP): " + e.getMessage());
 	    }
+	    finally {
+	    	conexion.cerrarConexion();
+	    }
 
 	    return insertado;
 	}
@@ -84,8 +87,8 @@ public class ClienteDAOImpl implements IClienteDAO{
 	@Override
 	public List<Cliente> obtenerTodos() 
 	{
-		
-		Connection cn = Conexion.getConexion().getSQLConexion();
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
 		String query ="{CALL sp_obtener_clientes()}";
 		
 	    List<Cliente> clientes = new ArrayList<>();
@@ -141,8 +144,14 @@ public class ClienteDAOImpl implements IClienteDAO{
 	        cs.close();
 	        
 		}
-		catch(Exception e) {e.printStackTrace();}
-		
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			conexion.cerrarConexion();
+		}
 		
 		return clientes;
 	}

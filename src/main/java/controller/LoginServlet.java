@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import negocioImpl.LoginNegocio;
 
@@ -38,16 +37,22 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("usuario", ""); 	//por si llega a entrar al servlet con un dato viejo guardado
+		
 		String user = request.getParameter("usuario");
 		String pass = request.getParameter("clave");
+		System.out.println("user : "+user +"pass: "+ pass);
 		LoginNegocio l = new LoginNegocio();
 		try {
 	        String tipoUsuario = l.validarUsuarioYTipo(user, pass);
+	        System.out.println(tipoUsuario);
 	        if (tipoUsuario != null) {
+	        	
 	        	/*int idCliente = l.ObtenerIdCliente(user, pass);
 	        	HttpSession sesCli = request.getSession();
 	        	sesCli.setAttribute("IdCliente", idCliente);*/
-	            HttpSession session = request.getSession();
+	            
 	            session.setAttribute("usuario", user);
 	            switch (tipoUsuario.toLowerCase()) {
 	                case "cliente":
