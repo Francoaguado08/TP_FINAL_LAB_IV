@@ -94,8 +94,8 @@
 	                        <td><%=c.getCorreoElectronico()%></td>
 	                        <td><%=c.getTelefono()%></td>
 	                        
-	                        <td> <a href="EditarClienteServlet?id=" class="btnAccion">Editar</a></td>
-	                        <td><a href="EliminarClienteServlet?id=" class="btnEliminar">Eliminar</a></td>
+	                        <td><a href="ClientesServlet?Param=editar&id=<%=c.getIdCliente()%>" class="btnAccion">Editar</a></td>
+	                        <td><a href="ClientesServlet?Param=eliminar&id=<%=c.getIdCliente()%>" class="btnEliminar">Eliminar</a></td>
 	                    </tr>
 	                    
 	                    <%

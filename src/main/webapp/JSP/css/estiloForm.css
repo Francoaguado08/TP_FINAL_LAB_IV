@@ -59,6 +59,54 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(123, 179, 234, 0.3);
 }
 
+
+.card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.card legend {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.card div {
+    margin-bottom: 10px;
+}
+
+.card label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.card input {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+
+
+.contenedor-botones{
+	display: flex;
+    justify-content: space-between;  /* Lado a lado */
+    align-items: center; 
+    width: 100%; 
+    padding: 10px;
+	box-sizing: border-box;
+}
+
+.btnCancelar{
+	background-color: var(--color-eliminar);
+}
+
+.btnCancelar:hover {
+    background-color: #b71c1c;
+}
+
 button {
     width: 100%;
     padding: 1rem;
@@ -77,4 +125,5 @@ button:hover {
     background-color: var(--color-principal);
     box-shadow: 0 2px 8px rgba(30, 43, 55, 0.2);
 }
+
 

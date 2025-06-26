@@ -24,13 +24,12 @@ public class ClienteNegocio implements IClienteNegocio{
 
 	@Override
 	public Cliente obtenerPorId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return clienteDAO.obtenerPorId(id);
 	}
 
 	@Override
 	public boolean modificar(Cliente cliente) {
-		// TODO Auto-generated method stub
+		if(clienteDAO.modificar(cliente)) return true;
 		return false;
 	}
 

@@ -4,9 +4,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link href="css/normalize.css" rel="stylesheet">
-	<link href="css/estilos.css" rel="stylesheet">
-	<link href="css/estiloForm.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/JSP/css/normalize.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/JSP/css/estilos.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/JSP/css/estiloForm.css" rel="stylesheet">
 	
 	<title>Login</title>
 </head>

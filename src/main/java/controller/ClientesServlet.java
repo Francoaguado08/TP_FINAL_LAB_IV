@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,7 +36,7 @@ public class ClientesServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//  usar GET para listar clientes, por ejemplo
+		//  usar GET para listar clientes, por ejemplo 
 		if(request.getParameter("Param")!=null)
 		{
 			String accion = request.getParameter("Param").toString();
@@ -48,6 +48,18 @@ public class ClientesServlet extends HttpServlet {
 					request.setAttribute("listaClientes", clienteNegocio.listar());
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/admin/listarClientes.jsp");
 					dispatcher.forward(request, response);
+					break;
+				}
+				case "editar":
+				{
+					String idParam = request.getParameter("id");
+					if (idParam != null) {
+	                    int idCliente = Integer.parseInt(idParam);
+	                    request.setAttribute("cliente", clienteNegocio.obtenerPorId(idCliente));
+	                    RequestDispatcher dispatcherEditar = request.getRequestDispatcher("/JSP/admin/editarCliente.jsp");
+	                    dispatcherEditar.forward(request, response);
+	                }
+					
 					break;
 				}
 			
@@ -63,20 +75,47 @@ public class ClientesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		// Obtenemos la acción (por ejemplo: insertar, eliminar, modificar)
-		String accion = request.getParameter("accion");
-
-		// Si la acción es "insertar", llamamos al método insertarCliente()
-		if ("insertar".equals(accion)) 
-		{
-			insertarCliente(request, response);
+		
+		if(request.getParameter("accion")!=null) {
+			String accion = request.getParameter("accion").toString();
+			
+			switch (accion) 
+			{
+				case "insertar":
+				{
+					insertarCliente(request, response);
+					break;
+				}
+				case "modificar":
+				{
+					modificarCliente(request, response);
+					break;
+				}
+			
+			
+			}
+			
+			
 		}
-		
-		
 		
 		
 	}
 
 	
+	private void modificarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	    Cliente cliente = construirClienteDesdeRequest(request);
+		System.out.println(cliente.getUsuario().getUser());
+	    boolean resultado = clienteNegocio.modificar(cliente);
+
+	    if (resultado) {
+	        response.sendRedirect(request.getContextPath() + "/ClientesServlet?Param=lista");
+	    } else {
+	        //request.setAttribute("mensaje", "No se pudo actualizar el cliente.");
+	        response.sendRedirect(request.getContextPath() + "/JSP/admin/editarCliente.jsp");
+	    }
+		
+	}
 	
 	
 	
@@ -109,7 +148,7 @@ public class ClientesServlet extends HttpServlet {
 	        Usuario usuario = new Usuario();
 	        usuario.setUser(username);
 	        usuario.setContrasena(password);
-	        usuario.setTipoUsuario(new TipoUsuario(2, "Cliente")); // ID 2 = Cliente
+	        usuario.setTipoUsuario(new TipoUsuario(2, "cliente")); // ID 2 = Cliente
 
 	        IUsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 	        int idUsuario = usuarioDAO.insertar(usuario);
@@ -158,8 +197,46 @@ public class ClientesServlet extends HttpServlet {
 	
 	
 	
-	
-	
+	private Cliente construirClienteDesdeRequest(HttpServletRequest request) {
+	    Cliente cliente = new Cliente();
+
+	    cliente.setIdCliente(Integer.parseInt(request.getParameter("id")));
+	    cliente.setDni(request.getParameter("dni"));
+	    cliente.setCuil(request.getParameter("cuil"));
+	    cliente.setNombre(request.getParameter("nombre"));
+	    cliente.setApellido(request.getParameter("apellido"));
+	    cliente.setSexo(request.getParameter("sexo"));
+	    cliente.setNacionalidad(request.getParameter("nacionalidad"));
+	    cliente.setDireccion(request.getParameter("direccion"));
+	    cliente.setLocalidad(request.getParameter("localidad"));
+	    cliente.setProvincia(request.getParameter("provincia"));
+	    cliente.setCorreoElectronico(request.getParameter("email"));
+	    cliente.setTelefono(request.getParameter("telefono"));
+	    cliente.setEstado(true);
+
+	    // Parseo de fecha
+	    try {
+	        String fecha = request.getParameter("fechaNacimiento");
+	        if (fecha != null && !fecha.isEmpty()) {
+	            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+	            cliente.setFechaNacimiento(formato.parse(fecha));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    // Datos de Usuario
+	    Usuario user = new Usuario();
+	    user.setIdUsuario(user.getIdUsuario());
+	    user.setUser(request.getParameter("usuario"));
+	    user.setContrasena(request.getParameter("password"));
+	    user.setTipoUsuario(new TipoUsuario(2, "cliente"));
+	    
+	    cliente.setUsuario(user);
+
+	    return cliente;
+	}
+
 	
 	
 	
