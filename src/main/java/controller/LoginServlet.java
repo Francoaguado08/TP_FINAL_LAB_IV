@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import negocioImpl.LoginNegocio;
 
@@ -43,6 +44,9 @@ public class LoginServlet extends HttpServlet {
 		try {
 	        String tipoUsuario = l.validarUsuarioYTipo(user, pass);
 	        if (tipoUsuario != null) {
+	        	/*int idCliente = l.ObtenerIdCliente(user, pass);
+	        	HttpSession sesCli = request.getSession();
+	        	sesCli.setAttribute("IdCliente", idCliente);*/
 	            HttpSession session = request.getSession();
 	            session.setAttribute("usuario", user);
 	            switch (tipoUsuario.toLowerCase()) {

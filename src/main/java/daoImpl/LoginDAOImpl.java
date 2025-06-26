@@ -30,7 +30,30 @@ public class LoginDAOImpl implements ILoginDAO{
     return null;
 }		
 }
+
+	@Override
+	public int obtenerIdClienteSesion(String user, String pass) {
+		    final String query = "SELECT c.ID_Cliente FROM clientes c INNER JOIN usuarios u ON c.ID_Usuario = u.ID_Usuario WHERE u.User = ? AND u.Pass = ?";
+		    Integer idCliente = null;
+		    /*use el integer para que me permita retornar null, por las dudas.*/
+
+		    try (Connection cn = Conexion.getConexion().getSQLConexion();
+		         PreparedStatement stmt = cn.prepareStatement(query)) {
+		        
+		        stmt.setString(1, user);
+		        stmt.setString(2, pass);
+		        
+		        try (ResultSet rs = stmt.executeQuery()) {
+		            if (rs.next()) {
+		                idCliente = rs.getInt("ID_Cliente");
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return idCliente;
+		}
+	}
 	
 	
-	
-}
+

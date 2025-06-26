@@ -11,4 +11,10 @@ public class LoginNegocio implements ILoginNegocio{
 		return l.validarUsuario(user, pass);
 	}
 
+	@Override
+	public int ObtenerIdCliente(String user, String pass) {
+		LoginDAOImpl l = new LoginDAOImpl();
+		return l.obtenerIdClienteSesion(user, pass);
+	}
+
 }
