@@ -18,6 +18,19 @@
 
 		<main class="contenido-principal">
 		
+		<%
+    String mensaje = (String) session.getAttribute("mensaje");
+    if (mensaje != null) {
+    %>
+    <div style="color: <%= mensaje.startsWith("✅") ? "green" : "red" %>; font-weight: bold; margin-bottom: 10px;">
+        <%= mensaje %>
+    </div>
+    <%
+        session.removeAttribute("mensaje"); // Elimina el mensaje para que no se repita al refrescar
+    }
+    %>
+		
+		
 		<form method="post" action="<%= request.getContextPath() %>/CuentasServlet">
 		
 
@@ -30,7 +43,7 @@
 		    </div>
 
 		    <div>
-		        <label for="cuil">CUIL</label>
+		        <label for="cuil">ID</label>
 		        <input type="text" id="idCliente" name="idCliente" required>
 		    </div>
 

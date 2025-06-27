@@ -44,19 +44,29 @@ public class CuentasServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entró al doGet de CuentasServlet");  // <-- confirmá que se loguea
-		if(request.getParameter("Param")!=null)
+		/*if(request.getParameter("Param")!=null)
 		{
 			String accion = request.getParameter("Param").toString();
 			
 			switch (accion) 
 			{
 				case "alta":
-				{
-					mostrarFormularioAlta(request, response);
-					break;
-				}
+				{*/
+					/*mostrarFormularioAlta(request, response);
+					/*break;*/
+				/*}
 			}
-		}
+		}*/
+					
+					// Solo mostrar mensaje si viene de un insert
+				    String from = request.getParameter("from");
+				    if (from != null && from.equals("insert")) {
+				        mostrarFormularioAlta(request, response);
+				    } else {
+				        // Limpiar mensaje si es acceso directo al formulario
+				        request.getSession().removeAttribute("mensaje");
+				        mostrarFormularioAlta(request, response);
+				    }
 		
 	}
 
@@ -148,7 +158,7 @@ public class CuentasServlet extends HttpServlet {
 	        e.printStackTrace();
 	    }
 
-	    response.sendRedirect(request.getContextPath() + "/CuentasServlet");
+	    response.sendRedirect(request.getContextPath() + "/CuentasServlet?from=insert");
 
 	}
 
