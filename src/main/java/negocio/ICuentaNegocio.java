@@ -4,10 +4,12 @@ import java.util.List;
 
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.CuentaListado;
 import entidades.TipoCuenta;
 
 public interface ICuentaNegocio {
 	boolean insertar(Cuenta cuenta);
-    List<TipoCuenta> listar();         //  listado
-
+    List<TipoCuenta> listar();         
+    List<CuentaListado>listarTodos(); //  listado
+    boolean eliminar(int nroCuenta);
 }

@@ -1,18 +1,32 @@
+<%@page import="entidades.CuentaListado"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<link href="../css/normalize.css" rel="stylesheet">
-	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloLista.css" rel="stylesheet"> 
+	<link href="<%=request.getContextPath()%>/JSP/css/normalize.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/JSP/css/estilos.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/JSP/css/estiloLista.css" rel="stylesheet">
 	
 	<title>Listado de Cuentas</title>
 </head>
 
 <body>
 	<jsp:include page="../navbar/navAdmin.jsp"/>
+	
+<%
+    List<CuentaListado> listaCuentas = new ArrayList<CuentaListado>();
+    if (request.getAttribute("listaCuentas") != null) {
+        listaCuentas = (List<CuentaListado>) request.getAttribute("listaCuentas");
+    }
+%>
 
 	<!-- Contenido principal -->
     <main class="contenido-principal">
@@ -23,7 +37,8 @@
             
             <!-- Filtros -->
             <section class="filter-box">
-                <form method="get" action="ListadoClientesServlet">
+                <form method="get" action="<%= request.getContextPath() %>/CuentasServlet">
+                	<input type="hidden" name="Param" value="lista" />
                     <label for="dni">Buscar por Número de cuenta</label>
                     <input type="text" name="nCuenta" id="nCuenta" placeholder="Ingrese Número de Cuenta">
 
@@ -33,7 +48,24 @@
                     <button type="submit">Filtrar</button>
                 </form>
             </section>
-
+			
+			<!-- Mensaje -->
+		
+			<div class="mensajes">
+			<%
+			    String msg = request.getParameter("msg");
+			    if ("eliminado".equals(msg)) {
+			%>
+			    <p class="mensajeCorrecto">Cliente eliminado correctamente.</p>
+			<%
+			    }else if ("error".equals(msg)) {
+			%>
+				<p class="mensajeIncorrecto">Error al eliminar</p>
+			<%
+			    }
+			%>
+			</div>
+			
             <!-- Tabla -->
             <section class="grid-container">
                 <table>
@@ -48,22 +80,37 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <c:forEach var="cuenta" items="${listaCuentas}">
-                            <tr>
-                                <td>${cuenta.numero}</td>
-                                <td>${cuenta.tipo}</td>
-                                <td>${cuenta.cbu}</td>
-                                <td>${cuenta.cuil}</td>
-                                <td>${cuenta.saldo}</td>
-                                <td>${cuenta.fechaCreacion}</td>
-                                <td>
-                                    <a href="#" class="btnAccion">Editar</a>
-                                    <a href="#" class="btnEliminar">Eliminar</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+					<tbody>
+					    <%
+					        if (listaCuentas != null) {
+					            for (CuentaListado cuenta : listaCuentas) {
+					    %>
+					    <tr>
+					        <td><%= cuenta.getNroCuenta() %></td>
+					        <td><%= cuenta.getTipoCuenta() %></td>
+					        <td><%= cuenta.getCbu() %></td>
+					        <td><%= cuenta.getCuil() %></td>
+					        <td>$ <%= cuenta.getSaldo() %></td>
+					        <td><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(cuenta.getFechaCreacion()) %></td>
+					        <td>
+					            <a href="#" class="btnAccion">Editar</a>
+					         </td>
+							<td><a href="CuentasServlet?Param=eliminar&nro=<%=cuenta.getNroCuenta()%>" 
+							   class="btnEliminar" 
+							   onclick="return confirm('¿Estás seguro de que querés eliminar este cliente?');">Eliminar</a> <!-- msj localhost -->
+							</td>
+					       
+					    </tr>
+					    <%
+					            }
+					        } else {
+					    %>
+					    <tr><td colspan="7">No hay cuentas para mostrar</td></tr>
+					    <%
+					        }
+					    %>
+					</tbody>
+
                 </table>
             </section>
         </div>

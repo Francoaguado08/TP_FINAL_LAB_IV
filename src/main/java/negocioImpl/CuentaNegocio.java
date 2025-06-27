@@ -4,6 +4,8 @@ import java.util.List;
 
 import dao.ICuentaDAO;
 import daoImpl.CuentaDAOImpl;
+import entidades.Cliente;
+import entidades.CuentaListado;
 import entidades.Cuenta;
 import entidades.TipoCuenta;
 import negocio.ICuentaNegocio;
@@ -19,6 +21,17 @@ public class CuentaNegocio implements ICuentaNegocio {
 	@Override
 	public List<TipoCuenta> listar() {
 		 return cuentaDAO.obtenerTiposdeCuenta();
+	}
+
+	@Override
+	public List<CuentaListado> listarTodos() {
+		return cuentaDAO.obtenerTodos();
+	}
+
+	@Override
+	public boolean eliminar(int nroCuenta) {
+		// TODO Auto-generated method stub
+		return cuentaDAO.eliminar(nroCuenta);
 	}
 	
 

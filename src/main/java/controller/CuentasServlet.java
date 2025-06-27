@@ -19,6 +19,7 @@ import daoImpl.ClienteDAOImpl;
 import daoImpl.UsuarioDAOImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.CuentaListado;
 import entidades.TipoCuenta;
 import entidades.TipoUsuario;
 import entidades.Usuario;
@@ -44,19 +45,49 @@ public class CuentasServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entró al doGet de CuentasServlet");  // <-- confirmá que se loguea
-		/*if(request.getParameter("Param")!=null)
+		/*
+		 if(request.getParameter("Param")!=null)
 		{
 			String accion = request.getParameter("Param").toString();
 			
 			switch (accion) 
 			{
 				case "alta":
-				{*/
-					/*mostrarFormularioAlta(request, response);
-					/*break;*/
-				/*}
+				{
+					mostrarFormularioAlta(request, response);
+					break;
+				}
+				case "lista":
+				{
+			        List<CuentaListado> cuentas = cuentaNegocio.listarTodos();
+			        request.setAttribute("listaCuentas", cuentas);
+			        RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/admin/listarCuentas.jsp");
+			        dispatcher.forward(request, response);
+				    break;
+				}
+				case "eliminar":
+				{
+				    String nroParam = request.getParameter("nro");
+				    if (nroParam != null) {
+				        int nroCuenta = Integer.parseInt(nroParam);
+				        boolean res =  cuentaNegocio.eliminar(nroCuenta);
+				        if(res) {
+				            response.sendRedirect("CuentasServlet?Param=lista&msg=eliminado");
+				        } else {
+				            response.sendRedirect("CuentassServlet?Param=lista&msg=error");
+				        }
+				 
+				    }
+				    break;
+				}
+
 			}
-		}*/
+		}
+		
+	}
+		 
+		 
+		 */
 					
 					// Solo mostrar mensaje si viene de un insert
 				    String from = request.getParameter("from");

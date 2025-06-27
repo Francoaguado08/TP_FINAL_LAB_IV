@@ -8,11 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ICuentaDAO;
+import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.CuentaListado;
 import entidades.TipoCuenta;
+import entidades.TipoUsuario;
+import entidades.Usuario;
 
 public class CuentaDAOImpl implements ICuentaDAO{
 
+	Conexion conexion;
+	
 	@Override
 	public boolean insertar(Cuenta cuenta) {
 		
@@ -81,5 +87,69 @@ public class CuentaDAOImpl implements ICuentaDAO{
 
 	    return lista;
 	}
+
+	@Override
+	public List<CuentaListado> obtenerTodos() {
+	    conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    String query = "{CALL sp_obtener_cuentas()}";
+
+	    List<CuentaListado> cuentas = new ArrayList<>();
+
+	    try {
+	        CallableStatement cs = cn.prepareCall(query);
+	        ResultSet rs = cs.executeQuery();
+
+	        while (rs.next()) {
+	            CuentaListado cuenta = new CuentaListado();
+	            cuenta.setNroCuenta(rs.getInt("NroCuenta"));
+	            cuenta.setTipoCuenta(rs.getString("TipoCuenta"));
+	            cuenta.setCbu(rs.getString("CBU"));
+	            cuenta.setCuil(rs.getString("CuilCliente"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	            cuenta.setFechaCreacion(rs.getDate("Fecha_creacion"));
+
+	            cuentas.add(cuenta);
+	        }
+
+	        rs.close();
+	        cs.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        conexion.cerrarConexion();
+	    }
+
+	    return cuentas;
+	}
+
+	@Override
+	public boolean eliminar(int nroCuenta) {
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		
+		boolean res = false;
+		
+		String query = "UPDATE Cuentas "+
+						"SET Estado = 0 "+
+						"WHERE NroCuenta = ?";
+		try {
+			PreparedStatement statement = cn.prepareStatement(query);
+			statement.setInt(1, nroCuenta);
+			if((statement.executeUpdate())>0) {
+				cn.commit();
+				res = true;
+			}
+			statement.close();
+			cn.close();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    return res;
+	}
+
+
 
 }
