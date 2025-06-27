@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,20 @@ public class CuentasServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entró al doGet de CuentasServlet");  // <-- confirmá que se loguea
-		mostrarFormularioAlta(request, response);
+		if(request.getParameter("Param")!=null)
+		{
+			String accion = request.getParameter("Param").toString();
+			
+			switch (accion) 
+			{
+				case "alta":
+				{
+					mostrarFormularioAlta(request, response);
+					break;
+				}
+			}
+		}
+		
 	}
 
 	/**

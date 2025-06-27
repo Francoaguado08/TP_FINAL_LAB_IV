@@ -16,7 +16,7 @@
 					<a href="#">Cuentas</a>
 					<ul class="submenu">
 						<li><a href="${pageContext.request.contextPath}/JSP/admin/listarCuentas.jsp">Listar-Modificar-Eliminar</a></li>
-						<li><a href="${pageContext.request.contextPath}/JSP/admin/formularioCuentas.jsp">Alta</a></li>
+						<li><a href="${pageContext.request.contextPath}/CuentasServlet?Param=alta">Alta</a></li>
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/JSP/admin/solicitudesPrestamo.jsp">Préstamos</a></li>
