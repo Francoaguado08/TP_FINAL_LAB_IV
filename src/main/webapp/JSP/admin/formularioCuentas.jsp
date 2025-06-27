@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="entidades.TipoCuenta" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +9,6 @@
 	<link href="../css/normalize.css" rel="stylesheet">
 	<link href="../css/estilos.css" rel="stylesheet">
 	<link href="../css/estiloForm.css" rel="stylesheet">
-
 	<title>Crear Cuenta</title>
 </head>
 
@@ -15,8 +16,11 @@
 	<jsp:include page="../navbar/navAdmin.jsp"/>
 	
 	<main class="contenido-principal">
-	
-		<form>
+		
+		<form method="post" action="<%= request.getContextPath() %>/CuentasServlet">
+		
+
+		<input type="hidden" name="accion" value="insertar" />
 			<h2>Crear Cuenta</h2>
 			
 		    <div>
@@ -26,22 +30,46 @@
 
 		    <div>
 		        <label for="cuil">CUIL</label>
-		        <input type="text" id="cuil" name="cuil" value="">
+		        <input type="text" id="idCliente" name="idCliente" required>
 		    </div>
 
 		    <div>
 		        <label for="tipoCuenta">Tipo de Cuenta</label>
 		        <select id="tipoCuenta" name="tipoCuenta" required>
 		            <option value="">Seleccione el tipo de cuenta</option>
+		            <%
+		                List<TipoCuenta> tiposCuenta = (List<TipoCuenta>) request.getAttribute("tiposCuenta");
+		                if (tiposCuenta != null) {
+		                    for (TipoCuenta tipo : tiposCuenta) {
+		            %>
+		                <option value="<%= tipo.getCodTipoCuenta() %>"><%= tipo.getNombre() %></option>
+		            <%
+		                    }
+		                }
+		                else {
+		                	out.println("<p style='color:red;'>No llegó atributo tiposCuenta</p>");
+		                }
+		            %>
 		        </select>
+		    </div>
+
+		    <div>
+		        <label for="cbu">CBU</label>
+		        <input type="text" id="cbu" name="cbu" maxlength="30" required>
+		    </div>
+
+		    <div>
+		        <label for="fechaCreacion">Fecha de Creación</label>
+		        <input type="date" id="fechaCreacion" name="fechaCreacion"
+		               value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>"
+		               required>
 		    </div>
 		    
 		    <div>
-		    <button type="submit">Crear Cuenta</button>
+		        <button type="submit">Crear Cuenta</button>
 		    </div>
-
 		</form>
 	</main>
-	
 </body>
 </html>
+

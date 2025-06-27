@@ -1,0 +1,142 @@
+package controller;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+
+import dao.IUsuarioDAO;
+import daoImpl.ClienteDAOImpl;
+import daoImpl.UsuarioDAOImpl;
+import entidades.Cliente;
+import entidades.Cuenta;
+import entidades.TipoCuenta;
+import entidades.TipoUsuario;
+import entidades.Usuario;
+import negocioImpl.CuentaNegocio;
+
+/**
+ * Servlet implementation class CuentasServlet
+ */
+@WebServlet("/CuentasServlet")
+public class CuentasServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CuentasServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Entró al doGet de CuentasServlet");  // <-- confirmá que se loguea
+		mostrarFormularioAlta(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Obtenemos la acción (por ejemplo: insertar, eliminar, modificar)
+		System.out.println("Entró al doPost de CuentasServlet");
+				if(request.getParameter("accion")!=null) 
+				{
+					String accion = request.getParameter("accion").toString();
+					
+					switch (accion) 
+					{
+						case "insertar":
+						{
+							insertarCuenta(request, response);
+							break;
+						}
+					
+					}
+					
+				}
+				
+	}
+	
+	private void mostrarFormularioAlta(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+
+	    CuentaNegocio cuentaNegocio = new CuentaNegocio();
+	    List<TipoCuenta> tiposCuenta = cuentaNegocio.listar();
+	    System.out.println("Lista tiposCuenta: " + tiposCuenta);
+	    
+	    request.setAttribute("tiposCuenta", tiposCuenta);
+	    System.out.println("Tipos de cuenta cargados: " + tiposCuenta.size());
+	    
+	    System.out.println("Tipos de cuenta cargados: " + tiposCuenta.size());
+
+
+	    request.getRequestDispatcher("/JSP/admin/formularioCuentas.jsp").forward(request, response);
+	}
+
+	
+	private void insertarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idClienteStr = request.getParameter("idCliente"); // nuevo campo
+	    String tipoCuentaStr = request.getParameter("tipoCuenta");
+	    String cbu = request.getParameter("cbu");
+	    String fechaStr = request.getParameter("fechaCreacion");
+
+	    HttpSession session = request.getSession();
+
+	    try {
+	        // Validaciones básicas
+	        if (idClienteStr == null || tipoCuentaStr == null || cbu == null || fechaStr == null ||
+	            idClienteStr.isEmpty() || tipoCuentaStr.isEmpty() || cbu.isEmpty() || fechaStr.isEmpty()) {
+	            session.setAttribute("mensaje", "⚠ Todos los campos son obligatorios.");
+	            response.sendRedirect(request.getContextPath() + "/CuentasServlet");
+
+	            return;
+	        }
+
+	        // Parsear datos
+	        int idCliente = Integer.parseInt(idClienteStr);
+	        int codTipoCuenta = Integer.parseInt(tipoCuentaStr);
+	        java.util.Date fechaUtil = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
+
+	        // Crear objeto Cuenta
+	        Cuenta cuenta = new Cuenta(idCliente, codTipoCuenta, cbu, fechaUtil, 10000.00);
+
+	        // Insertar cuenta
+	        CuentaNegocio cuentaNegocio = new CuentaNegocio();
+	        boolean exito = cuentaNegocio.insertar(cuenta);
+
+	        if (exito) {
+	            session.setAttribute("mensaje", "✅ Cuenta creada correctamente.");
+	        } else {
+	            session.setAttribute("mensaje", "❌ Error al crear la cuenta.");
+	        }
+
+	    } catch (NumberFormatException e) {
+	        session.setAttribute("mensaje", "❌ Datos numéricos inválidos.");
+	        e.printStackTrace();
+	    } catch (ParseException e) {
+	        session.setAttribute("mensaje", "❌ Fecha de creación inválida.");
+	        e.printStackTrace();
+	    } catch (Exception e) {
+	        session.setAttribute("mensaje", "❌ Error inesperado: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    response.sendRedirect(request.getContextPath() + "/CuentasServlet");
+
+	}
+
+    
+}
