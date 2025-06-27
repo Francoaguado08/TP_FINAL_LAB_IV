@@ -10,12 +10,14 @@ import dao.IUsuarioDAO;
 import entidades.Usuario;
 
 public class UsuarioDAOImpl implements IUsuarioDAO {
+	Conexion conexion;
 
     @Override
     public int insertar(Usuario usuario) {
         int idGenerado = -1; // valor por defecto (error)
+        conexion = Conexion.getConexion();
         
-        Connection cn = Conexion.getConexion().getSQLConexion();
+        Connection cn = conexion.getSQLConexion();
         String query = "INSERT INTO usuarios (User, Pass, Cod_TipoUsuario) VALUES (?, ?, ?)";
 
         try {
@@ -44,9 +46,50 @@ public class UsuarioDAOImpl implements IUsuarioDAO {
                 ex.printStackTrace();
             }
         }
+        finally {
+        	conexion.cerrarConexion();
+        }
 
         return idGenerado;
     }
+    
+    
+    @Override
+    public boolean modificar(Usuario usuario) {
+        conexion = Conexion.getConexion();
+        Connection cn = conexion.getSQLConexion();
+
+        String query = "UPDATE usuarios SET Pass = ? WHERE ID_Usuario = ?";
+
+        try {
+            PreparedStatement ps = cn.prepareStatement(query);
+            ps.setString(1, usuario.getContrasena());
+            ps.setInt(2, usuario.getIdUsuario());
+
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                cn.commit();
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                cn.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            conexion.cerrarConexion();
+        }
+
+        return false;
+    }
+
+
+    
+    
+    
 }
 
 

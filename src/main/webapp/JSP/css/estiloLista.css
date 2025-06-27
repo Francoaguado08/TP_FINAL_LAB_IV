@@ -149,11 +149,17 @@ button:hover {
 }
 
 .mensajeCorrecto {
-    color: green;
-    font-weight: bold;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .mensajeIncorrecto {
-    color: red;
-    font-weight: bold;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }

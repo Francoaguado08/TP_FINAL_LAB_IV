@@ -60,8 +60,19 @@
 		%>
 			<p class="mensajeIncorrecto">Error al eliminar</p>
 		<%
-		    }
+		    }else if ("modificar".equals(msg)) {
 		%>
+			<p class="mensajeCorrecto">Cliente modificado correctamente</p>
+		<%
+		    }else if ("errorModificar".equals(msg)) {
+		%>
+			<p class="mensajeIncorrecto">Error al modificar</p>
+		<%
+		    }
+		    
+		    
+		%>
+		
 		</div>
 	
 		
@@ -73,7 +84,7 @@
 	                    <th>ID Cliente</th>
 	                    <th>CUIL</th>
 	                    <th>DNI</th>
-	                    <th>ID_Usuario</th>
+	                    <th>ID Usuario</th>
 	                    <th>Nombre</th>
 	                    <th>Apellido</th>
 	                    <th>Sexo</th>

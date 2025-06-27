@@ -57,8 +57,7 @@ public class ClientesServlet extends HttpServlet {
 	                    int idCliente = Integer.parseInt(idParam);
 	                    request.setAttribute("cliente", clienteNegocio.obtenerPorId(idCliente));
 	                    RequestDispatcher dispatcherEditar = request.getRequestDispatcher("/JSP/admin/editarCliente.jsp");
-	                    dispatcherEditar.forward(request, response);
-	                   
+	                    dispatcherEditar.forward(request, response);  
 	                }
 					break;
 				}
@@ -118,15 +117,15 @@ public class ClientesServlet extends HttpServlet {
 	private void modificarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	    Cliente cliente = construirClienteDesdeRequest(request);
-		System.out.println(cliente.getUsuario().getUser());
+		
 	    boolean resultado = clienteNegocio.modificar(cliente);
 
 	    if (resultado) {
-	        response.sendRedirect(request.getContextPath() + "/ClientesServlet?Param=lista");
+	        response.sendRedirect(request.getContextPath() + "/ClientesServlet?Param=lista&msg=modificar");
 	    } else {
-	        //request.setAttribute("mensaje", "No se pudo actualizar el cliente.");
-	        response.sendRedirect(request.getContextPath() + "/JSP/admin/editarCliente.jsp");
+	        response.sendRedirect(request.getContextPath() + "/JSP/admin/editarCliente.jsp?msg=errorModificar");
 	    }
+
 		
 	}
 	
@@ -161,7 +160,7 @@ public class ClientesServlet extends HttpServlet {
 	        Usuario usuario = new Usuario();
 	        usuario.setUser(username);
 	        usuario.setContrasena(password);
-	        usuario.setTipoUsuario(new TipoUsuario(2, "cliente")); // ID 2 = Cliente
+	        usuario.setTipoUsuario(new TipoUsuario(1, "cliente")); // ID 1 = cliente
 
 	        IUsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 	        int idUsuario = usuarioDAO.insertar(usuario);
@@ -216,14 +215,14 @@ public class ClientesServlet extends HttpServlet {
 	    cliente.setIdCliente(Integer.parseInt(request.getParameter("id")));
 	    cliente.setDni(request.getParameter("dni"));
 	    cliente.setCuil(request.getParameter("cuil"));
-	    cliente.setNombre(request.getParameter("nombre"));
-	    cliente.setApellido(request.getParameter("apellido"));
+	    cliente.setNombre(request.getParameter("nombre").trim());
+	    cliente.setApellido(request.getParameter("apellido").trim());
 	    cliente.setSexo(request.getParameter("sexo"));
 	    cliente.setNacionalidad(request.getParameter("nacionalidad"));
 	    cliente.setDireccion(request.getParameter("direccion"));
 	    cliente.setLocalidad(request.getParameter("localidad"));
 	    cliente.setProvincia(request.getParameter("provincia"));
-	    cliente.setCorreoElectronico(request.getParameter("email"));
+	    cliente.setCorreoElectronico(request.getParameter("email").trim());
 	    cliente.setTelefono(request.getParameter("telefono"));
 	    cliente.setEstado(true);
 
@@ -240,10 +239,10 @@ public class ClientesServlet extends HttpServlet {
 
 	    // Datos de Usuario
 	    Usuario user = new Usuario();
-	    user.setIdUsuario(user.getIdUsuario());
+	    user.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
 	    user.setUser(request.getParameter("usuario"));
 	    user.setContrasena(request.getParameter("password"));
-	    user.setTipoUsuario(new TipoUsuario(2, "cliente"));
+	    user.setTipoUsuario(new TipoUsuario(1, "cliente"));
 	    
 	    cliente.setUsuario(user);
 

@@ -38,20 +38,20 @@
 
 			<div>
 				<label for="nombre">Nombre</label>
-				<input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre" required>
+				<input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
 			</div>
 
 			<div>
 				<label for="apellido">Apellido</label>
-				<input type="text" name="apellido" id="apellido" placeholder="Ingrese apellido" required>
+				<input type="text" name="apellido" id="apellido" placeholder="Ingrese apellido" required required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
 			</div>
 
 			<div>
 				<label for="sexo">Sexo</label>
 				<select name="sexo" id="sexo" required>
-					<option value="M">Masculino</option>
-					<option value="F">Femenino</option>
-					<option value="X">Otro</option>
+					<option value="Masculino">Masculino</option>
+					<option value="Femenino">Femenino</option>
+					<option value="Otro">Otro</option>
 				</select>
 			</div>
 
@@ -66,8 +66,6 @@
 				</select>
 			</div>
 			
-			
-			
 			<div>
 				<label for="fechaNacimiento">Fecha de Nacimiento</label>
 				<input type="date" name="fechaNacimiento" id="fechaNacimiento" required>
@@ -75,11 +73,9 @@
 
 			<div>
 				<label for="direccion">Dirección</label>
-				<input type="text" name="direccion" id="direccion" placeholder="Ingrese dirección" required>
+				<input type="text" name="direccion" id="direccion" placeholder="Ingrese dirección" required maxlength="100" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
 			</div>
 
-			
-			
 			<!-- Provincia con valores fijos (sin base de datos) -->
 			<div>
 				<label for="provincia">Provincia</label>
@@ -93,29 +89,21 @@
 					<option value="Otra">Otra</option>
 				</select>
 			</div>
-			
-			
-			
-			
-			
 
 				<!-- Localidad como texto (sin tabla en BD) -->
 			<div>
 				<label for="localidad">Localidad</label>
-				<input type="text" name="localidad" id="localidad" placeholder="Ingrese localidad" required />
+				<input type="text" name="localidad" id="localidad" placeholder="Ingrese localidad" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios" />
 			</div>
-			
-			
-			
 
 			<div>
 				<label for="email">Correo Electrónico</label>
-				<input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required>
+				<input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required maxlength="100">
 			</div>
 
 			<div>
 				<label for="telefono">Teléfono</label>
-				<input type="text" name="telefono" id="telefono" placeholder="Ingrese teléfono" required>
+				<input type="tel" name="telefono" id="telefono" placeholder="Ingrese teléfono" required maxlength="20" placeholder="Sin espacios ni símbolos: 11222333">
 			</div>
 
 			<div>
