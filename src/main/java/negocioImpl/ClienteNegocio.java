@@ -35,8 +35,7 @@ public class ClienteNegocio implements IClienteNegocio{
 
 	@Override
 	public boolean eliminar(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		return clienteDAO.eliminarLogico(id);
 	}
 
 	

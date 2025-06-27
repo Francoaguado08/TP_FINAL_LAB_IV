@@ -28,9 +28,8 @@
 	<!-- Títulos -->
 	<h1>Listado Clientes</h1>
 	
-	
 	<main class="contenido-principal">
-	
+
 	 <!-- Caja de Filtros -->
 	    <section class="filter-box">
 	    
@@ -48,6 +47,22 @@
 	        
 	    </section>
 		
+		<!-- Mensaje -->
+		
+		<div class="mensajes">
+		<%
+		    String msg = request.getParameter("msg");
+		    if ("eliminado".equals(msg)) {
+		%>
+		    <p class="mensajeCorrecto">Cliente eliminado correctamente.</p>
+		<%
+		    }else if ("error".equals(msg)) {
+		%>
+			<p class="mensajeIncorrecto">Error al eliminar</p>
+		<%
+		    }
+		%>
+		</div>
 	
 		
 	    <!-- Tabla de clientes -->
@@ -95,7 +110,10 @@
 	                        <td><%=c.getTelefono()%></td>
 	                        
 	                        <td><a href="ClientesServlet?Param=editar&id=<%=c.getIdCliente()%>" class="btnAccion">Editar</a></td>
-	                        <td><a href="ClientesServlet?Param=eliminar&id=<%=c.getIdCliente()%>" class="btnEliminar">Eliminar</a></td>
+	                        <td><a href="ClientesServlet?Param=eliminar&id=<%=c.getIdCliente()%>" 
+							   class="btnEliminar" 
+							   onclick="return confirm('¿Estás seguro de que querés eliminar este cliente?');">Eliminar</a> <!-- msj localhost -->
+							</td>
 	                    </tr>
 	                    
 	                    <%
@@ -103,9 +121,10 @@
 						%>
 	                
 	            </tbody>
-	        </table>
+	        </table>     
 	    </div>
 	
+		
 	</main>
    
 </body>

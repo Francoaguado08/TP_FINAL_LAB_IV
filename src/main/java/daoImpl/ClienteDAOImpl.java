@@ -114,8 +114,30 @@ public class ClienteDAOImpl implements IClienteDAO{
 
 	@Override
 	public boolean eliminarLogico(int idCliente) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		
+		boolean res = false;
+		
+		String query = "UPDATE Clientes "+
+						"SET Estado = 0 "+
+						"WHERE ID_Cliente = ?";
+		try {
+			PreparedStatement statement = cn.prepareStatement(query);
+			statement.setInt(1, idCliente);
+			if((statement.executeUpdate())>0) {
+				cn.commit();
+				res = true;
+			}
+			statement.close();
+			cn.close();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    return res;
 	}
 
 	@Override

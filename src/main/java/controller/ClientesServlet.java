@@ -58,18 +58,31 @@ public class ClientesServlet extends HttpServlet {
 	                    request.setAttribute("cliente", clienteNegocio.obtenerPorId(idCliente));
 	                    RequestDispatcher dispatcherEditar = request.getRequestDispatcher("/JSP/admin/editarCliente.jsp");
 	                    dispatcherEditar.forward(request, response);
+	                   
 	                }
-					
 					break;
 				}
-			
-			
-			}
-			
-			
+				case "eliminar":
+				{
+				    String idParam = request.getParameter("id");
+				    if (idParam != null) {
+				        int idCliente = Integer.parseInt(idParam);
+				        boolean res =  clienteNegocio.eliminar(idCliente);
+				 
+				        if(res) {
+				            response.sendRedirect("ClientesServlet?Param=lista&msg=eliminado");
+				        } else {
+				            response.sendRedirect("ClientesServlet?Param=lista&msg=error");
+				        }
+				    }
+				    break;
+				}
+
+			}		
 		}
-	
 	}
+	
+	
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

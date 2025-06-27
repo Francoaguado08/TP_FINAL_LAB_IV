@@ -36,9 +36,17 @@ public class Conexion
 		return instancia;
 	}
 
-	public Connection getSQLConexion() 
-	{
-		return this.connection;
+	public Connection getSQLConexion() {
+	    try {
+	    	//es por si quiero usar otras cosas y necesito usar otra conexión y no solo una
+	        if (this.connection == null || this.connection.isClosed()) {
+	            this.connection = DriverManager.getConnection(host + dbName, user, pass);
+	            this.connection.setAutoCommit(false);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return this.connection;
 	}
 	
 	public void cerrarConexion()

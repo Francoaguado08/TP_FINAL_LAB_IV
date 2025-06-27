@@ -139,3 +139,21 @@ button:hover {
     background-color: var(--color-secundario);
     box-shadow: 0 2px 8px rgba(30, 43, 55, 0.2);
 }
+
+/* Para mensajes */
+
+.mensajes {
+	display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.mensajeCorrecto {
+    color: green;
+    font-weight: bold;
+}
+
+.mensajeIncorrecto {
+    color: red;
+    font-weight: bold;
+}
