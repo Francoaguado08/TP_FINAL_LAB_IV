@@ -150,6 +150,41 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	    return res;
 	}
 
+	public boolean modificar(Cuenta cuenta) {
+
+	    boolean modificado = false;
+	    conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+
+	    String query = "{CALL sp_modificar_cuenta(?, ?, ?, ?)}";
+
+	    try {
+	    	CallableStatement cs = cn.prepareCall(query);
+
+	        cs.setInt(1, cuenta.getIdCliente());
+	        cs.setInt(2, cuenta.getCodTipoCuenta());
+	        cs.setString(3, cuenta.getCbu());
+	        cs.setDouble(4, cuenta.getSaldo());
+
+	        if (cs.executeUpdate() > 0) {
+	            cn.commit();
+	            modificado = true;
+	        }
+
+	    } catch (Exception e) {
+	        try {
+	            cn.rollback();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	        System.out.println("Error al modificar cuenta (SP): " + e.getMessage());
+	    } finally {
+	        conexion.cerrarConexion();
+	    }
+
+	    return modificado;
+	
+	}
 
 
 }

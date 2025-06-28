@@ -39,13 +39,15 @@ public class CuentasServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+   
+    
+    private CuentaNegocio cuentaNegocio = new CuentaNegocio();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entró al doGet de CuentasServlet");  // <-- confirmá que se loguea
-		/*
+		
 		 if(request.getParameter("Param")!=null)
 		{
 			String accion = request.getParameter("Param").toString();
@@ -86,20 +88,18 @@ public class CuentasServlet extends HttpServlet {
 		
 	}
 		 
-		 
-		 */
 					
 					// Solo mostrar mensaje si viene de un insert
-				    String from = request.getParameter("from");
+				/*    String from = request.getParameter("from");
 				    if (from != null && from.equals("insert")) {
 				        mostrarFormularioAlta(request, response);
 				    } else {
 				        // Limpiar mensaje si es acceso directo al formulario
 				        request.getSession().removeAttribute("mensaje");
 				        mostrarFormularioAlta(request, response);
-				    }
+				    } 
 		
-	}
+	} */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

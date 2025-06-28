@@ -34,5 +34,7 @@ public class CuentaNegocio implements ICuentaNegocio {
 		return cuentaDAO.eliminar(nroCuenta);
 	}
 	
-
+	public boolean modificar(Cuenta cuenta) {
+		return cuentaDAO.modificar(cuenta);
+	}
 }

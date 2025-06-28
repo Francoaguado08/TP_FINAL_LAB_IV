@@ -15,7 +15,7 @@
 				<li class="dropdown">
 					<a href="#">Cuentas</a>
 					<ul class="submenu">
-						<li><a href="${pageContext.request.contextPath}/JSP/admin/listarCuentas.jsp">Listar-Modificar-Eliminar</a></li>
+						<li><a href="${pageContext.request.contextPath}/CuentasServlet?Param=lista">Listar-Modificar-Eliminar</a></li>
 						<li><a href="${pageContext.request.contextPath}/CuentasServlet?Param=alta">Alta</a></li>
 					</ul>
 				</li>

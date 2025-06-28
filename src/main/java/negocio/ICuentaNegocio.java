@@ -12,4 +12,5 @@ public interface ICuentaNegocio {
     List<TipoCuenta> listar();         
     List<CuentaListado>listarTodos(); //  listado
     boolean eliminar(int nroCuenta);
+    public boolean modificar(Cuenta cuenta);
 }
