@@ -23,6 +23,7 @@ import entidades.CuentaListado;
 import entidades.TipoCuenta;
 import entidades.TipoUsuario;
 import entidades.Usuario;
+import negocioImpl.ClienteNegocio;
 import negocioImpl.CuentaNegocio;
 
 /**
@@ -186,14 +187,10 @@ public class CuentasServlet extends HttpServlet {
 
 	    CuentaNegocio cuentaNegocio = new CuentaNegocio();
 	    List<TipoCuenta> tiposCuenta = cuentaNegocio.listar();
-	    System.out.println("Lista tiposCuenta: " + tiposCuenta);
 	    
 	    request.setAttribute("tiposCuenta", tiposCuenta);
 	    System.out.println("Tipos de cuenta cargados: " + tiposCuenta.size());
 	    
-	    System.out.println("Tipos de cuenta cargados: " + tiposCuenta.size());
-
-
 	    request.getRequestDispatcher("/JSP/admin/formularioCuentas.jsp").forward(request, response);
 	}
 
@@ -215,7 +212,7 @@ public class CuentasServlet extends HttpServlet {
 
 	            return;
 	        }
-
+	        
 	        // Parsear datos
 	        int idCliente = Integer.parseInt(idClienteStr);
 	        int codTipoCuenta = Integer.parseInt(tipoCuentaStr);
@@ -225,14 +222,25 @@ public class CuentasServlet extends HttpServlet {
 	        Cuenta cuenta = new Cuenta(idCliente, codTipoCuenta, cbu, fechaUtil, 10000.00);
 
 	        // Insertar cuenta
-	        CuentaNegocio cuentaNegocio = new CuentaNegocio();
-	        boolean exito = cuentaNegocio.insertar(cuenta);
+	        String mensaje = "";
+	        boolean exito = false;
+	        ClienteNegocio clienteNegocio = new ClienteNegocio();
+	        Cliente cliente = clienteNegocio.obtenerPorId(idCliente);
+	        
+	        if(cliente != null) { // CHEQUEA QUE EL CLIENTE NO ESTE DADO DE BAJA PRIMERO 
+		        CuentaNegocio cuentaNegocio = new CuentaNegocio();
+	        	exito = cuentaNegocio.insertar(cuenta); 	
+	        }
+	        else {
+	        	exito = false;
+	        	mensaje ="Id de cliente dado de baja";
+	        }
 
 	        if (exito) {
 	        	System.out.println("joya");
 	            session.setAttribute("mensaje", "✅ Cuenta creada correctamente.");
 	        } else {
-	            session.setAttribute("mensaje", "❌ Error al crear la cuenta.");
+	            session.setAttribute("mensaje", "❌ Error al crear la cuenta." + mensaje);
 	        }
 
 	    } catch (NumberFormatException e) {
