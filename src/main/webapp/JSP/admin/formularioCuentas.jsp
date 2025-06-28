@@ -37,13 +37,9 @@
 		<input type="hidden" name="accion" value="insertar" />
 			<h2>Crear Cuenta</h2>
 			
-		    <div>
-		        <label for="nCuenta">N° Cuenta</label>
-		        <input type="text" id="ncuenta" name="ncuenta" value="123456789" readonly>
-		    </div>
 
 		    <div>
-		        <label for="cuil">ID</label>
+		        <label for="ID Cliente">ID</label>
 		        <input type="text" id="idCliente" name="idCliente" required>
 		    </div>
 

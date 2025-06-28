@@ -82,6 +82,19 @@ public class CuentasServlet extends HttpServlet {
 				    }
 				    break;
 				}
+				case "editar":
+				{
+					String idParam = request.getParameter("id");
+					System.out.println("hola" + idParam);
+					if (idParam != null) {
+	                    int idCuenta = Integer.parseInt(idParam);
+	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorId(idCuenta));
+	                    RequestDispatcher dispatcherEditar = request.getRequestDispatcher("/JSP/admin/editarCuenta.jsp");
+	                    dispatcherEditar.forward(request, response);  
+	                }
+					break;
+			
+				}
 
 			}
 		}
@@ -118,12 +131,55 @@ public class CuentasServlet extends HttpServlet {
 							insertarCuenta(request, response);
 							break;
 						}
-					
+						case "modificar":
+						{
+							modificarCuenta(request, response);
+							break;
+						}
+						
 					}
 					
 				}
 				
 	}
+	
+	private void modificarCuenta(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException{
+		
+		Cuenta cuenta = construirCuentaDesdeRequest(request);
+		
+	    boolean resultado = cuentaNegocio.modificar(cuenta);
+
+	    if (resultado) {
+	        response.sendRedirect(request.getContextPath() + "/CuentasServlet?Param=lista&msg=modificar");
+	    } else {
+	        response.sendRedirect(request.getContextPath() + "/JSP/admin/editarCuenta.jsp?msg=errorModificar");
+	    }
+	}
+	
+	
+	private Cuenta construirCuentaDesdeRequest(HttpServletRequest request) {
+	    Cuenta cuenta = new Cuenta();
+	    
+	    try {
+	        int nroCuenta = Integer.parseInt(request.getParameter("id"));
+	        int idCliente = Integer.parseInt(request.getParameter("dni"));
+	        String cbu = request.getParameter("cbu");
+	        int codTipoCuenta = Integer.parseInt(request.getParameter("tipoCuenta"));
+
+	        cuenta.setNroCuenta(nroCuenta);
+	        cuenta.setIdCliente(idCliente);
+	        cuenta.setCbu(cbu.trim());
+	        cuenta.setCodTipoCuenta(codTipoCuenta);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return cuenta;
+	}
+
+	
 	
 	private void mostrarFormularioAlta(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
@@ -173,6 +229,7 @@ public class CuentasServlet extends HttpServlet {
 	        boolean exito = cuentaNegocio.insertar(cuenta);
 
 	        if (exito) {
+	        	System.out.println("joya");
 	            session.setAttribute("mensaje", "✅ Cuenta creada correctamente.");
 	        } else {
 	            session.setAttribute("mensaje", "❌ Error al crear la cuenta.");
@@ -189,9 +246,10 @@ public class CuentasServlet extends HttpServlet {
 	        e.printStackTrace();
 	    }
 
-	    response.sendRedirect(request.getContextPath() + "/CuentasServlet?from=insert");
+	    response.sendRedirect(request.getContextPath() + "/CuentasServlet?Param=alta");
 
 	}
+	
 
     
 }

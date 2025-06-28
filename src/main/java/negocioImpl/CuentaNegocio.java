@@ -37,4 +37,8 @@ public class CuentaNegocio implements ICuentaNegocio {
 	public boolean modificar(Cuenta cuenta) {
 		return cuentaDAO.modificar(cuenta);
 	}
+	@Override
+	public Cuenta obtenerPorId(int id) {
+		return cuentaDAO.obtenerPorId(id);
+	}
 }

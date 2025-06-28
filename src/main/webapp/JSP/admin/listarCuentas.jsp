@@ -56,13 +56,22 @@
 			    String msg = request.getParameter("msg");
 			    if ("eliminado".equals(msg)) {
 			%>
-			    <p class="mensajeCorrecto">Cliente eliminado correctamente.</p>
+			    <p class="mensajeCorrecto">Cuenta eliminada correctamente.</p>
 			<%
 			    }else if ("error".equals(msg)) {
 			%>
 				<p class="mensajeIncorrecto">Error al eliminar</p>
 			<%
+			    }else if ("modificar".equals(msg)) {
+			%>
+				<p class="mensajeCorrecto">Cuenta modificada correctamente</p>
+			<%
+			    }else if ("errorModificar".equals(msg)) {
+			%>
+				<p class="mensajeIncorrecto">Error al modificar</p>
+			<%
 			    }
+			    
 			%>
 			</div>
 			
@@ -93,11 +102,11 @@
 					        <td>$ <%= cuenta.getSaldo() %></td>
 					        <td><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(cuenta.getFechaCreacion()) %></td>
 					        <td>
-					            <a href="#" class="btnAccion">Editar</a>
+					            <a href="CuentasServlet?Param=editar&id=<%=cuenta.getNroCuenta()%>" class="btnAccion">Editar</a>
 					         </td>
 							<td><a href="CuentasServlet?Param=eliminar&nro=<%=cuenta.getNroCuenta()%>" 
 							   class="btnEliminar" 
-							   onclick="return confirm('¿Estás seguro de que querés eliminar este cliente?');">Eliminar</a> <!-- msj localhost -->
+							   onclick="return confirm('¿Estás seguro de que querés eliminar esta cuenta?');">Eliminar</a> <!-- msj localhost -->
 							</td>
 					       
 					    </tr>

@@ -13,4 +13,5 @@ public interface ICuentaDAO {
 	public List<CuentaListado>obtenerTodos();
 	public boolean eliminar(int nroCuenta);
 	public boolean modificar(Cuenta cuenta);
+	public Cuenta obtenerPorId(int idCuenta);
 }

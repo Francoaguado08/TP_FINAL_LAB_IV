@@ -156,15 +156,14 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	    conexion = Conexion.getConexion();
 	    Connection cn = conexion.getSQLConexion();
 
-	    String query = "{CALL sp_modificar_cuenta(?, ?, ?, ?)}";
+	    String query = "{CALL sp_modificar_cuenta(?, ?, ?)}";
 
 	    try {
-	    	CallableStatement cs = cn.prepareCall(query);
+	        CallableStatement cs = cn.prepareCall(query);
 
-	        cs.setInt(1, cuenta.getIdCliente());
+	        cs.setInt(1, cuenta.getNroCuenta());
 	        cs.setInt(2, cuenta.getCodTipoCuenta());
 	        cs.setString(3, cuenta.getCbu());
-	        cs.setDouble(4, cuenta.getSaldo());
 
 	        if (cs.executeUpdate() > 0) {
 	            cn.commit();
@@ -183,8 +182,47 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	    }
 
 	    return modificado;
-	
 	}
+
+	
+
+	@Override
+	public Cuenta obtenerPorId(int nroCuenta) {
+	    
+	    Cuenta cuenta = null;
+	    
+	    conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    
+	    String query = "{CALL sp_obtener_cuenta_por_id(?)}";
+	    
+	    try {
+	        CallableStatement cs = cn.prepareCall(query);
+	        cs.setInt(1, nroCuenta);
+	        ResultSet rs = cs.executeQuery();
+
+	        if(rs.next()) 
+	        {
+	            cuenta = new Cuenta();
+	            cuenta.setNroCuenta(rs.getInt("NroCuenta"));
+	            cuenta.setIdCliente(rs.getInt("ID_Cliente"));
+	            cuenta.setCodTipoCuenta(rs.getInt("Cod_TipoCuenta"));
+	            cuenta.setCbu(rs.getString("CBU"));
+	            cuenta.setFechaCreacion(rs.getDate("Fecha_creacion"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	        }
+	    }
+	    catch(Exception e) 
+	    {
+	        e.printStackTrace();
+	    }
+	    finally
+	    {
+	        conexion.cerrarConexion();
+	    }
+	    return cuenta;
+	}
+
 
 
 }
