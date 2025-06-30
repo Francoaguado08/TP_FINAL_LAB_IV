@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../css/normalize.css" rel="stylesheet">
-<link href="../css/estilos.css" rel="stylesheet">
-<link href="../css/estiloLista.css" rel="stylesheet"> 
+<link href="<%=request.getContextPath()%>/css/normalize.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/estilos.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/estiloLista.css" rel="stylesheet"> 
 <title>Confirmacion</title>
 
 </head>

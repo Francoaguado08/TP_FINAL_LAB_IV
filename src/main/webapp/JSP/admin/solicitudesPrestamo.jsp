@@ -4,10 +4,10 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<link href="../css/normalize.css" rel="stylesheet">
-	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloMenu.css" rel="stylesheet">
-	<link href="../css/estiloLista.css" rel="stylesheet"> 
+	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estiloMenu.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet"> 
 	
 	<title>Listado Cuentas</title>
 </head>

@@ -78,8 +78,8 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.menu a:hover {
-    background-color: var(--color-blanco);
+.menu a:not(.bg-eliminar):hover {
+    background-color: var(--color-principal);
 }
 
 /*Submenú descolgable*/
@@ -113,6 +113,23 @@ body {
 /* Mostrar submenú al hacer hover */
 .dropdown:hover .submenu {
 	display: block;
+}
+
+.bg-eliminar {
+    min-width: 4rem; 
+	display: flex;
+    text-align: center;
+        justify-content: center;
+    background-color: var(--color-eliminar);
+    color: var(--color-blanco); 
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.bg-eliminar:hover {
+    background-color: #b71c1c;
 }
 
 

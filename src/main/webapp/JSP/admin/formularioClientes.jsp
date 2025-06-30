@@ -6,9 +6,9 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<link href="../css/normalize.css" rel="stylesheet">
-	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloForm.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estiloForm.css" rel="stylesheet">
 	<title>Agregar Cliente</title>
 </head>
 	

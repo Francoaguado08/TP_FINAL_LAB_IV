@@ -6,9 +6,9 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<link href="<%= request.getContextPath() %>/JSP/css/normalize.css" rel="stylesheet">
-	<link href="<%= request.getContextPath() %>/JSP/css/estilos.css" rel="stylesheet">
-	<link href="<%= request.getContextPath() %>/JSP/css/estiloForm.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/css/normalize.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/css/estilos.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/css/estiloForm.css" rel="stylesheet">
 
 	<title>Crear Cuenta</title>
 </head>

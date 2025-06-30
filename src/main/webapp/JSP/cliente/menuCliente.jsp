@@ -5,16 +5,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Menú Cliente</title>
-	<link href="../css/normalize.css" rel="stylesheet">
-	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloMenu.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estiloMenu.css" rel="stylesheet">
 </head>
 
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
 	<main class="contenido-central">
-		<img src="../images/logo.png" alt="Logo del Banco" class="logo-central">
+		<img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo del Banco" class="logo-central">
     	<h1>Bienvenido! <span><%=session.getAttribute("usuario") %></span></h1>
 	</main>
 

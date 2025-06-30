@@ -5,9 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Listado Cuentas</title>
-	<link href="../css/normalize.css" rel="stylesheet">
-	<link href="../css/estilos.css" rel="stylesheet">
-	<link href="../css/estiloLista.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet">
 </head>
 
 <body>

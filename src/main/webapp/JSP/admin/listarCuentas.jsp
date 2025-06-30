@@ -11,9 +11,9 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<link href="<%=request.getContextPath()%>/JSP/css/normalize.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/JSP/css/estilos.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/JSP/css/estiloLista.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet">
 	
 	<title>Listado de Cuentas</title>
 </head>
