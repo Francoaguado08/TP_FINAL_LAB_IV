@@ -56,6 +56,12 @@ public class ClienteNegocio implements IClienteNegocio{
 		return clienteDAO.eliminarLogico(id);
 	}
 
+	@Override
+	public boolean existeCliente(String dni) {
+		if(clienteDAO.existeClientePorDNI(dni)) return true;
+		return false;
+	}
+
 	
 	
 }

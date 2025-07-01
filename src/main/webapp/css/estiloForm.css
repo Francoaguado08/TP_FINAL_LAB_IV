@@ -101,13 +101,6 @@ select:focus {
 	box-sizing: border-box;
 }
 
-.btnCancelar{
-	background-color: var(--color-eliminar);
-}
-
-.btnCancelar:hover {
-    background-color: #b71c1c;
-}
 
 button {
     width: 100%;
@@ -129,3 +122,15 @@ button:hover {
 }
 
 
+.btnCancelar{
+	    color: var(--color-texto);
+	
+	background-color: var(--color-eliminar);
+    outline: 0.1rem solid var(--color-negro);
+}
+
+
+.btnCancelar:hover {
+    background-color: #b71c1c;
+    box-shadow: 0 2px 8px rgba(30, 43, 55, 0.2);
+}

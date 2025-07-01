@@ -152,7 +152,7 @@
             </div>
 
             <div>
-                <button class="btnCancelar" type="button" onclick="window.history.back()">Cancelar</button>
+                <button class="btnCancelar" onclick="window.history.back()">Cancelar</button>
             </div>
         </div>
 

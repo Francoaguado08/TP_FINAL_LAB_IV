@@ -11,7 +11,5 @@ public interface IClienteNegocio {
     Cliente obtenerPorId(int id);   // modificación
     boolean modificar(Cliente cliente);
     boolean eliminar(int id);       // baja lógica
-	
-	
-	
+	boolean existeCliente(String dni); //validaciones 
 }

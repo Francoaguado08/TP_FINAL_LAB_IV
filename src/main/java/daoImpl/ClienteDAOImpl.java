@@ -278,8 +278,29 @@ public class ClienteDAOImpl implements IClienteDAO{
 	
 	@Override
 	public boolean existeClientePorDNI(String dni) {
-		// TODO Auto-generated method stub
-		return false;
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		String query ="SELECT DNI from banco.clientes where DNI = ?";
+		
+		try 
+		{
+			PreparedStatement statement = cn.prepareCall(query);
+			statement.setString(1, dni);
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) return true; // Si existe entra
+			return false;			   // Si no existe no
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
+		finally 
+		{
+			conexion.cerrarConexion();
+		}
+		
 	}
 
 	

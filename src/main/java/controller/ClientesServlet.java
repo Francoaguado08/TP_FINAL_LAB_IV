@@ -134,7 +134,7 @@ public class ClientesServlet extends HttpServlet {
 	private void insertarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    
 	    String dni = request.getParameter("dni");
-	    String cuil = request.getParameter("cuil");
+	    String cuil = request.getParameter("cuilPrefijo") + request.getParameter("cuilDni") + request.getParameter("cuilVerificador");
 	    String nombre = request.getParameter("nombre");
 	    String apellido = request.getParameter("apellido");
 	    String sexo = request.getParameter("sexo");
@@ -148,9 +148,10 @@ public class ClientesServlet extends HttpServlet {
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 	    String confirmPassword = request.getParameter("confirmPassword");
+	    
+        HttpSession session = request.getSession();
 
 	    if (!password.equals(confirmPassword)) {
-	        HttpSession session = request.getSession();
 	        session.setAttribute("mensaje", "⚠ Las contraseñas no coinciden.");
 	        response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
 	        return;
@@ -166,7 +167,6 @@ public class ClientesServlet extends HttpServlet {
 	        int idUsuario = usuarioDAO.insertar(usuario);
 
 	        if (idUsuario <= 0) {
-	            HttpSession session = request.getSession();
 	            session.setAttribute("mensaje", "❌ No se pudo registrar el usuario.");
 	            response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
 	            return;
@@ -189,19 +189,18 @@ public class ClientesServlet extends HttpServlet {
 	        cliente.setTelefono(telefono);
 	        cliente.setUsuario(usuario);
 
-	        boolean exito = clienteNegocio.insertar(cliente);
-
-	        HttpSession session = request.getSession();
+	        boolean exito = validarDatos(cliente, request);
+	        
 	        if (exito) {
-	            session.setAttribute("mensaje", " Cliente registrado correctamente.");
+	        	clienteNegocio.insertar(cliente);
+	            session.setAttribute("mensaje-AltaCliente", " Cliente registrado correctamente.");
 	        } else {
-	            session.setAttribute("mensaje", " Hubo un error al registrar el cliente.");
+	            session.setAttribute("mensaje-AltaCliente", " Hubo un error al registrar el cliente: " + session.getAttribute("mensaje-AltaCliente"));
 	        }
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        HttpSession session = request.getSession();
-	        session.setAttribute("mensaje", "Error inesperado: " + e.getMessage());
+	        session.setAttribute("mensaje-AltaCliente", "Error inesperado: " + e.getMessage());
 	    }
 
 	    response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
@@ -248,9 +247,29 @@ public class ClientesServlet extends HttpServlet {
 
 	    return cliente;
 	}
+	
+	private boolean validarDatos(Cliente cliente, HttpServletRequest request){	//Cliente para verificar los datos cargados, Request para los mensajes en session
+		HttpSession session = request.getSession();
+		
+		if(clienteNegocio.existeCliente(cliente.getDni() )) {	//Valida que el cliente no exista
+			session.setAttribute("mensaje-AltaCliente", " DNI ya registrado.");
+			return false;
+		}	
+		
+		if(cliente.getDni().length() < 8 || !cliente.getDni().matches("[0-9]+")) {	//Valida que el DNI tenga 8 caracteres y que sean solo números
+			session.setAttribute("mensaje-AltaCliente", " DNI inválido.");
+			return false;
+		}
+		
+		if(cliente.getCuil().length() < 11 || !cliente.getCuil().matches("[0-9]+")) { //Valida que el CUIL tenga 11 caracteres y que sean solo números
+			session.setAttribute("mensaje-AltaCliente", " CUIL inválido.");
+			return false;
+		}
+		
+		
+		return true;
+	}
 
-	
-	
 	
 	
 	

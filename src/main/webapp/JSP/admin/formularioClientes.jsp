@@ -28,14 +28,29 @@
 
 			<div>
 				<label for="dni">DNI</label>
-				<input type="text" name="dni" id="dni" placeholder="Ingrese DNI" required>
+				<input type="text" name="dni" id="dni" placeholder="Ingrese DNI" size="8" maxlength="8" required>
 			</div>
-
+	
 			<div>
-				<label for="cuil">CUIL</label>
-				<input type="text" name="cuil" id="cuil" placeholder="Ingrese CUIL" required>
+			    <label for="cuil">CUIL</label>
+			    <div style="display: flex; gap: 0.5rem;">
+			        <input type="text" id="cuilPrefijo" placeholder="XX" name="cuilPrefijo" size="2" maxlength="2" required>
+			        <span>-</span>
+			        <input type="text" id="cuilDni" name="cuilDni" readonly size="8">
+			        <span>-</span>
+			        <input type="text" id="cuilVerificador" placeholder="X" name="cuilVerificador" size="1" maxlength="1" required>
+			    </div>
 			</div>
 
+			<script> //JS PARA COMPLETAR EL CAMPO 'cuilDni'EN EJECUCIÓN
+			    const dniInput = document.getElementById('dni');
+			    const cuilDniInput = document.getElementById('cuilDni');
+			
+			    dniInput.addEventListener('input', function() {
+			        cuilDniInput.value = dniInput.value.trim();
+			    });
+			</script>
+			
 			<div>
 				<label for="nombre">Nombre</label>
 				<input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
@@ -121,19 +136,26 @@
 				<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repita la contraseña" required>
 			</div>
 
-			<div>
-				<button type="submit">Agregar Cliente</button>
+			<div class="contenedor-botones">
+				<div>
+				
+					<button type="submit">Agregar Cliente</button>
+				</div>
+				
+				<div>	
+					<button class="btnCancelar" onclick="window.history.back()">Cancelar</button>
+				</div>
 			</div>
 
 			<%
-				String mensaje = (String)session.getAttribute("mensaje");
+				String mensaje = (String)session.getAttribute("mensaje-AltaCliente");
 				if (mensaje != null) {
 			%>
 				<div class="mensaje-resultado">
 					<span><%= mensaje %></span>
 				</div>
 			<%
-					session.removeAttribute("mensaje");
+					session.removeAttribute("mensaje-AltaCliente");
 				}
 			%>
 
