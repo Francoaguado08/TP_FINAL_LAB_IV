@@ -223,6 +223,51 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	    return cuenta;
 	}
 
+	@Override
+	public int contarCuentasActivasPorCliente(int idCliente) {
+		
+		int cantidad = 0; //cant de cuentas activas
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		String query = "SELECT COUNT(*) AS total FROM cuentas WHERE ID_Cliente = ? AND Estado = 1";
+		
+	  	    
+	    try {
+	    	  PreparedStatement ps = cn.prepareStatement(query);
+	          ps.setInt(1, idCliente);
+	          
+	          //Ejecutamos la consulta y guardamos el resultado en rs.
+	          ResultSet rs = ps.executeQuery();
 
+	          if (rs.next()) {
+	              //Guardamos el numero total de cuentas activas en la variable cantidad.
+	        	  cantidad = rs.getInt("total");
+	          }
+
+	          //Liberamos recursos.
+	          ps.close();
+	          rs.close();
+	    
+	    }
+	    catch (Exception e) {
+	    	 e.printStackTrace();
+		}
+	    finally
+	    {
+	        conexion.cerrarConexion();
+	    }
+		
+	    return cantidad;
+	}
+		
+		
+
+
+	
+	
+	
+	
+	
+	
 
 }

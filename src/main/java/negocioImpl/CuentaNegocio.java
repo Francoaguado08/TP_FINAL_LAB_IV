@@ -41,4 +41,16 @@ public class CuentaNegocio implements ICuentaNegocio {
 	public Cuenta obtenerPorId(int id) {
 		return cuentaDAO.obtenerPorId(id);
 	}
+
+	@Override
+	public boolean clienteTieneTresCuentasActivas(int idCliente) {
+		
+		int cantidad = cuentaDAO.contarCuentasActivasPorCliente(idCliente);
+	    return cantidad >= 3;
+	
+	}
+	
+	
+	
+	
 }

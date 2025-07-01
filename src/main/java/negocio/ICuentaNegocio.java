@@ -14,4 +14,7 @@ public interface ICuentaNegocio {
     boolean eliminar(int nroCuenta);
     public boolean modificar(Cuenta cuenta);
 	public Cuenta obtenerPorId(int id);
+	
+	public boolean clienteTieneTresCuentasActivas(int idCliente);
+	
 }

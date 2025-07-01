@@ -229,7 +229,18 @@ public class CuentasServlet extends HttpServlet {
 	        
 	        if(cliente != null) { // CHEQUEA QUE EL CLIENTE NO ESTE DADO DE BAJA PRIMERO 
 		        CuentaNegocio cuentaNegocio = new CuentaNegocio();
-	        	exito = cuentaNegocio.insertar(cuenta); 	
+		        
+		        if(cuentaNegocio.clienteTieneTresCuentasActivas(idCliente)) 
+		        {
+		        	exito =  false;
+		        	mensaje = " ⚠ EL CLIENTE YA TIENE 3 CUENTAS ACTIVAS.";
+		        }
+		        else {
+		        	exito = cuentaNegocio.insertar(cuenta);
+		        }
+		    
+	        
+	        
 	        }
 	        else {
 	        	exito = false;

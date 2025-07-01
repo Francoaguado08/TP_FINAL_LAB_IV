@@ -14,4 +14,6 @@ public interface ICuentaDAO {
 	public boolean eliminar(int nroCuenta);
 	public boolean modificar(Cuenta cuenta);
 	public Cuenta obtenerPorId(int idCuenta);
+	
+	public int contarCuentasActivasPorCliente(int idCliente);
 }
