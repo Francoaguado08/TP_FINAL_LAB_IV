@@ -52,16 +52,13 @@ public class LoginServlet extends HttpServlet {
 		LoginNegocio l = new LoginNegocio();
 		try {
 	        String tipoUsuario = l.validarUsuarioYTipo(user, pass);
-	        System.out.println(tipoUsuario);
 	        if (tipoUsuario != null) {
-	        	if(tipoUsuario == "Cliente") {
-		        	int idCliente = l.ObtenerIdCliente(user, pass);
-		        	HttpSession sesCli = request.getSession();
-		        	sesCli.setAttribute("IdCliente", idCliente);
-	        	}
 	            session.setAttribute("usuario", user);
 	            switch (tipoUsuario.toLowerCase()) {
 	                case "cliente":
+	                	int idCliente = l.ObtenerIdCliente(user, pass);
+			        	HttpSession sesCli = request.getSession();
+			        	sesCli.setAttribute("IdCliente", idCliente);
 	                	response.sendRedirect(request.getContextPath() + "/JSP/cliente/menuCliente.jsp");
 	                    break;
 	                case "admin":
