@@ -1,3 +1,5 @@
+<%@page import="entidades.Cuenta"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -14,9 +16,17 @@
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
+	
+		<%
+		List<Cuenta> l = null;
+		if(request.getAttribute("listacuentas")!=null){
+		l = (List<Cuenta>) request.getAttribute("listacuentas");
+		}
+	%>
+	
 	<main class="contenido-principal">
 	
-		<form>
+		<form method="post" action="${pageContext.request.contextPath}/PrestamosServlet">
 			<h2>Solicitar un Préstamo</h2>
 			
 		    <div>
@@ -27,15 +37,27 @@
 		    <div>
 		        <label for="cuotas">Cantidad de cuotas</label>
 		        <select id="cuotas" name="cuotas" required>
-		            <option value="">Seleccione la cantidad de cuotas</option>
+		            <option value="" disabled selected>Seleccione la cantidad de cuotas</option>
+		            <option value="2">2</option>
+		            <option value="4">4</option>
+		            <option value="6">6</option>
 		            <!-- Opciones se agregarán dinámicamente -->
 		        </select>
 		    </div>
 		
 		    <div>
 		        <label for="cuenta">Cuenta</label>
+		        
 		        <select id="cuenta" name="cuenta" required>
-		            <option value="">Seleccione la cuenta donde recibirá el préstamo</option>
+		            <option value="" disabled selected >Seleccione la cuenta donde recibirá el préstamo</option>
+		              <% 
+      			for(Cuenta c : l) { 
+       		 %>
+            <!-- Opción para cada cuenta -->
+            <option value="<%= c.getNroCuenta() %>">
+                <%= c.getNroCuenta() %> 
+            </option>
+        <% } %>
 		            <!-- Opciones se agregarán dinámicamente -->
 		        </select>
 		    </div>

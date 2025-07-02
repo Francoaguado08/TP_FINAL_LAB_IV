@@ -12,7 +12,7 @@
 						<a href="transferencia.jsp">Transferencias</a>
 					</li>
 					<li>
-						<a href="solicitudPrestamo.jsp">Solicitar Préstamo</a>
+						<a href="${pageContext.request.contextPath}/PrestamosServlet?Param=click">Solicitar Préstamo</a>
 					</li>
 					<li>
 						<a href="pagoCuotas.jsp">Pagar Préstamos</a>

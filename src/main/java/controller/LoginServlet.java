@@ -31,7 +31,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("usuario", ""); //limpiar el login si se cerró la sesión
-		
+      	HttpSession sesCli = request.getSession();
+    	sesCli.setAttribute("IdCliente","");
 		response.sendRedirect(request.getContextPath() + "/JSP/login.jsp");
 	}
 
@@ -51,9 +52,9 @@ public class LoginServlet extends HttpServlet {
 	        System.out.println(tipoUsuario);
 	        if (tipoUsuario != null) {
 	        	
-	        	/*int idCliente = l.ObtenerIdCliente(user, pass);
+	        	int idCliente = l.ObtenerIdCliente(user, pass);
 	        	HttpSession sesCli = request.getSession();
-	        	sesCli.setAttribute("IdCliente", idCliente);*/
+	        	sesCli.setAttribute("IdCliente", idCliente);
 	            
 	            session.setAttribute("usuario", user);
 	            switch (tipoUsuario.toLowerCase()) {
