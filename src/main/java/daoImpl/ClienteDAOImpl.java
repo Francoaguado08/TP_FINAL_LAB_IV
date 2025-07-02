@@ -304,6 +304,14 @@ public class ClienteDAOImpl implements IClienteDAO{
 	}
 
 	
+	public List<Cliente> filtrar(String dni, String usuario){
+		List<Cliente> lista = new ArrayList<Cliente>();
+		
+		
+		
+		return lista;
+	}
+	
 	
 	
 }

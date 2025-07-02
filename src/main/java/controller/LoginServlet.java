@@ -29,11 +29,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("usuario", ""); //limpiar el login si se cerró la sesión
       	HttpSession sesCli = request.getSession();
     	sesCli.setAttribute("IdCliente","");
 		response.sendRedirect(request.getContextPath() + "/JSP/login.jsp");
+		
 	}
 
 	/**
@@ -51,11 +54,11 @@ public class LoginServlet extends HttpServlet {
 	        String tipoUsuario = l.validarUsuarioYTipo(user, pass);
 	        System.out.println(tipoUsuario);
 	        if (tipoUsuario != null) {
-	        	
-	        	int idCliente = l.ObtenerIdCliente(user, pass);
-	        	HttpSession sesCli = request.getSession();
-	        	sesCli.setAttribute("IdCliente", idCliente);
-	            
+	        	if(tipoUsuario == "Cliente") {
+		        	int idCliente = l.ObtenerIdCliente(user, pass);
+		        	HttpSession sesCli = request.getSession();
+		        	sesCli.setAttribute("IdCliente", idCliente);
+	        	}
 	            session.setAttribute("usuario", user);
 	            switch (tipoUsuario.toLowerCase()) {
 	                case "cliente":
