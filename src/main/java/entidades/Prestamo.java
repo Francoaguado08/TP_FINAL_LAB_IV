@@ -3,7 +3,7 @@ package entidades;
 import java.util.Date;
 
 public class Prestamo {
-	
+	private int idPrestamo;
     private int idCliente;
     private Date fecha;
     private double importeAPagar;
@@ -18,6 +18,10 @@ public class Prestamo {
     }
 
 
+    public int getIdPrestamo() {
+		return idPrestamo;
+	}
+    
 	public int getIdCliente() {
 		return idCliente;
 	}
