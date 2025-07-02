@@ -63,8 +63,21 @@
 		    </div>
 		
 		    <div>
-		        <button type="submit">Enviar</button>
+		        <button type="submit" name ="btnSolicitar">Enviar</button>
 		    </div>
+		    
+		    <% if(request.getAttribute("mensaje") != null) { %>
+  	<div style="color:green">
+   	<%= request.getAttribute("mensaje") %>
+   	 </div>
+	<% } %>
+	
+		    <% if(request.getAttribute("error") != null) { %>
+  	<div style="color:red">
+   	<%= request.getAttribute("error") %>
+   	 </div>
+	<% } %>
+	
 		</form>
 	</main>
 	

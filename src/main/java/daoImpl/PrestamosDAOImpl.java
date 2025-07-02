@@ -52,6 +52,7 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 
 	    try {
 	        CallableStatement cs = cn.prepareCall(query);
+	        cn.setAutoCommit(false);
 	        
 	        cs.setInt(1, pres.getIdCliente());
 	        cs.setDate(2, new java.sql.Date(pres.getFecha().getTime()));
