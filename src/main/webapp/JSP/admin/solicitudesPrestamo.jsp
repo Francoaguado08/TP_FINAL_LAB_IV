@@ -28,11 +28,26 @@
 	<section class="grid-container">
 		<section class="hospital-info">
                 <h1>Solicitudes de préstamo</h1>
+                
+                   <% if(request.getAttribute("mensaje") != null) { %>
+  	<div style="color:green">
+   	<%= request.getAttribute("mensaje") %>
+   	 </div>
+	<% } %>
+	
+	   <% if(request.getAttribute("error") != null) { %>
+  	<div style="color:red">
+   	<%= request.getAttribute("error") %>
+   	 </div>
+	<% } %>
+	
             </section>
                 <table>
                     <thead>
                         <tr>
+                        	<th>Prestamo (ID)</th>
                             <th>Cliente (ID)</th>
+                            <th>Cuenta a acreditar</th>
                             <th>Fecha de solicitud</th>
                             <th>Importe solicitado</th>
                             <th>Importe con intereses</th>
@@ -44,18 +59,21 @@
                     <tbody>
                             <% for(Prestamo p : l) { %>
                             <tr>
+                            	<td><%=p.getIdPrestamo()%></td>
                                 <td><%=p.getIdCliente()%></td>
+                                <td><%=p.getCuentaDepositar()%></td>
                                 <td><%=p.getFecha()%></td>
                                 <td>$<%=p.getImportePedido()%></td>
                                 <td>$<%=p.getImporteAPagar()%></td>
                                 <td><%=p.getPlazoPagoMeses()%></td>
                                 <td>$<%=p.getMontoPorMes()%></td>
                                 <td>
-                                    <a href="#" class="btnAccion">Aprobar</a>
+                                    <a href="PrestamosAcepRechServlet?Param=aprobar&id=<%= p.getIdCliente() %>&cuenta=<%= p.getCuentaDepositar() %>&saldo=<%=p.getImportePedido()%>&prestamo=<%=p.getIdPrestamo()%>&mensual=<%=p.getMontoPorMes()%>&cuotas=<%=p.getPlazoPagoMeses()%>" class="btnAccion">Aprobar</a>
                                     <a href="#" class="btnEliminar">Rechazar</a>
                                 </td>
                             </tr>
 							 <% } %>
+							 
                     </tbody>
                 </table>
             </section>

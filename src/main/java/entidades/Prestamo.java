@@ -4,7 +4,9 @@ import java.util.Date;
 
 public class Prestamo {
 	private int idPrestamo;
-    private int idCliente;
+
+
+	private int idCliente;
     private Date fecha;
     private double importeAPagar;
     private double importePedido;
@@ -17,6 +19,9 @@ public class Prestamo {
     public Prestamo() {
     }
 
+    public void setIdPrestamo(int idPrestamo) {
+    	this.idPrestamo = idPrestamo;
+    }
 
     public int getIdPrestamo() {
 		return idPrestamo;

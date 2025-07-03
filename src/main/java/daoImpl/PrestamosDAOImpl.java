@@ -9,6 +9,7 @@ import java.util.List;
 
 import dao.IPrestamosDAO;
 import entidades.Cuenta;
+import entidades.Cuota;
 import entidades.Prestamo;
 import entidades.TipoCuenta;
 
@@ -96,7 +97,9 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 	        ResultSet rs = ps.executeQuery();
 	        while (rs.next()) {
 	        	Prestamo p = new Prestamo();
+	        	p.setIdPrestamo(rs.getInt("ID_Prestamo"));
 	            p.setIdCliente(rs.getInt("ID_Cliente"));
+	            p.setCuentaDepositar(rs.getString("Cuenta_depositar"));
 		        p.setFecha(rs.getDate("Fecha"));
 		        p.setImporteAPagar(rs.getDouble("Importe_a_pagar"));
 		        p.setImportePedido(rs.getDouble("Importe_pedido"));
@@ -113,5 +116,106 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 
 	    return lista;
 	}
+
+	@Override
+	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta) {
+		    Conexion conexion = Conexion.getConexion();
+		    Connection cn = conexion.getSQLConexion();
+		    boolean actualizado = false;
+
+		    String query = "UPDATE cuentas SET Saldo = Saldo + ? WHERE NroCuenta = ? AND ID_Cliente = ?";
+
+		    try {
+		        PreparedStatement ps = cn.prepareStatement(query);
+		        ps.setDouble(1, saldoN);
+		        ps.setString(2, nCuenta);
+		        ps.setInt(3, idCliente);
+		        
+		        if (ps.executeUpdate() > 0) {
+		            cn.commit();
+		            actualizado = true;
+		        }
+		    } catch (Exception e) {
+		        try {
+		            cn.rollback();
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        conexion.cerrarConexion();
+		    }
+
+		    return actualizado;
+		}
+
+	@Override
+	public boolean agregarCuota(Cuota c) {
+		Conexion conexion;
+		boolean generado = false;
+		conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    String query = "{CALL insertar_cuota(?, ?, ?, ?)}";
+
+	    try {
+	        CallableStatement cs = cn.prepareCall(query);
+	        cn.setAutoCommit(false);
+	        
+	        cs.setInt(1, c.getIdPrestamo());
+	        cs.setInt(2, c.getNroCuota());
+	        cs.setDouble(3, c.getMonto());
+	        cs.setBoolean(4, c.isEstado());
+	        
+	        if (cs.executeUpdate() > 0) {
+	            cn.commit();
+	            generado = true;
+	        }
+	    } catch (Exception e) {
+	        try {
+	            cn.rollback();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	        System.out.println("Error al generar cuotas (SP): " + e.getMessage());
+	    }
+	    finally {
+	    	conexion.cerrarConexion();
+	    }
+
+	    return generado;
+		
+}
+
+	@Override
+	public boolean estadoPrestamo(int idcliente, int idPrestamo) {
+		   Conexion conexion = Conexion.getConexion();
+		    Connection cn = conexion.getSQLConexion();
+		    boolean actualizado = false;
+
+		    String query = "UPDATE prestamos SET Estado = 1 WHERE ID_Prestamo = ? AND ID_Cliente = ?";
+
+		    try {
+		        PreparedStatement ps = cn.prepareStatement(query);
+		        ps.setInt(1, idPrestamo);
+		        ps.setInt(2, idcliente);
+		   
+		        if (ps.executeUpdate() > 0) {
+		            cn.commit();
+		            actualizado = true;
+		        }
+		    } catch (Exception e) {
+		        try {
+		            cn.rollback();
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        conexion.cerrarConexion();
+		    }
+
+		    return actualizado;
+		}
+		
 	
 }
