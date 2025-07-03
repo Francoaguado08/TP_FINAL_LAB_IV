@@ -304,9 +304,62 @@ public class ClienteDAOImpl implements IClienteDAO{
 	}
 
 	
-	public List<Cliente> filtrar(String dni, String usuario){
+	public List<Cliente> filtro(String dni, String usuario){
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		String query = "{CALL sp_obtener_clientes_filtro(?, ?)}";
+
 		List<Cliente> lista = new ArrayList<Cliente>();
-		
+
+		try {
+			CallableStatement cs = cn.prepareCall(query);
+			cs.setString (1, dni);
+			cs.setString (2, usuario);
+			ResultSet rs = cs.executeQuery();
+			while (rs.next()){
+				// Cargar el TipoUsuario
+	            		TipoUsuario tipoUsuario = new TipoUsuario();
+	            		tipoUsuario.setCodTipoUsuario(rs.getInt("TipoUsuario_Cod"));
+	            		tipoUsuario.setDescripcion(rs.getString("TipoUsuario_Descripcion"));
+	
+	            		// Cargar el Usuario
+	            		Usuario user = new Usuario();
+	            		user.setIdUsuario(rs.getInt("Usuario_ID"));
+	            		user.setUser(rs.getString("Usuario_User"));
+	            		//usuario.setContrasena(rs.getString("Usuario_Pass"));
+	            		user.setTipoUsuario(tipoUsuario);
+	
+	            		// Cargar el Cliente
+	            		Cliente cliente = new Cliente();
+	            		cliente.setIdCliente(rs.getInt("ID_Cliente"));
+	            		cliente.setCuil(rs.getString("CUIL"));
+	            		cliente.setDni(rs.getString("DNI"));
+	            		cliente.setUsuario(user);
+	            		cliente.setNombre(rs.getString("Nombre"));
+	            		cliente.setApellido(rs.getString("Apellido"));
+	            		cliente.setSexo(rs.getString("Sexo"));
+	            		cliente.setNacionalidad(rs.getString("Nacionalidad"));
+	            		cliente.setFechaNacimiento(rs.getDate("Fecha_nacimiento"));
+	            		cliente.setDireccion(rs.getString("Direccion"));
+	            		cliente.setLocalidad(rs.getString("Localidad"));
+	            		cliente.setProvincia(rs.getString("Provincia"));
+	            		cliente.setCorreoElectronico(rs.getString("Correo_electronico"));
+	            		cliente.setTelefono(rs.getString("Telefono"));
+	            		cliente.setEstado(rs.getBoolean("Estado"));
+
+				lista.add(cliente);
+			}
+			rs.close();
+			cs.close();
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			conexion.cerrarConexion();
+		}
 		
 		
 		return lista;

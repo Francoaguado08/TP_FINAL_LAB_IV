@@ -12,7 +12,7 @@ public interface IClienteDAO {
 	public Cliente obtenerPorId(int idCLiente);
 	public List<Cliente>obtenerTodos();
 	public boolean existeClientePorDNI(String dni); //PARA EVITAR LOS DUPLICADOS.
-	public List<Cliente>filtrar(String dni, String usuario);
+	public List<Cliente>filtro(String dni, String usuario);
 	
 	
 	

@@ -39,10 +39,10 @@
             <section class="filter-box">
                 <form method="get" action="<%= request.getContextPath() %>/CuentasServlet">
                 	<input type="hidden" name="Param" value="lista" />
-                    <label for="dni">Buscar por Número de cuenta</label>
+                    <label for="nCuenta">Buscar por Número de cuenta</label>
                     <input type="text" name="nCuenta" id="nCuenta" placeholder="Ingrese Número de Cuenta">
 
-                    <label for="usuario">Buscar por CUIL</label>
+                    <label for="cuil">Buscar por CUIL</label>
                     <input type="text" name="cuil" id="cuil" placeholder="Ingrese el CUIL">
 
                     <button type="submit">Filtrar</button>

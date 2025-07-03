@@ -62,7 +62,27 @@ public class CuentasServlet extends HttpServlet {
 				}
 				case "lista":
 				{
-			        List<CuentaListado> cuentas = cuentaNegocio.listarTodos();
+					
+					String nroParam = request.getParameter("nCuenta");
+					int nroCuenta = 0;
+				    if (nroParam != null && !nroParam.isEmpty()) {
+				        nroCuenta = Integer.parseInt(nroParam);
+				    }
+					String cuil = request.getParameter("cuil");
+					if (cuil == null) {
+						cuil = "";
+					}
+					
+					
+					
+			        List<CuentaListado> cuentas;
+			        
+			        if (nroCuenta !=0 || !cuil.isEmpty()) {
+			        	cuentas = cuentaNegocio.filtro(nroCuenta, cuil);
+			        }else {
+			        	cuentas = cuentaNegocio.listarTodos();
+			        }
+			        
 			        request.setAttribute("listaCuentas", cuentas);
 			        RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/admin/listarCuentas.jsp");
 			        dispatcher.forward(request, response);

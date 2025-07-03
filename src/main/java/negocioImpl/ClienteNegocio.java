@@ -61,7 +61,10 @@ public class ClienteNegocio implements IClienteNegocio{
 		if(clienteDAO.existeClientePorDNI(dni)) return true;
 		return false;
 	}
-
+	
+	public List<Cliente> filtro(String dni, String usuario){
+		return clienteDAO.filtro(dni, usuario);
+	}
 	
 	
 }

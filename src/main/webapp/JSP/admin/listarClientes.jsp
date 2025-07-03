@@ -35,7 +35,7 @@
 	    
 	        <h3>Filtros</h3>
 	        
-	        <form method="get" action="ListadoClientesServlet">
+	        <form method="get" action="ClientesServlet">
 	        	<input type="hidden" name="Param" value="lista">
 	        
 	            <label for="dni">Buscar por DNI</label>

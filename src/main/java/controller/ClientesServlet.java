@@ -47,11 +47,11 @@ public class ClientesServlet extends HttpServlet {
 				{
 					String dni = request.getParameter("dni");
 					String usuario = request.getParameter("usuario");
-					//if((dni!=null && !dni.isEmpty()) || (usuario !=null && !usuario.isEmpty())) {
-						//request.setAtribute("listaClientes", clienteNegocio.filtrar(dni, usuario));
-					//}else {
+					if((dni!=null && !dni.isEmpty()) || (usuario !=null && !usuario.isEmpty())) {
+						request.setAttribute("listaClientes", clienteNegocio.filtro(dni, usuario));
+					}else {
 						request.setAttribute("listaClientes", clienteNegocio.listar());
-					//}
+					}
 				
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/admin/listarClientes.jsp");
 					dispatcher.forward(request, response);

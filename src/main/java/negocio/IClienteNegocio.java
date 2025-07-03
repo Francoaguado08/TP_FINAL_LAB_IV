@@ -12,4 +12,5 @@ public interface IClienteNegocio {
     boolean modificar(Cliente cliente);
     boolean eliminar(int id);       // baja lógica
 	boolean existeCliente(String dni); //validaciones 
+	List<Cliente> filtro(String dni, String usuario);  //filtrado
 }
