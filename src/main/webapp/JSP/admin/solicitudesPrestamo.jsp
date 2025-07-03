@@ -41,6 +41,12 @@
    	 </div>
 	<% } %>
 	
+	<% if(request.getAttribute("rechazado") != null) { %>
+  	<div style="color:red">
+   	<%= request.getAttribute("rechazado") %>
+   	 </div>
+	<% } %>
+	
             </section>
                 <table>
                     <thead>
@@ -68,11 +74,12 @@
                                 <td><%=p.getPlazoPagoMeses()%></td>
                                 <td>$<%=p.getMontoPorMes()%></td>
                                 <td>
-                                    <a href="PrestamosAcepRechServlet?Param=aprobar&id=<%= p.getIdCliente() %>&cuenta=<%= p.getCuentaDepositar() %>&saldo=<%=p.getImportePedido()%>&prestamo=<%=p.getIdPrestamo()%>&mensual=<%=p.getMontoPorMes()%>&cuotas=<%=p.getPlazoPagoMeses()%>" class="btnAccion">Aprobar</a>
-                                    <a href="#" class="btnEliminar">Rechazar</a>
+                                    <a href="PrestamosAcepRechServlet?Param=aprobar&id=<%= p.getIdCliente() %>&cuenta=<%= p.getCuentaDepositar() %>&saldo=<%=p.getImportePedido()%>&prestamo=<%=p.getIdPrestamo()%>&mensual=<%=p.getMontoPorMes()%>&cuotas=<%=p.getPlazoPagoMeses()%>" class="btnAccion"
+                                    onclick="return confirm('¿Queres aprobar este prestamo?');">Aprobar</a>
+                                    <a href="PrestamosAcepRechServlet?Param=rechazar&prestamoR=<%=p.getIdPrestamo()%>" class="btnEliminar" onclick="return confirm('¿Queres rechazar este prestamo?');">Rechazar</a>
                                 </td>
                             </tr>
-							 <% } %>
+							 <%}; %>
 							 
                     </tbody>
                 </table>

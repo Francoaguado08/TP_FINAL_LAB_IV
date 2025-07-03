@@ -118,20 +118,24 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 	}
 
 	@Override
-	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta) {
+	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta, int idPrestamo) {
 		    Conexion conexion = Conexion.getConexion();
 		    Connection cn = conexion.getSQLConexion();
 		    boolean actualizado = false;
 
 		    String query = "UPDATE cuentas SET Saldo = Saldo + ? WHERE NroCuenta = ? AND ID_Cliente = ?";
-
+		    String query2 = "UPDATE prestamos SET Estado = 1 WHERE ID_Prestamo = ? AND ID_Cliente = ?";
 		    try {
 		        PreparedStatement ps = cn.prepareStatement(query);
 		        ps.setDouble(1, saldoN);
 		        ps.setString(2, nCuenta);
 		        ps.setInt(3, idCliente);
 		        
-		        if (ps.executeUpdate() > 0) {
+		        PreparedStatement ps2 = cn.prepareStatement(query2);
+		        ps2.setInt(1, idPrestamo);
+		        ps2.setInt(2, idCliente);
+		        
+		        if (ps.executeUpdate() > 0 && ps2.executeUpdate() > 0) {
 		            cn.commit();
 		            actualizado = true;
 		        }
@@ -158,9 +162,7 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 	    String query = "{CALL insertar_cuota(?, ?, ?, ?)}";
 
 	    try {
-	        CallableStatement cs = cn.prepareCall(query);
-	        cn.setAutoCommit(false);
-	        
+	        CallableStatement cs = cn.prepareCall(query);	        
 	        cs.setInt(1, c.getIdPrestamo());
 	        cs.setInt(2, c.getNroCuota());
 	        cs.setDouble(3, c.getMonto());
@@ -186,8 +188,8 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 		
 }
 
-	@Override
-	public boolean estadoPrestamo(int idcliente, int idPrestamo) {
+	/*	@Override
+		public boolean estadoPrestamo(int idcliente, int idPrestamo) {
 		   Conexion conexion = Conexion.getConexion();
 		    Connection cn = conexion.getSQLConexion();
 		    boolean actualizado = false;
@@ -216,6 +218,37 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 
 		    return actualizado;
 		}
+*/
+	@Override
+	public boolean rechazar(int idPrestamo) {
+		Conexion conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    boolean eliminado = false;
+
+	    String query = "DELETE FROM prestamos WHERE ID_Prestamo = ?";
+
+	    try {
+	        PreparedStatement ps = cn.prepareStatement(query);
+	        ps.setInt(1, idPrestamo);
+
+	        if (ps.executeUpdate() > 0) {
+	            cn.commit();
+	            eliminado = true;
+	        }
+	    } catch (Exception e) {
+	        try {
+	            cn.rollback();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	        e.printStackTrace();
+	    } finally {
+	        conexion.cerrarConexion();
+	    }
+
+	    return eliminado;
+	}
+	
 		
 	
 }

@@ -30,12 +30,14 @@ public class PrestamoNegocio implements IPrestamoNegocio {
 		return p.agregarCuota(c);
 	}
 	
-	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta) {
+	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta, int idPrestamo) {
 		
-		return p.acreditarPrestamo(saldoN, idCliente, nCuenta);
+		return p.acreditarPrestamo(saldoN, idCliente, nCuenta, idPrestamo);
 	}
-	
-	public boolean estadoPrestamo(int idcliente, int idPrestamo) {
-		return p.estadoPrestamo(idcliente, idPrestamo);
+
+	@Override
+	public boolean rechazar(int idPrestamo) {
+		return p.rechazar(idPrestamo);
 	}
+
 }

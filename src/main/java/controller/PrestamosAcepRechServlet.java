@@ -51,8 +51,7 @@ public class PrestamosAcepRechServlet extends HttpServlet {
 		        int idPrestamo = Integer.parseInt(request.getParameter("prestamo"));
 		        double montoMensual = Double.parseDouble(request.getParameter("mensual"));
 				int cuotas = Integer.parseInt(request.getParameter("cuotas"));
-				boolean exito = p.acreditarPrestamo(saldo, idCliente, cuenta);
-				boolean exito2 = p.estadoPrestamo(idCliente, idPrestamo);
+				boolean exito = p.acreditarPrestamo(saldo, idCliente, cuenta, idPrestamo);
 				for (int i = 1; i <= cuotas; i++) {
 				    c.setEstado(true);
 				    c.setIdPrestamo(idPrestamo);
@@ -61,7 +60,7 @@ public class PrestamosAcepRechServlet extends HttpServlet {
 				    p.agregarCuota(c);
 				}
 
-				if (exito && exito2) {
+				if (exito) {
 				    request.setAttribute("mensaje", "Prestamo aprobado, cuotas generadas y acreditado correctamente");
 				} else {
 				    request.setAttribute("error", "Error al acreditar el prestamo");
@@ -70,6 +69,17 @@ public class PrestamosAcepRechServlet extends HttpServlet {
 				request.setAttribute("listaP", l);
 				request.getRequestDispatcher("/JSP/admin/solicitudesPrestamo.jsp").forward(request, response);
 				break;
+				
+			case "rechazar":
+				int idPrestamoR = Integer.parseInt(request.getParameter("prestamoR"));
+				boolean exitoR = p.rechazar(idPrestamoR);
+				
+				if(exitoR) {
+					 request.setAttribute("rechazado", "Prestamo rechazado");
+				}
+				List<Prestamo> list = p.prestamosEspera();
+				request.setAttribute("listaP", list);
+				request.getRequestDispatcher("/JSP/admin/solicitudesPrestamo.jsp").forward(request, response);
 			
 			}			
 		}

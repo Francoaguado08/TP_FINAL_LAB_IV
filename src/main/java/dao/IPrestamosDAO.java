@@ -11,8 +11,9 @@ public interface IPrestamosDAO {
 	public List<Cuenta> misCuentas(int idCliente);
 	public boolean solPrestamo(Prestamo pres);
 	public List<Prestamo> prestamosEspera();
-	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta);
-	public boolean estadoPrestamo(int idcliente, int idPrestamo);
+	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta, int idPrestamo);
+	/*public boolean estadoPrestamo(int idcliente, int idPrestamo);*/
 	public boolean agregarCuota(Cuota c);
+	public boolean rechazar(int idPrestamo);
 
 }

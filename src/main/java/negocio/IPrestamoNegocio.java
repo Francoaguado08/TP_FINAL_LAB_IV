@@ -11,7 +11,7 @@ public interface IPrestamoNegocio {
 	public boolean solPrestamo(Prestamo pres);
 	public List<Prestamo> prestamosEspera();
 	public boolean agregarCuota(Cuota c);
-	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta);
-	public boolean estadoPrestamo(int idcliente, int idPrestamo);
+	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta, int idPrestamo);
+	public boolean rechazar(int idPrestamo);
 
 }
