@@ -51,8 +51,8 @@
                 <table>
                     <thead>
                         <tr>
-                        	<th>Prestamo (ID)</th>
-                            <th>Cliente (ID)</th>
+                        	<th>Prestamo</th>
+                            <th>Cliente</th>
                             <th>Cuenta a acreditar</th>
                             <th>Fecha de solicitud</th>
                             <th>Importe solicitado</th>
