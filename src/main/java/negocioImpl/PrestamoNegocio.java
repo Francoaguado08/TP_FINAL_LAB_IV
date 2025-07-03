@@ -21,4 +21,7 @@ public class PrestamoNegocio implements IPrestamoNegocio {
 		return p.solPrestamo(pres);
 	}
 
+	public List<Prestamo> prestamosEspera(){
+		return p.prestamosEspera();
+	}
 }

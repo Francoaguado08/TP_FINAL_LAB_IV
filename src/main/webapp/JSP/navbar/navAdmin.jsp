@@ -22,7 +22,7 @@
 					</ul>
 				</li>
 				
-				<li><a href="${pageContext.request.contextPath}/JSP/admin/solicitudesPrestamo.jsp">Préstamos</a></li>
+				<li><a href="${pageContext.request.contextPath}/PrestamosAcepRechServlet?Param=click">Préstamos</a></li>
 				
 				<li><a href="${pageContext.request.contextPath}/JSP/admin/reportes.jsp">Reportes</a></li>
 				

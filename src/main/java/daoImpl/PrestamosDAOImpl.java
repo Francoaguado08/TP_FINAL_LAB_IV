@@ -82,5 +82,36 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 	    return generado;
 		
 }
+
+	@Override
+	public List<Prestamo> prestamosEspera() {
+		List<Prestamo> lista = new ArrayList<>();
+	    Conexion conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+
+	    String query = "SELECT * FROM prestamos where Estado = false";
+
+	    try {
+	        PreparedStatement ps = cn.prepareStatement(query);
+	        ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	        	Prestamo p = new Prestamo();
+	            p.setIdCliente(rs.getInt("ID_Cliente"));
+		        p.setFecha(rs.getDate("Fecha"));
+		        p.setImporteAPagar(rs.getDouble("Importe_a_pagar"));
+		        p.setImportePedido(rs.getDouble("Importe_pedido"));
+		        p.setPlazoPagoMeses(rs.getInt("Plazo_pago_meses"));
+		        p.setMontoPorMes(rs.getDouble("Monto_por_mes"));
+	            lista.add(p);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        conexion.cerrarConexion();
+	    }
+
+	    return lista;
+	}
 	
 }

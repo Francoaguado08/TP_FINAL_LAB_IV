@@ -1,3 +1,5 @@
+<%@page import="entidades.Prestamo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -15,6 +17,14 @@
 <body>
 	<jsp:include page="../navbar/navAdmin.jsp"/>
 	
+	
+	<%
+		List<Prestamo> l = null;
+		if(request.getAttribute("listaP")!=null){
+		l = (List<Prestamo>) request.getAttribute("listaP");
+		}
+	%>
+	
 	<section class="grid-container">
 		<section class="hospital-info">
                 <h1>Solicitudes de préstamo</h1>
@@ -22,7 +32,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>CUIL</th>
+                            <th>Cliente (ID)</th>
                             <th>Fecha de solicitud</th>
                             <th>Importe solicitado</th>
                             <th>Importe con intereses</th>
@@ -32,18 +42,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                            <% for(Prestamo p : l) { %>
                             <tr>
-                                <td>11-22.333.444-1</td>
-                                <td>28/02/2025</td>
-                                <td>$100.150,00</td>
-                                <td>$150.250,00</td>
-                                <td>12</td>
-                                <td>$12.520,00</td>
+                                <td><%=p.getIdCliente()%></td>
+                                <td><%=p.getFecha()%></td>
+                                <td>$<%=p.getImportePedido()%></td>
+                                <td>$<%=p.getImporteAPagar()%></td>
+                                <td><%=p.getPlazoPagoMeses()%></td>
+                                <td>$<%=p.getMontoPorMes()%></td>
                                 <td>
                                     <a href="#" class="btnAccion">Aprobar</a>
                                     <a href="#" class="btnEliminar">Rechazar</a>
                                 </td>
                             </tr>
+							 <% } %>
                     </tbody>
                 </table>
             </section>

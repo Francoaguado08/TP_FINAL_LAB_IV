@@ -9,5 +9,6 @@ public interface IPrestamosDAO {
 	
 	public List<Cuenta> misCuentas(int idCliente);
 	public boolean solPrestamo(Prestamo pres);
+	public List<Prestamo> prestamosEspera();
 
 }
