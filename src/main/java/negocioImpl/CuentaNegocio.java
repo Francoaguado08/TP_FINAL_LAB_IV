@@ -53,6 +53,12 @@ public class CuentaNegocio implements ICuentaNegocio {
 	public List<CuentaListado> filtro(int nroCuenta, String cuil) {
 		return cuentaDAO.filtro(nroCuenta, cuil);
 	}
+
+	@Override
+	public List<CuentaListado> cuentasPorCliente(int idCli) {
+		
+		return cuentaDAO.cuentasPorCliente(idCli);
+	}
 	
 	
 }

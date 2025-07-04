@@ -292,8 +292,43 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	        conexion.cerrarConexion();
 	    }
 		
+		return lista;
+	}
+
+	@Override
+	public List<CuentaListado> cuentasPorCliente(int idCli) {
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		String query = "{CALL sp_obtener_cuentas_cliente(?)}";
+
+		List<CuentaListado> lista = new ArrayList<CuentaListado>();
+
+		try {
+			CallableStatement cs = cn.prepareCall(query);
+			cs.setInt (1, idCli);
+			ResultSet rs = cs.executeQuery();
+			while (rs.next()) {
+	            CuentaListado cuenta = new CuentaListado();
+	            cuenta.setNroCuenta(rs.getInt("NroCuenta"));
+	            cuenta.setTipoCuenta(rs.getString("TipoCuenta_Descripcion"));
+	            cuenta.setCbu(rs.getString("CBU"));
+	            cuenta.setCuil(rs.getString("CUIL"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	            cuenta.setFechaCreacion(rs.getDate("Fecha_creacion"));
+
+	            lista.add(cuenta);
+	        }
+
+	        rs.close();
+	        cs.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        conexion.cerrarConexion();
+	    }
 		
 		return lista;
+		
 	}
 
 		

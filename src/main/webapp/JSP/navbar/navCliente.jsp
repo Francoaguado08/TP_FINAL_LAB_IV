@@ -6,7 +6,7 @@
 			<nav class="navegacion-principal contenedor">
 				<ul class="menu">
 					<li>
-						<a href="listarCuentas.jsp">Cuentas</a>
+						<a href="${pageContext.request.contextPath}/CuentasServlet?Param=cuentasCli">Cuentas</a>
 					</li>
 					<li>
 						<a href="transferencia.jsp">Transferencias</a>

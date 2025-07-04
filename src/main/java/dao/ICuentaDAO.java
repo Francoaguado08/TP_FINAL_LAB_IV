@@ -18,4 +18,6 @@ public interface ICuentaDAO {
 	public int contarCuentasActivasPorCliente(int idCliente);
 	
 	public List<CuentaListado>filtro(int nroCuenta, String cuil);
+	
+	public List<CuentaListado> cuentasPorCliente(int idCli);
 }

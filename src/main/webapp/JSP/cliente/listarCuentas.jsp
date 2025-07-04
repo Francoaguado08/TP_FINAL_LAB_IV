@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidades.CuentaListado"%>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -13,39 +16,56 @@
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
-	<section class="grid-container">
-			<section>
-                <h1>Acceder a una Cuenta</h1>
-            </section>
+	<%
+	    List<CuentaListado> listaCuentas = new ArrayList<CuentaListado>();
+	    if (request.getAttribute("listaCuentas") != null) {
+	        listaCuentas = (List<CuentaListado>) request.getAttribute("listaCuentas");
+	    }
+	%>
 	
-                <table class="contenido.listado">
-                    <thead>
-                        <tr>
-                            <th>N° Cuenta</th>
-                            <th>Tipo de Cuenta</th>
-                            <th>CBU</th>
-                            <th>CUIL</th>
-                            <th>Saldo</th>
-                            <th>Fecha de creación</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr>
-                                <td>123456789</td>
-                                <td>Caja de ahorro</td>
-                                <td>0000002323154312</td>
-                                <td>11-22333444-1</td>
-                                <td>$150.250,00</td>
-                                <td>28/9/2009</td>
-                                <td>
-                                	<a href="#" class="btnAccion">Seleccionar</a>
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
-            </section>
+	<section class="grid-container">
+		<section>
+            <h1>Acceder a una Cuenta</h1>
+        </section>
 
-
+        <table class="contenido.listado">
+            <thead>
+                <tr>
+                    <th>N° Cuenta</th>
+                    <th>Tipo de Cuenta</th>
+                    <th>CBU</th>
+                    <th>CUIL</th>
+                    <th>Saldo</th>
+                    <th>Fecha de creación</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    if (listaCuentas != null && !listaCuentas.isEmpty()) {
+                        for (CuentaListado cuenta : listaCuentas) {
+                %>
+                    <tr>
+                        <td><%= cuenta.getNroCuenta() %></td>
+                        <td><%= cuenta.getTipoCuenta() %></td>
+                        <td><%= cuenta.getCbu() %></td>
+                        <td><%= cuenta.getCuil() %></td>
+                        <td>$ <%= cuenta.getSaldo() %></td>
+                        <td><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(cuenta.getFechaCreacion()) %></td>
+                        <td><a href="#" class="btnAccion">Seleccionar</a></td>
+                    </tr>
+                <%
+                        }
+                    } else {
+                %>
+                    <tr>
+                        <td colspan="7">No se encontraron cuentas para este cliente.</td>
+                    </tr>
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

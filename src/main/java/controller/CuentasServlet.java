@@ -116,11 +116,25 @@ public class CuentasServlet extends HttpServlet {
 					break;
 			
 				}
-
+				case "cuentasCli":
+				{
+					HttpSession sesion = request.getSession();
+					Integer idCli = (Integer) sesion.getAttribute("IdCliente");
+					if(idCli != null) { //agregar un exc?
+						List<CuentaListado> cuentasCli = cuentaNegocio.cuentasPorCliente(idCli);
+						request.setAttribute("listaCuentas", cuentasCli);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/cliente/listarCuentas.jsp");
+						dispatcher.forward(request, response); 
+					}
+					
+					
+				}
 			}
+
 		}
-		
 	}
+		
+	
 		 
 					
 					// Solo mostrar mensaje si viene de un insert

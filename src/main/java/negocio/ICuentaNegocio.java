@@ -18,5 +18,6 @@ public interface ICuentaNegocio {
 	public boolean clienteTieneTresCuentasActivas(int idCliente);
 	
 	List<CuentaListado>filtro(int nroCuenta, String cuil);
+	public List<CuentaListado> cuentasPorCliente(int idCli);
 	
 }
