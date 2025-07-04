@@ -11,7 +11,31 @@
 	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet">
 	
+	
+	
+	 <!-- CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <!-- jQuery (requerido por DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- JS de DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    
+    
+    
+    
+    <script type="text/javascript">
+  	$(document).ready(function () {
+   		 $('#tablaClientes').DataTable();
+  	});
+						</script>
+
+	
 	<title>Listado Clientes</title>
+	
+	
 </head>
 
 <body>
