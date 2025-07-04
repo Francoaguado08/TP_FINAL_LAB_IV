@@ -62,9 +62,16 @@ public class ClienteNegocio implements IClienteNegocio{
 		return false;
 	}
 	
+	
 	public List<Cliente> filtro(String dni, String usuario){
 		return clienteDAO.filtro(dni, usuario);
 	}
+
+	@Override
+	public boolean existeClientePorDniOCuil(String dni, String cuil) {
+		return clienteDAO.existeClientePorDniOCuil(dni, cuil);
+	}
+
 	
 	
 }

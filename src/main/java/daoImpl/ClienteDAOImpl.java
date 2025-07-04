@@ -61,10 +61,6 @@ public class ClienteDAOImpl implements IClienteDAO{
 	    return insertado;
 	}
 
-
-	
-	
-	
 	
 	@Override
 	public boolean modificar(Cliente cliente) {
@@ -365,6 +361,43 @@ public class ClienteDAOImpl implements IClienteDAO{
 		return lista;
 	}
 	
+	
+	@Override
+	public boolean existeClientePorDniOCuil(String dni, String cuil) {
+	    
+		boolean existe = false;
+	    Connection cn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    String query = "SELECT COUNT(*) FROM clientes WHERE DNI = ? OR CUIL = ?";
+
+	    try {
+	        cn = Conexion.getConexion().getSQLConexion();
+	        ps = cn.prepareStatement(query);
+	        ps.setString(1, dni);
+	        ps.setString(2, cuil);
+	        rs = ps.executeQuery();
+
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            existe = true;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error en existeClientePorDniOCuil: " + e.getMessage());
+
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (cn != null) cn.close(); // o cn.cerrarConexion() si tenés un método propio
+	        } catch (Exception e) {
+	            System.out.println("Error al cerrar recursos en existeClientePorDniOCuil: " + e.getMessage());
+	        }
+	    }
+
+	    return existe;
+	}
 	
 	
 }

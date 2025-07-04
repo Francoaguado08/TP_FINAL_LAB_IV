@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import entidades.Cliente;
 import entidades.Usuario;
+import exceptions.CamposInvalidosExc;
+import exceptions.ClienteDuplicadoExc;
 import entidades.TipoUsuario;
 import negocio.IClienteNegocio;
 import negocioImpl.ClienteNegocio;
@@ -137,8 +139,10 @@ public class ClientesServlet extends HttpServlet {
 	}
 	
 	
-	
+	//METODO INSERTAR CLIENTE CON VALIDACIONES MEDIANTE EXCEPTIONS PERSONALIZADAS-
 	private void insertarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
 	    
 	    String dni = request.getParameter("dni");
 	    String cuil = request.getParameter("cuilPrefijo") + request.getParameter("cuilDni") + request.getParameter("cuilVerificador");
@@ -156,31 +160,47 @@ public class ClientesServlet extends HttpServlet {
 	    String password = request.getParameter("password");
 	    String confirmPassword = request.getParameter("confirmPassword");
 	    
-        HttpSession session = request.getSession();
-
-	    if (!password.equals(confirmPassword)) {
-	        session.setAttribute("mensaje", "⚠ Las contraseñas no coinciden.");
-	        response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
-	        return;
-	    }
 
 	    try {
+	        
+	    	
+	    	//------------------>  VALIDACIONES DANDOLE EL USO DE EXCEPTIONS PROPIAS :
+	    	 if(!password.equals(confirmPassword)) {
+	    		   throw new CamposInvalidosExc("⚠ Las contraseñas no coinciden.");
+	    	}
+	    	
+	    	// Validación campos
+	        if (dni.isEmpty() || cuil.length() != 11) {
+	            throw new CamposInvalidosExc("⚠ DNI no puede estar vacío y CUIL debe tener 11 dígitos.");
+	        }
+	    	
+	    	
+	        ClienteNegocio clienteNegocio = new ClienteNegocio();
+	        if(clienteNegocio.existeClientePorDniOCuil(dni, cuil)) {
+	        	throw new ClienteDuplicadoExc("❌ Ya existe un cliente con ese DNI o CUIL.");
+	        }
+	        
+	        //< ------------------------------------------------------------------------------
+	    	
+	    	//-------------------------> Creacion del Usuario
 	        Usuario usuario = new Usuario();
 	        usuario.setUser(username);
 	        usuario.setContrasena(password);
-	        usuario.setTipoUsuario(new TipoUsuario(1, "cliente")); // ID 1 = cliente
+	        usuario.setTipoUsuario(new TipoUsuario(2, "cliente")); // ID 2 = cliente
+
 
 	        IUsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 	        int idUsuario = usuarioDAO.insertar(usuario);
-
 	        if (idUsuario <= 0) {
 	            session.setAttribute("mensaje", "❌ No se pudo registrar el usuario.");
 	            response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
 	            return;
 	        }
-
 	        usuario.setIdUsuario(idUsuario);
-
+            // <--------------------------------------------------------------------------------
+ 
+	        
+	        //----------------> Creación del Cliente -------------------------------------------
 	        Cliente cliente = new Cliente();
 	        cliente.setDni(dni);
 	        cliente.setCuil(cuil);
@@ -196,19 +216,17 @@ public class ClientesServlet extends HttpServlet {
 	        cliente.setTelefono(telefono);
 	        cliente.setUsuario(usuario);
 
-	        boolean exito = validarDatos(cliente, request);
-	        
-	        if (exito) {
-	        	clienteNegocio.insertar(cliente);
-	            session.setAttribute("mensaje-AltaCliente", " Cliente registrado correctamente.");
-	        } else {
-	            session.setAttribute("mensaje-AltaCliente", " Hubo un error al registrar el cliente: " + session.getAttribute("mensaje-AltaCliente"));
-	        }
+	        clienteNegocio.insertar(cliente);
+	        session.setAttribute("mensaje-AltaCliente", "✅Cliente registrado correctamente.");
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.setAttribute("mensaje-AltaCliente", "Error inesperado: " + e.getMessage());
 	    }
+	    catch (CamposInvalidosExc | ClienteDuplicadoExc e ) {
+	    	session.setAttribute("mensaje-AltaCliente",  e.getMessage());
+	    }
+	    catch (Exception e) {
+	        e.printStackTrace();
+	        session.setAttribute("mensaje-AltaCliente", "❌ Error inesperado: " + e.getMessage());
+	    }    
 
 	    response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
 	}
@@ -255,6 +273,10 @@ public class ClientesServlet extends HttpServlet {
 	    return cliente;
 	}
 	
+	
+	// {ATENCION!!}LO DEJO COMENTADO YA QUE LO ESTOY VALIDANDO MEDIANTE EL USO DE EXCEPTIONS POR LO QUE ES REDUNDANTE.
+	
+	/*
 	private boolean validarDatos(Cliente cliente, HttpServletRequest request){	//Cliente para verificar los datos cargados, Request para los mensajes en session
 		HttpSession session = request.getSession();
 		
@@ -277,7 +299,7 @@ public class ClientesServlet extends HttpServlet {
 		return true;
 	}
 
-	
+	*/
 	
 	
 	
