@@ -82,6 +82,30 @@ body {
     background-color: var(--color-principal);
 }
 
+.menu .icon-button {
+	min-width: 4rem; 
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.menu .icon-button img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.bg-eliminar {
+    background-color: var(--color-eliminar);
+}
+
+.bg-eliminar:hover {
+    background-color: #b71c1c;
+}
+
 /*Submenú descolgable*/
 
 .submenu {
@@ -115,23 +139,30 @@ body {
 	display: block;
 }
 
-.bg-eliminar {
-    min-width: 4rem; 
+
+
+/* Para mensajes */
+
+.mensajes {
 	display: flex;
-    text-align: center;
-        justify-content: center;
-    background-color: var(--color-eliminar);
-    color: var(--color-blanco); 
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 1rem;
-    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin-top: 15px;
 }
 
-.bg-eliminar:hover {
-    background-color: #b71c1c;
+.mensajeCorrecto {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-
+.mensajeIncorrecto {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
 
 

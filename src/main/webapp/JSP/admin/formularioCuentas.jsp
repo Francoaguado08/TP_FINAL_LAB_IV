@@ -75,8 +75,14 @@
 		               required>
 		    </div>
 		    
-		    <div>
-		        <button type="submit">Crear Cuenta</button>
+		    <div class="contenedor-botones">
+		    	<div>
+			        <button type="submit">Crear Cuenta</button>
+			    </div>
+			    
+				<div>
+					<a class="btnCancelar" href="${pageContext.request.contextPath}/JSP/admin/menuAdmin.jsp">Cancelar</a>
+				</div>
 		    </div>
 		</form>
 	</main>

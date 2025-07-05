@@ -43,7 +43,7 @@ public class LoginDAOImpl implements ILoginDAO{
 	@Override
 	public int obtenerIdClienteSesion(String user, String pass) {
 		    final String query = "SELECT c.ID_Cliente FROM clientes c INNER JOIN usuarios u ON c.ID_Usuario = u.ID_Usuario WHERE u.User = ? AND u.Pass = ?";
-		    Integer idCliente = null;
+		    Integer idCliente = 0;
 		    /*use el integer para que me permita retornar null, por las dudas.*/
 		    
 		    cn = Conexion.getConexion();

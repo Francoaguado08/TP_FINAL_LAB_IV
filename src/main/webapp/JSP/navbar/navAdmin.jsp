@@ -6,6 +6,12 @@
 		<nav class="navegacion-principal contenedor">
 			<ul class="menu">
 			
+				<li>
+					<a href="${pageContext.request.contextPath}/JSP/admin/menuAdmin.jsp" title="Menú principal" class="icon-button">
+						<img src="${pageContext.request.contextPath}/images/home.png" width="20" height="20"/>
+					</a>
+				</li>
+			
 				<li class="dropdown">
 					<a href="#">Clientes</a>
 					<ul class="submenu">
@@ -34,7 +40,7 @@
 				</li>
 				
 				<li>
-					<a href="${pageContext.request.contextPath}/LoginServlet" title="Cerrar sesión"  class="bg-eliminar" 
+					<a href="${pageContext.request.contextPath}/LoginServlet" title="Cerrar sesión"  class="bg-eliminar icon-button " 
 						onclick="return confirm('¿Cerrar sesión?');"> <!-- msj localhost -->
 						<img src="${pageContext.request.contextPath}/images/logout.png" width="20" height="20"/>
 					</a>

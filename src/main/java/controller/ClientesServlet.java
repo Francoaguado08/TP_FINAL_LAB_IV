@@ -166,18 +166,18 @@ public class ClientesServlet extends HttpServlet {
 	    	
 	    	//------------------>  VALIDACIONES DANDOLE EL USO DE EXCEPTIONS PROPIAS :
 	    	 if(!password.equals(confirmPassword)) {
-	    		   throw new CamposInvalidosExc("⚠ Las contraseñas no coinciden.");
+	    		   throw new CamposInvalidosExc("Las contraseñas no coinciden.");
 	    	}
 	    	
 	    	// Validación campos
 	        if (dni.isEmpty() || cuil.length() != 11) {
-	            throw new CamposInvalidosExc("⚠ DNI no puede estar vacío y CUIL debe tener 11 dígitos.");
+	            throw new CamposInvalidosExc("DNI no puede estar vacío y CUIL debe tener 11 dígitos.");
 	        }
 	    	
 	    	
 	        ClienteNegocio clienteNegocio = new ClienteNegocio();
 	        if(clienteNegocio.existeClientePorDniOCuil(dni, cuil)) {
-	        	throw new ClienteDuplicadoExc("❌ Ya existe un cliente con ese DNI o CUIL.");
+	        	throw new ClienteDuplicadoExc("Ya existe un cliente con ese DNI o CUIL.");
 	        }
 	        
 	        //< ------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ public class ClientesServlet extends HttpServlet {
 	        IUsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 	        int idUsuario = usuarioDAO.insertar(usuario);
 	        if (idUsuario <= 0) {
-	            session.setAttribute("mensaje", "❌ No se pudo registrar el usuario.");
+	            session.setAttribute("mensaje-AltaCliente", "No se pudo registrar el usuario.");
 	            response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");
 	            return;
 	        }
@@ -217,7 +217,7 @@ public class ClientesServlet extends HttpServlet {
 	        cliente.setUsuario(usuario);
 
 	        clienteNegocio.insertar(cliente);
-	        session.setAttribute("mensaje-AltaCliente", "✅Cliente registrado correctamente.");
+	        session.setAttribute("mensaje-AltaCliente", "Cliente registrado correctamente.");
 
 	    }
 	    catch (CamposInvalidosExc | ClienteDuplicadoExc e ) {
@@ -225,7 +225,7 @@ public class ClientesServlet extends HttpServlet {
 	    }
 	    catch (Exception e) {
 	        e.printStackTrace();
-	        session.setAttribute("mensaje-AltaCliente", "❌ Error inesperado: " + e.getMessage());
+	        session.setAttribute("mensaje-AltaCliente", "Error inesperado: " + e.getMessage());
 	    }    
 
 	    response.sendRedirect(request.getContextPath() + "/JSP/admin/formularioClientes.jsp");

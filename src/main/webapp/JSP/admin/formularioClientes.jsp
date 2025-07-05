@@ -20,106 +20,138 @@
 
     <main class="contenido-principal">
     
+    <!-- Mensaje -->
+    <div class="mensajes">
+		<%
+			String mensaje = (String)session.getAttribute("mensaje-AltaCliente");
+			if (mensaje != null) {
+				
+				if ("Cliente registrado correctamente.".equals(mensaje)) {
+		%>
+					<p class="mensajeCorrecto"><%=mensaje%></p>
+		<%
+				}
+				else{
+		%>
+				<p class="mensajeIncorrecto"><%=mensaje%></p>	
+		<%
+				}
+				session.setAttribute("mensaje-AltaCliente", null);
+			}
+		%>
+    
+	</div>
+				
 		<!-- Formulario que envía los datos al servlet ClientesServlet -->
 		<form method="post" action="${pageContext.request.contextPath}/ClientesServlet">
 			 <input type="hidden" name="accion" value="insertar" />
 		
 			<h2>Agregar nuevo cliente</h2>
+			
+			<!-- Sección Datos Personales -->
+        	<fieldset class="card">
+            	<legend>Datos Personales</legend>
 
-			<div>
-				<label for="dni">DNI</label>
-				<input type="text" name="dni" id="dni" placeholder="Ingrese DNI" size="8" maxlength="8" required>
-			</div>
+				<div>
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" id="dni" placeholder="Ingrese DNI" size="8" maxlength="8" pattern="[0-9]{8}" title="El DNI debe ser numérico y contener 8 digitos" required>
+				</div>
+		
+				<div>
+				    <label for="cuil">CUIL</label>
+				    <div style="display: flex; gap: 0.5rem;">
+				        <input type="text" id="cuilPrefijo" placeholder="XX" name="cuilPrefijo" size="2" maxlength="2" pattern="[0-9]{2}" title="Ingrese el prefijo numérico de 2 dígitos" required>
+				        <span>-</span>
+				        <input type="text" id="cuilDni" name="cuilDni" readonly size="8">
+				        <span>-</span>
+				        <input type="text" id="cuilVerificador" placeholder="X" name="cuilVerificador" size="1" maxlength="1" pattern="[0-9]{1}" title="Ingrese un único dígito numérico" required>
+				    </div>
+				</div>
 	
-			<div>
-			    <label for="cuil">CUIL</label>
-			    <div style="display: flex; gap: 0.5rem;">
-			        <input type="text" id="cuilPrefijo" placeholder="XX" name="cuilPrefijo" size="2" maxlength="2" required>
-			        <span>-</span>
-			        <input type="text" id="cuilDni" name="cuilDni" readonly size="8">
-			        <span>-</span>
-			        <input type="text" id="cuilVerificador" placeholder="X" name="cuilVerificador" size="1" maxlength="1" required>
-			    </div>
-			</div>
-
-			<script> //JS PARA COMPLETAR EL CAMPO 'cuilDni'EN EJECUCIÓN
-			    const dniInput = document.getElementById('dni');
-			    const cuilDniInput = document.getElementById('cuilDni');
+				<script> //JS PARA COMPLETAR EL CAMPO 'cuilDni'EN EJECUCIÓN
+				    const dniInput = document.getElementById('dni');
+				    const cuilDniInput = document.getElementById('cuilDni');
+				
+				    dniInput.addEventListener('input', function() {
+				        cuilDniInput.value = dniInput.value.trim();
+				    });
+				</script>
+				
+				<div>
+					<label for="nombre">Nombre</label>
+					<input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
+				</div>
+	
+				<div>
+					<label for="apellido">Apellido</label>
+					<input type="text" name="apellido" id="apellido" placeholder="Ingrese apellido" required required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
+				</div>
+	
+				<div>
+					<label for="sexo">Sexo</label>
+					<select name="sexo" id="sexo" required>
+						<option value="Masculino">Masculino</option>
+						<option value="Femenino">Femenino</option>
+						<option value="Otro">Otro</option>
+					</select>
+				</div>
+	
+	
+				<div>
+					<label for="nacionalidad">Nacionalidad</label>
+					<select name="nacionalidad" id="nacionalidad" required>
+						<option value="">-- Seleccione --</option>
+						<option value="Argentina">Argentina</option>
+						<option value="Chile">Chile</option>
+						<option value="Otro">Otro</option>
+					</select>
+				</div>
+				
+				<div>
+					<label for="fechaNacimiento">Fecha de Nacimiento</label>
+					<input type="date" name="fechaNacimiento" id="fechaNacimiento" required>
+				</div>
+	
+				<div>
+					<label for="direccion">Dirección</label>
+					<input type="text" name="direccion" id="direccion" placeholder="Ingrese dirección" required maxlength="100" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
+				</div>
+	
+				<!-- Provincia con valores fijos (sin base de datos) -->
+				<div>
+					<label for="provincia">Provincia</label>
+					<select name="provincia" id="provincia" required>
+						<option value="">-- Seleccione una provincia --</option>
+						<option value="Buenos Aires">Buenos Aires</option>
+						<option value="CABA">CABA</option>
+						<option value="Córdoba">Córdoba</option>
+						<option value="Santa Fe">Santa Fe</option>
+						<option value="Mendoza">Mendoza</option>
+						<option value="Otra">Otra</option>
+					</select>
+				</div>
+	
+					<!-- Localidad como texto (sin tabla en BD) -->
+				<div>
+					<label for="localidad">Localidad</label>
+					<input type="text" name="localidad" id="localidad" placeholder="Ingrese localidad" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios" />
+				</div>
+	
+				<div>
+					<label for="email">Correo Electrónico</label>
+					<input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required maxlength="100">
+				</div>
+	
+				<div>
+					<label for="telefono">Teléfono</label>
+					<input type="tel" name="telefono" id="telefono" placeholder="Ingrese teléfono" required maxlength="20" placeholder="Sin espacios ni símbolos: 11222333">
+				</div>
 			
-			    dniInput.addEventListener('input', function() {
-			        cuilDniInput.value = dniInput.value.trim();
-			    });
-			</script>
+			</fieldset>
 			
-			<div>
-				<label for="nombre">Nombre</label>
-				<input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
-			</div>
-
-			<div>
-				<label for="apellido">Apellido</label>
-				<input type="text" name="apellido" id="apellido" placeholder="Ingrese apellido" required required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
-			</div>
-
-			<div>
-				<label for="sexo">Sexo</label>
-				<select name="sexo" id="sexo" required>
-					<option value="Masculino">Masculino</option>
-					<option value="Femenino">Femenino</option>
-					<option value="Otro">Otro</option>
-				</select>
-			</div>
-
-
-			<div>
-				<label for="nacionalidad">Nacionalidad</label>
-				<select name="nacionalidad" id="nacionalidad" required>
-					<option value="">-- Seleccione --</option>
-					<option value="Argentina">Argentina</option>
-					<option value="Chile">Chile</option>
-					<option value="Otro">Otro</option>
-				</select>
-			</div>
-			
-			<div>
-				<label for="fechaNacimiento">Fecha de Nacimiento</label>
-				<input type="date" name="fechaNacimiento" id="fechaNacimiento" required>
-			</div>
-
-			<div>
-				<label for="direccion">Dirección</label>
-				<input type="text" name="direccion" id="direccion" placeholder="Ingrese dirección" required maxlength="100" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios">
-			</div>
-
-			<!-- Provincia con valores fijos (sin base de datos) -->
-			<div>
-				<label for="provincia">Provincia</label>
-				<select name="provincia" id="provincia" required>
-					<option value="">-- Seleccione una provincia --</option>
-					<option value="Buenos Aires">Buenos Aires</option>
-					<option value="CABA">CABA</option>
-					<option value="Córdoba">Córdoba</option>
-					<option value="Santa Fe">Santa Fe</option>
-					<option value="Mendoza">Mendoza</option>
-					<option value="Otra">Otra</option>
-				</select>
-			</div>
-
-				<!-- Localidad como texto (sin tabla en BD) -->
-			<div>
-				<label for="localidad">Localidad</label>
-				<input type="text" name="localidad" id="localidad" placeholder="Ingrese localidad" required maxlength="50" pattern=".*\S.*" title="Este campo no puede estar vacío o solo espacios" />
-			</div>
-
-			<div>
-				<label for="email">Correo Electrónico</label>
-				<input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required maxlength="100">
-			</div>
-
-			<div>
-				<label for="telefono">Teléfono</label>
-				<input type="tel" name="telefono" id="telefono" placeholder="Ingrese teléfono" required maxlength="20" placeholder="Sin espacios ni símbolos: 11222333">
-			</div>
+        <!-- Sección Datos de Inicio de Sesión -->
+        <fieldset class="card">
+            <legend>Datos de Inicio de Sesión</legend>
 
 			<div>
 				<label for="username">Nombre de Usuario</label>
@@ -138,27 +170,15 @@
 
 			<div class="contenedor-botones">
 				<div>
-				
 					<button type="submit">Agregar Cliente</button>
 				</div>
 				
 				<div>	
-					<button class="btnCancelar" onclick="window.history.back()">Cancelar</button>
-				</div>
+					<a class="btnCancelar" href="${pageContext.request.contextPath}/JSP/admin/menuAdmin.jsp">Cancelar</a>
+				</div>		
 			</div>
-
-			<%
-				String mensaje = (String)session.getAttribute("mensaje-AltaCliente");
-				if (mensaje != null) {
-			%>
-				<div class="mensaje-resultado">
-					<span><%= mensaje %></span>
-				</div>
-			<%
-					session.removeAttribute("mensaje-AltaCliente");
-				}
-			%>
-
+		</fieldset>
+		
 		</form>
 	</main>
 

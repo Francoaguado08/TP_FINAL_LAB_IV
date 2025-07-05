@@ -95,10 +95,7 @@
 			<p class="mensajeIncorrecto">Error al modificar</p>
 		<%
 		    }
-		    
-		    
 		%>
-		
 		</div>
 	
 		

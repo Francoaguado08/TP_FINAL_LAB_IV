@@ -14,7 +14,14 @@ public class LoginNegocio implements ILoginNegocio{
 	@Override
 	public int ObtenerIdCliente(String user, String pass) {
 		LoginDAOImpl l = new LoginDAOImpl();
-		return l.obtenerIdClienteSesion(user, pass);
+		int idCliente = 0;
+		try {
+			idCliente = l.obtenerIdClienteSesion(user, pass);
+		}
+		catch(Exception e) {
+			e.printStackTrace();	
+		}
+		return idCliente;
 	}
 
 }

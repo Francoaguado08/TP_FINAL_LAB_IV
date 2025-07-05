@@ -67,7 +67,7 @@
             </div>
 
             <div>
-                <button class="btnCancelar" type="button" onclick="window.history.back()">Cancelar</button>
+                <a class="btnCancelar" href="${pageContext.request.contextPath}/CuentasServlet?Param=lista">Cancelar</a>
             </div>
         </div>
 
