@@ -20,4 +20,6 @@ public interface ICuentaNegocio {
 	List<CuentaListado>filtro(int nroCuenta, String cuil);
 	public List<CuentaListado> cuentasPorCliente(int idCli);
 	
+	public int obtenerProximoNumeroCliente();
+	
 }

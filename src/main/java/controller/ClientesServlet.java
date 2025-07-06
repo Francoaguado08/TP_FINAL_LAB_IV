@@ -186,7 +186,7 @@ public class ClientesServlet extends HttpServlet {
 	        Usuario usuario = new Usuario();
 	        usuario.setUser(username);
 	        usuario.setContrasena(password);
-	        usuario.setTipoUsuario(new TipoUsuario(2, "cliente")); // ID 2 = cliente
+	        usuario.setTipoUsuario(new TipoUsuario(2, "Cliente")); // ID 2 = cliente
 
 
 	        IUsuarioDAO usuarioDAO = new UsuarioDAOImpl();

@@ -59,6 +59,11 @@ public class CuentaNegocio implements ICuentaNegocio {
 		
 		return cuentaDAO.cuentasPorCliente(idCli);
 	}
+
+	@Override
+	public int obtenerProximoNumeroCliente(){
+		return cuentaDAO.proximoNumeroCliente();
+	}
 	
 	
 }

@@ -39,7 +39,7 @@
 			
 
 		    <div>
-		        <label for="ID Cliente">ID</label>
+		        <label for="ID Cliente">ID Cliente</label>
 		        <input type="text" id="idCliente" name="idCliente" required>
 		    </div>
 
@@ -65,14 +65,14 @@
 
 		    <div>
 		        <label for="cbu">CBU</label>
-		        <input type="text" id="cbu" name="cbu" maxlength="30" required>
+		        <input type="text" id="cbu" name="cbu" maxlength="30" placeholder="El CBU se generará automáticamente cuando termine la operación" readonly>
 		    </div>
 
 		    <div>
 		        <label for="fechaCreacion">Fecha de Creación</label>
 		        <input type="date" id="fechaCreacion" name="fechaCreacion"
-		               value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>"
-		               required>
+		               value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" 
+		               readonly required>
 		    </div>
 		    
 		    <div class="contenedor-botones">

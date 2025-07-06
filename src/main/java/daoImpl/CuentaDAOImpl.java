@@ -330,6 +330,36 @@ public class CuentaDAOImpl implements ICuentaDAO{
 		return lista;
 		
 	}
+	
+	@Override
+	public int proximoNumeroCliente() {
+		conexion = Conexion.getConexion();
+        Connection cn = conexion.getSQLConexion();
+        
+        int proximoID = 0;
+		String query ="SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'cuentas' ";
+		
+		try {
+            PreparedStatement ps = cn.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) 
+			{
+            	proximoID = rs.getInt("auto_increment");
+			}
+            
+        } 
+		catch (Exception e) 
+		{
+        	e.printStackTrace();
+        } 
+		finally 
+		{
+			conexion.cerrarConexion();
+        }
+		return proximoID;
+	}
 
 		
 	

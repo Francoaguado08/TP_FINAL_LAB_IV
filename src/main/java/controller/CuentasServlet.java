@@ -239,19 +239,28 @@ public class CuentasServlet extends HttpServlet {
 
 	    try {
 	        // Validaciones básicas
-	        if (idClienteStr == null || tipoCuentaStr == null || cbu == null || fechaStr == null ||
-	            idClienteStr.isEmpty() || tipoCuentaStr.isEmpty() || cbu.isEmpty() || fechaStr.isEmpty()) {
+	        if (idClienteStr == null || tipoCuentaStr == null || fechaStr == null ||
+	            idClienteStr.isEmpty() || tipoCuentaStr.isEmpty() || fechaStr.isEmpty()) {
 	            session.setAttribute("mensaje", "⚠ Todos los campos son obligatorios.");
-	            response.sendRedirect(request.getContextPath() + "/CuentasServlet");
+	            response.sendRedirect(request.getContextPath() + "/CuentasServlet?Param=alta");
 
 	            return;
 	        }
+	        
 	        
 	        // Parsear datos
 	        int idCliente = Integer.parseInt(idClienteStr);
 	        int codTipoCuenta = Integer.parseInt(tipoCuentaStr);
 	        java.util.Date fechaUtil = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
 
+	        //Generar el CBU
+	        /*
+	         * %08d = siempre van a ser 8 digitos, si pasamos del idCLiente 99 al 111 pasaríamos de 00000099 a 00000111
+	         * %14d = siempre van a ser 14 digitos, si pasamos del N°Cuenta 99 al 111 pasaríamos de 00000000000099 a 00000000000111
+	         * */
+	        int proximoNCliente = cuentaNegocio.obtenerProximoNumeroCliente();
+	        cbu = String.format("%08d%014d" ,idCliente, proximoNCliente); 
+	        
 	        // Crear objeto Cuenta
 	        Cuenta cuenta = new Cuenta(idCliente, codTipoCuenta, cbu, fechaUtil, 10000.00);
 
@@ -271,18 +280,15 @@ public class CuentasServlet extends HttpServlet {
 		        }
 		        else {
 		        	exito = cuentaNegocio.insertar(cuenta);
-		        }
-		    
-	        
+		        } 
 	        
 	        }
 	        else {
 	        	exito = false;
-	        	mensaje ="Id de cliente dado de baja";
+	        	mensaje =" Id de cliente inexistente o dado de baja";
 	        }
 
 	        if (exito) {
-	        	System.out.println("joya");
 	            session.setAttribute("mensaje", "✅ Cuenta creada correctamente.");
 	        } else {
 	            session.setAttribute("mensaje", "❌ Error al crear la cuenta." + mensaje);
@@ -303,6 +309,5 @@ public class CuentasServlet extends HttpServlet {
 
 	}
 	
-
     
 }
