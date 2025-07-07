@@ -5,6 +5,7 @@ import java.util.List;
 import daoImpl.PrestamosDAOImpl;
 import entidades.Cuenta;
 import entidades.Cuota;
+import entidades.Movimiento;
 import entidades.Prestamo;
 import negocio.IPrestamoNegocio;
 
@@ -38,6 +39,11 @@ public class PrestamoNegocio implements IPrestamoNegocio {
 	@Override
 	public boolean rechazar(int idPrestamo) {
 		return p.rechazar(idPrestamo);
+	}
+
+	@Override
+	public boolean generarMovimiento(Movimiento m) {
+		return p.generarMovimiento(m);
 	}
 
 }

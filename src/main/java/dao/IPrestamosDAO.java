@@ -4,6 +4,7 @@ import java.util.List;
 
 import entidades.Cuenta;
 import entidades.Cuota;
+import entidades.Movimiento;
 import entidades.Prestamo;
 
 public interface IPrestamosDAO {
@@ -15,5 +16,6 @@ public interface IPrestamosDAO {
 	/*public boolean estadoPrestamo(int idcliente, int idPrestamo);*/
 	public boolean agregarCuota(Cuota c);
 	public boolean rechazar(int idPrestamo);
+	public boolean generarMovimiento(Movimiento m);	
 
 }

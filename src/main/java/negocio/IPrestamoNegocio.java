@@ -4,6 +4,7 @@ import java.util.List;
 
 import entidades.Cuenta;
 import entidades.Cuota;
+import entidades.Movimiento;
 import entidades.Prestamo;
 
 public interface IPrestamoNegocio {
@@ -13,5 +14,6 @@ public interface IPrestamoNegocio {
 	public boolean agregarCuota(Cuota c);
 	public boolean acreditarPrestamo(double saldoN, int idCliente, String nCuenta, int idPrestamo);
 	public boolean rechazar(int idPrestamo);
+	public boolean generarMovimiento(Movimiento m);	
 
 }

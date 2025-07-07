@@ -10,6 +10,7 @@ import java.util.List;
 import dao.IPrestamosDAO;
 import entidades.Cuenta;
 import entidades.Cuota;
+import entidades.Movimiento;
 import entidades.Prestamo;
 import entidades.TipoCuenta;
 
@@ -248,6 +249,41 @@ public class PrestamosDAOImpl implements IPrestamosDAO{
 
 	    return eliminado;
 	}
+
+	@Override
+	public boolean generarMovimiento(Movimiento m) {
+			Conexion conexion;
+			boolean generado = false;
+			conexion = Conexion.getConexion();
+		    Connection cn = conexion.getSQLConexion();
+		    String query = "{CALL sp_insertar_movimiento(?, ?, ?, ?, ?)}";
+
+		    try {
+		        CallableStatement cs = cn.prepareCall(query);	        
+		        cs.setInt(1, m.getNumeroCuenta());
+		        cs.setInt(2, m.getTipoMovimiento().getCodigoTipoMov());
+		        cs.setString(3, m.getDetalle());
+		        cs.setDouble(4, m.getImporte());
+		        cs.setDate(5, new java.sql.Date(m.getFecha().getTime()));
+		        
+		        if (cs.executeUpdate() > 0) {
+		            cn.commit();
+		            generado = true;
+		        }
+		    } catch (Exception e) {
+		        try {
+		            cn.rollback();
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        }
+		        System.out.println("Error al generar movimiento (SP): " + e.getMessage());
+		    }
+		    finally {
+		    	conexion.cerrarConexion();
+		    }
+
+		    return generado;
+		}
 	
 		
 	

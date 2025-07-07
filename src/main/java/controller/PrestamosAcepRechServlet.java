@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Cuota;
+import entidades.Movimiento;
 import entidades.Prestamo;
+import entidades.TipoMovimiento;
 import negocioImpl.PrestamoNegocio;
 
 /**
@@ -33,6 +36,7 @@ public class PrestamosAcepRechServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Cuota c = new Cuota();
+		Movimiento mov = new Movimiento();
 		PrestamoNegocio p = new PrestamoNegocio();
 		String param = request.getParameter("Param");		
 		if(param != null && !param.isEmpty()) {
@@ -46,12 +50,22 @@ public class PrestamosAcepRechServlet extends HttpServlet {
 			
 			case "aprobar":
 				int idCliente = Integer.parseInt(request.getParameter("id"));
+				Date fecha = new Date();
+				TipoMovimiento m = new TipoMovimiento();
+				m.setCodigoTipoMov(2);
 				String cuenta = request.getParameter("cuenta");
 		        double saldo = Double.parseDouble(request.getParameter("saldo"));
 		        int idPrestamo = Integer.parseInt(request.getParameter("prestamo"));
 		        double montoMensual = Double.parseDouble(request.getParameter("mensual"));
 				int cuotas = Integer.parseInt(request.getParameter("cuotas"));
 				boolean exito = p.acreditarPrestamo(saldo, idCliente, cuenta, idPrestamo);
+				int ncuenta = Integer.parseInt(request.getParameter("cuenta"));
+				mov.setNumeroCuenta(ncuenta);
+				mov.setTipoMovimiento(m);
+				mov.setDetalle("Prestamo aprobado");
+				mov.setFecha(fecha);
+				mov.setImporte(saldo);
+				boolean exito2 = p.generarMovimiento(mov);
 				for (int i = 1; i <= cuotas; i++) {
 				    c.setEstado(true);
 				    c.setIdPrestamo(idPrestamo);
@@ -60,7 +74,7 @@ public class PrestamosAcepRechServlet extends HttpServlet {
 				    p.agregarCuota(c);
 				}
 
-				if (exito) {
+				if (exito && exito2) {
 				    request.setAttribute("mensaje", "Prestamo aprobado, cuotas generadas y acreditado correctamente");
 				} else {
 				    request.setAttribute("error", "Error al acreditar el prestamo");
