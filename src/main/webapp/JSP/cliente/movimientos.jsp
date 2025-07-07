@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidades.Movimiento"%>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -13,6 +16,14 @@
 
 <body>
 	<jsp:include page="../navbar/navCliente.jsp"/>
+	
+	<%
+	    List<Movimiento> listaMovimientos = new ArrayList<Movimiento>();
+	    if (request.getAttribute("listaMovimientos") != null) {
+	        listaMovimientos = (List<Movimiento>) request.getAttribute("listaMovimientos");
+	    }
+	%>
+
 
 	<!-- Títulos -->
 	<h1>Movimientos</h1>
@@ -37,30 +48,38 @@
 	
 	
 		<section class="grid-container">
-				<table>
+				<table class="contenido.listado">
 					<thead>
 					    <tr>
 					        <th>Fecha</th>
 					        <th>Detalle</th>
 					        <th>Importe</th>
 					        <th>Tipo de movimiento</th>
-					        <th></th>
 					    </tr>
 					</thead>
 					
 					<tbody>
-		                <c:forEach var="movimiento" items="${listaMovimientos}">
-		                    <tr>
-		                        <td>${movimiento.fecha}</td>
-		                        <td>${movimiento.detalle}</td>
-		                        <td>${movimiento.importe}</td>
-		                        <td>${movimiento.tipoMovimiento}</td>
-		                        <td>
-		                            <a href="#" class="btnAccion">Editar</a>
-		                            <a href="#" class="btnEliminar">Eliminar</a>
-		                        </td>
-		                    </tr>
-		                </c:forEach>
+	                <%
+                    	if (listaMovimientos != null && !listaMovimientos.isEmpty()) {
+                        	for (Movimiento m : listaMovimientos) {
+               		%>
+                		<tr>
+	                        <td><%= m.getFecha() %></td>
+	                        <td><%= m.getDetalle() %></td>
+	                        <td><%= m.getImporte() %></td>
+	                        <td><%= m.getTipoMovimiento().getDescripcion() %></td>
+                    	</tr>
+                	<%
+                    		}
+                    	} else {
+                	%>
+	                    <tr>
+	                        <td colspan="7">No se encontraron movimientos para esta cuenta.</td>
+	                    </tr>
+                	<%
+                    	}
+                	%>
+                	
 	                </tbody>
 				</table>
 			</section>

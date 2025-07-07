@@ -27,15 +27,14 @@
 	 <!-- Contenido principal -->
     <main class="contenido-principal">
 
-        <form method="post" action="${pageContext.request.contextPath}/MovimientosServlet">
-       		<input type="hidden" name="accion" value="listar" />
-       		
+        <form method="get" action="${pageContext.request.contextPath}/MovimientosServlet">
+       		<input type="hidden" name="nCuenta" value="<%=c.getNroCuenta() %>" />
        		
     
 	    	<h1>Resumen de Cuenta</h1>
        
             <fieldset class="card">
-            <legend>Detalles de (TIPO DE CUENTA) - Nº<%=c.getNroCuenta() %></legend>
+            <legend>Detalles de <%=c.getTipoCuenta() %> - Nº<%=c.getNroCuenta() %></legend>
             	
             	<div>
 	                <label>CBU</label>
@@ -61,11 +60,11 @@
 			
       		<div class="contenedor-botones">
 	            <div>
-	                <button type="submit">Historial de movimientos</button>
+	                <button type="submit" name="Param" value="lista">Historial de movimientos</button>
 	            </div>
 	
 	            <div>
-	                <button>Nueva transferencia</button>
+	                <button type="submit" name="Param" value="nuevaTransferencia" >Nueva transferencia</button>
 	            </div>
 	        </div>
             
