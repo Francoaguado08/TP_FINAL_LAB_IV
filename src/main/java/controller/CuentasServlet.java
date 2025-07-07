@@ -109,9 +109,8 @@ public class CuentasServlet extends HttpServlet {
 					System.out.println("hola" + idParam);
 					if (idParam != null) {
 	                    int idCuenta = Integer.parseInt(idParam);
-	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorId(idCuenta));
-	                    RequestDispatcher dispatcherEditar = request.getRequestDispatcher("/JSP/admin/editarCuenta.jsp");
-	                    dispatcherEditar.forward(request, response);  
+	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorNumeroCuenta(idCuenta));
+	                    request.getRequestDispatcher("/JSP/admin/editarCuenta.jsp").forward(request, response);  
 	                }
 					break;
 			
@@ -123,11 +122,20 @@ public class CuentasServlet extends HttpServlet {
 					if(idCli != null) { //agregar un exc?
 						List<CuentaListado> cuentasCli = cuentaNegocio.cuentasPorCliente(idCli);
 						request.setAttribute("listaCuentas", cuentasCli);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/cliente/listarCuentas.jsp");
-						dispatcher.forward(request, response); 
+						request.getRequestDispatcher("/JSP/cliente/listarCuentas.jsp").forward(request, response); 
 					}
 					
 					
+				}
+				case "obtener": // obtiene el Nro de cuenta desde el listado de cuentas (cliente)
+				{
+					String nroParam = request.getParameter("id");
+					if (nroParam != null) {
+	                    int nroCuenta = Integer.parseInt(nroParam);
+	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorNumeroCuenta(nroCuenta));
+	                    request.getRequestDispatcher("/JSP/cliente/menuCuenta.jsp").forward(request, response);  
+	                }
+					break;
 				}
 			}
 
@@ -258,8 +266,8 @@ public class CuentasServlet extends HttpServlet {
 	         * %08d = siempre van a ser 8 digitos, si pasamos del idCLiente 99 al 111 pasaríamos de 00000099 a 00000111
 	         * %14d = siempre van a ser 14 digitos, si pasamos del N°Cuenta 99 al 111 pasaríamos de 00000000000099 a 00000000000111
 	         * */
-	        int proximoNCliente = cuentaNegocio.obtenerProximoNumeroCliente();
-	        cbu = String.format("%08d%014d" ,idCliente, proximoNCliente); 
+	        int proximoNCuenta = cuentaNegocio.obtenerProximoNumeroCuenta();
+	        cbu = String.format("%08d%014d" ,idCliente, proximoNCuenta); 
 	        
 	        // Crear objeto Cuenta
 	        Cuenta cuenta = new Cuenta(idCliente, codTipoCuenta, cbu, fechaUtil, 10000.00);

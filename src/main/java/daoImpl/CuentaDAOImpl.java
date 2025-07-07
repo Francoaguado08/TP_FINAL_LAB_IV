@@ -187,7 +187,7 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	
 
 	@Override
-	public Cuenta obtenerPorId(int nroCuenta) {
+	public Cuenta obtenerPorNumeroCuenta(int nroCuenta) {
 	    
 	    Cuenta cuenta = null;
 	    
@@ -332,7 +332,7 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	}
 	
 	@Override
-	public int proximoNumeroCliente() {
+	public int proximoNumeroCuenta() {
 		conexion = Conexion.getConexion();
         Connection cn = conexion.getSQLConexion();
         

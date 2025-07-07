@@ -1,6 +1,4 @@
 <%@page import="entidades.Cuenta"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
 <!DOCTYPE html>
@@ -55,10 +53,12 @@
             <div>
     		<label>Tipo de Cuenta</label>
 			    <select name="tipoCuenta" id="tipoCuenta" required>
-			        <option value="1" <%= c.getCodTipoCuenta() == 1 ? "selected" : "" %> >Cuenta Corriente</option>
-			        <option value="2" <%= c.getCodTipoCuenta() == 2 ? "selected" : "" %> >Caja de ahorro</option>
+			        <option value="1" <%= c.getCodTipoCuenta() == 1 ? "selected" : "" %> >Caja de ahorro</option>
+			        <option value="2" <%= c.getCodTipoCuenta() == 2 ? "selected" : "" %> >Cuenta corriente</option>
 			    </select>
 			</div>
+			
+		</fieldset>
 			
 			<!-- Botones -->
         <div class="contenedor-botones">

@@ -15,9 +15,6 @@
 						<a href="${pageContext.request.contextPath}/CuentasServlet?Param=cuentasCli">Cuentas</a>
 					</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/JSP/cliente/transferencia.jsp">Transferencias</a>
-					</li>
-					<li>
 						<a href="${pageContext.request.contextPath}/PrestamosServlet?Param=click">Solicitar Préstamo</a>
 					</li>
 					<li>

@@ -13,13 +13,13 @@ public interface ICuentaNegocio {
     List<CuentaListado>listarTodos(); //  listado
     boolean eliminar(int nroCuenta);
     public boolean modificar(Cuenta cuenta);
-	public Cuenta obtenerPorId(int id);
+	public Cuenta obtenerPorNumeroCuenta(int id);
 	
 	public boolean clienteTieneTresCuentasActivas(int idCliente);
 	
 	List<CuentaListado>filtro(int nroCuenta, String cuil);
 	public List<CuentaListado> cuentasPorCliente(int idCli);
 	
-	public int obtenerProximoNumeroCliente();
+	public int obtenerProximoNumeroCuenta();
 	
 }

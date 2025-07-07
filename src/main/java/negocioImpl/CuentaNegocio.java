@@ -38,8 +38,8 @@ public class CuentaNegocio implements ICuentaNegocio {
 		return cuentaDAO.modificar(cuenta);
 	}
 	@Override
-	public Cuenta obtenerPorId(int id) {
-		return cuentaDAO.obtenerPorId(id);
+	public Cuenta obtenerPorNumeroCuenta(int id) {
+		return cuentaDAO.obtenerPorNumeroCuenta(id);
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class CuentaNegocio implements ICuentaNegocio {
 	}
 
 	@Override
-	public int obtenerProximoNumeroCliente(){
-		return cuentaDAO.proximoNumeroCliente();
+	public int obtenerProximoNumeroCuenta(){
+		return cuentaDAO.proximoNumeroCuenta();
 	}
 	
 	

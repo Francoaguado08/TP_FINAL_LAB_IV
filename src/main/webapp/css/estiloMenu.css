@@ -1,112 +1,47 @@
 
 /*contenido central*/
-
 .contenido-central {
 	display:flex;
 	align-items:center;
 	justify-content:center;
 	gap:5rem;
 	padding: 5rem 2rem;
-	
 }
+
+.contenido-central h1,h3{
+	color: var(--color-texto);
+    text-align: center;	
+}
+
+h1 b{
+	color: var(--color-principal);
+}
+
+.contenido-central div{
+	background-color: var(--color-secundario);
+	padding: 5rem 4rem;
+	width:40rem;
+	height: auto;
+	border-radius: 1rem;
+}
+
 .logo-central {
 	width:40rem;
 	height: auto;
 	border-radius: 1rem;
 }
-body table.Movimientos {
-    width: 100%;
-    border-collapse: collapse; 
-    margin: 20px 0 !important;
-    font-family: 'Arial', sans-serif;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /*sombritas*/
-}
 
-body h1.movTitulo {
-    text-align: center;
-    width: 100%;
-}
 
-body table.Prestamos {
-    width: 100%;
-    border-collapse: collapse; 
-    margin: 20px 0 !important;
-    font-family: 'Arial', sans-serif;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-/*por ver*/
-.Prestamos select {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.Prestamos select:hover {
-    border-color: #7bb3ea;
-    box-shadow: 0 0 0 2px rgba(123, 179, 234, 0.2);
-}
-
-body h1.misP {
-	font-family: arial;
-    text-align: center;
-    width: 100%;
-}
-
-body .btnPago{
-    width: 100%;
-    padding: 8px 12px;
-    background-color: #ffffff;
-    color: Black;
-    border: none;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+.btn-Menu{
+	width: 100%;
+    padding: 1rem;
+    background-color: var(--color-blanco);
+    color: var(--color-texto);
     font-weight: bold;
+    font-size: 1.6rem;
+    border: none;
+    outline: 0.1rem solid var(--color-principal);
+    border-radius: 0.5rem;
     cursor: pointer;
-}
-
-.btnPago:hover {
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
-}
-
-.btnFiltrar {
-    background-color: silver;
-    color: Black;
-    border: medium;
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btnFiltrar:hover {
-    background-color: #6aa3da;
-}
-
-.filtros-container {
-    background-color: #F0F8FF;
-    padding: 1.5rem;
-    border-radius: 6px;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.filtros-form {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-end;
-    flex-wrap: wrap;
-}
-
-.filtro {
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }

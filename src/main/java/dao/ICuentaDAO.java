@@ -13,7 +13,7 @@ public interface ICuentaDAO {
 	public List<CuentaListado>obtenerTodos();
 	public boolean eliminar(int nroCuenta);
 	public boolean modificar(Cuenta cuenta);
-	public Cuenta obtenerPorId(int idCuenta);
+	public Cuenta obtenerPorNumeroCuenta(int idCuenta);
 	
 	public int contarCuentasActivasPorCliente(int idCliente);
 	
@@ -21,5 +21,5 @@ public interface ICuentaDAO {
 	
 	public List<CuentaListado> cuentasPorCliente(int idCli);
 	
-	public int proximoNumeroCliente();
+	public int proximoNumeroCuenta();
 }

@@ -26,7 +26,7 @@
 	%>
 	
 	<section class="grid-container">
-		<section class="hospital-info">
+		<section>
                 <h1>Solicitudes de préstamo</h1>
                 
                    <% if(request.getAttribute("mensaje") != null) { %>

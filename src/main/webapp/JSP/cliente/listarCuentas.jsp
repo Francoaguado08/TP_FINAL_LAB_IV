@@ -52,7 +52,8 @@
                         <td><%= cuenta.getCuil() %></td>
                         <td>$ <%= cuenta.getSaldo() %></td>
                         <td><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(cuenta.getFechaCreacion()) %></td>
-                        <td><a href="#" class="btnAccion">Seleccionar</a></td>
+                        <td><a href="CuentasServlet?Param=obtener&id=<%=cuenta.getNroCuenta()%>" class="btnAccion">Seleccionar</a>
+
                     </tr>
                 <%
                         }
