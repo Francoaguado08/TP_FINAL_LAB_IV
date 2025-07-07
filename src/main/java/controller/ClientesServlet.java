@@ -59,7 +59,7 @@ public class ClientesServlet extends HttpServlet {
 					dispatcher.forward(request, response);
 					break;
 				}
-				case "editar":
+				case "editar":	//obtiene el id desde el listado de clientes (admin)
 				{
 					String idParam = request.getParameter("id");
 					if (idParam != null) {
@@ -84,6 +84,19 @@ public class ClientesServlet extends HttpServlet {
 				        }
 				    }
 				    break;
+				}
+				case "obtener": //obtiene el id desde la variable session que se define en el login (cliente)
+				{
+					HttpSession session = request.getSession();
+					
+					int idCliente = (int) session.getAttribute("IdCliente");
+					System.out.println("id " + idCliente);
+					Cliente cliente = clienteNegocio.obtenerPorId(idCliente);
+					System.out.println("ape " +cliente.getApellido());
+					if(cliente!=null) request.setAttribute("cliente", cliente);
+					System.out.println("ape " +cliente.getNombre());
+					request.getRequestDispatcher("/JSP/cliente/verDatosCliente.jsp").forward(request, response);
+					break;
 				}
 
 			}		

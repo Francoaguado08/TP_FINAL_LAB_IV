@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 			        	sesCli.setAttribute("IdCliente", idCliente);
 	                	response.sendRedirect(request.getContextPath() + "/JSP/cliente/menuCliente.jsp");
 	                    break;
-	                case "admin":
+	                case "administrador": //asi esta definido en el notion
 	                    response.sendRedirect(request.getContextPath() + "/JSP/admin/menuAdmin.jsp");
 	                    break; 
 	            }

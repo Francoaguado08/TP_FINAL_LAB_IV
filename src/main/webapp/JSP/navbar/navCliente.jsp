@@ -25,7 +25,7 @@
 					</li>
 					
 					<li>
-						<a href="${pageContext.request.contextPath}/JSP/cliente/verDatosCliente.jsp" title="Ver información">
+						<a href="${pageContext.request.contextPath}/ClientesServlet?Param=obtener" title="Ver información">
 							<img src="${pageContext.request.contextPath}/images/user.png" width="15" height="15"/>
 							<%=session.getAttribute("usuario") %> 
 						</a>

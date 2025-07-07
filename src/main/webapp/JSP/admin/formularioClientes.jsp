@@ -149,25 +149,28 @@
 			
 			</fieldset>
 			
-        <!-- Sección Datos de Inicio de Sesión -->
-        <fieldset class="card">
-            <legend>Datos de Inicio de Sesión</legend>
-
-			<div>
-				<label for="username">Nombre de Usuario</label>
-				<input type="text" name="username" id="username" placeholder="Ingrese nombre de usuario" required>
-			</div>
-
-			<div>
-				<label for="password">Contraseña</label>
-				<input type="password" name="password" id="password" placeholder="Ingrese contraseña" required>
-			</div>
-
-			<div>
-				<label for="confirmPassword">Confirmar Contraseña</label>
-				<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repita la contraseña" required>
-			</div>
-
+	        <!-- Sección Datos de Inicio de Sesión -->
+	        <fieldset class="card">
+	            <legend>Datos de Inicio de Sesión</legend>
+	
+				<div>
+					<label for="username">Nombre de Usuario</label>
+					<input type="text" name="username" id="username" placeholder="Ingrese nombre de usuario" required>
+				</div>
+	
+				<div>
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" id="password" placeholder="Ingrese contraseña" required>
+				</div>
+	
+				<div>
+					<label for="confirmPassword">Confirmar Contraseña</label>
+					<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repita la contraseña" required>
+				</div>
+	
+				
+			</fieldset>
+		
 			<div class="contenedor-botones">
 				<div>
 					<button type="submit">Agregar Cliente</button>
@@ -177,8 +180,7 @@
 					<a class="btnCancelar" href="${pageContext.request.contextPath}/JSP/admin/menuAdmin.jsp">Cancelar</a>
 				</div>		
 			</div>
-		</fieldset>
-		
+			
 		</form>
 	</main>
 
