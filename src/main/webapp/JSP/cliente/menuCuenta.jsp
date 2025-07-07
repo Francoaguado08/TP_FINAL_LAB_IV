@@ -1,4 +1,4 @@
-<%@page import="entidades.Cuenta"%>
+<%@page import="entidades.CuentaListado"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -16,10 +16,10 @@
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
 	<%
-		Cuenta c = new Cuenta();
+		CuentaListado c = new CuentaListado();
 		if (request.getAttribute("cuenta") != null) 
 		{
-			c = (Cuenta) request.getAttribute("cuenta");
+			c = (CuentaListado) request.getAttribute("cuenta");
 		}
 	%>
 	
@@ -44,7 +44,7 @@
             	
             	<div>
 	                <label>Tipo de Cuenta</label>
-	                <input type="text" name="tipoCuenta" value="ACA VA EL TIPO DE CUENTA" readonly>
+	                <input type="text" name="tipoCuenta" value="<%=c.getTipoCuenta() %>" readonly>
             	</div>
             	
             	<div>

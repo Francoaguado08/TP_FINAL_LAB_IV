@@ -132,7 +132,7 @@ public class CuentasServlet extends HttpServlet {
 					String nroParam = request.getParameter("id");
 					if (nroParam != null) {
 	                    int nroCuenta = Integer.parseInt(nroParam);
-	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorNumeroCuenta(nroCuenta));
+	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorNumeroCuentaListado(nroCuenta));
 	                    request.getRequestDispatcher("/JSP/cliente/menuCuenta.jsp").forward(request, response);  
 	                }
 					break;

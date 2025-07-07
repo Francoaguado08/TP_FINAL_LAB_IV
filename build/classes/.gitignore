@@ -1,6 +1,6 @@
-/exceptions/
-/controller/
-/negocio/
-/negocioImpl/
 /dao/
 /daoImpl/
+/negocio/
+/negocioImpl/
+/controller/
+/entidades/

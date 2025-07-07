@@ -56,6 +56,11 @@ public class CuentaListado {
 		public void setFechaCreacion(Date fechaCreacion) {
 			this.fechaCreacion = fechaCreacion;
 		}
+		@Override
+		public String toString() {
+			return "CuentaListado [nroCuenta=" + nroCuenta + ", tipoCuenta=" + tipoCuenta + ", cbu=" + cbu + ", cuil="
+					+ cuil + ", saldo=" + saldo + ", fechaCreacion=" + fechaCreacion + ", estado=" + estado + "]";
+		}
 
 	   
 	    

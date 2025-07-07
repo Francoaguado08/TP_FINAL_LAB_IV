@@ -184,8 +184,47 @@ public class CuentaDAOImpl implements ICuentaDAO{
 	    return modificado;
 	}
 
-	
+	public CuentaListado obtenerPorNumeroCuentaListado(int nroCuenta) {
+	    
+	    CuentaListado cuenta = null;
+	    
+	    conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    
+	    String query = "{CALL sp_obtener_cuenta_por_id(?)}";
+	    
+	    try {
+	        CallableStatement cs = cn.prepareCall(query);
+	        cs.setInt(1, nroCuenta);
+	        ResultSet rs = cs.executeQuery();
 
+	        if(rs.next()) 
+	        {
+	            cuenta = new CuentaListado();
+	            cuenta.setNroCuenta(rs.getInt("NroCuenta"));
+	            cuenta.setCbu(rs.getString("CBU"));
+	            cuenta.setTipoCuenta(rs.getString("TipoCuenta_Descripcion"));
+	            cuenta.setFechaCreacion(rs.getDate("Fecha_creacion"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	            cuenta.setCuil(rs.getString("CUIL"));
+	        }
+	        //System.out.println(cuenta.toString());
+	        
+	    }
+	    catch(Exception e) 
+	    {
+	        e.printStackTrace();
+	    }
+	    finally
+	    {
+	        conexion.cerrarConexion();
+	    }
+	    return cuenta;
+	}
+	
+	
+	
+	
 	@Override
 	public Cuenta obtenerPorNumeroCuenta(int nroCuenta) {
 	    
