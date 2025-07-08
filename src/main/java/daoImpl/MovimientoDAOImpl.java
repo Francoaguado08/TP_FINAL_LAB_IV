@@ -119,7 +119,40 @@ public class MovimientoDAOImpl implements IMovimientoDAO{
 		
 	}
 	
+	public boolean transferencia(int nroCuentaOrigen, int nroCuentaDestino, double importe) {
+		boolean res = false;
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		
+		String query = "{CALL sp_transferir_cuentas(?, ?, ?)}";
+		
+		try {
+			CallableStatement cs = cn.prepareCall(query);
 			
+			cs.setInt(1, nroCuentaOrigen);
+			cs.setInt(2, nroCuentaDestino);
+			cs.setDouble(3, importe);
+			
+			if (cs.executeUpdate() > 0) {
+				cn.commit();
+				res = true;
+			}
+			
+		} catch (Exception e) {
+			try {
+				cn.rollback();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			System.out.println("Error al ejecutar la transferencia" + e.getMessage());
+		}
+		finally {
+			conexion.cerrarConexion();
+		}
+		
+		
+		return res;
+	}		
 			
 		
 		

@@ -68,6 +68,8 @@ public class CuentaNegocio implements ICuentaNegocio {
 	public int obtenerProximoNumeroCuenta(){
 		return cuentaDAO.proximoNumeroCuenta();
 	}
-	
+	public Cuenta obtenerPorCBU(String CBU) {
+		return cuentaDAO.obtenerPorCBU(CBU);
+	}
 	
 }

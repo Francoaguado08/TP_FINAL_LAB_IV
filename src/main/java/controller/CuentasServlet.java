@@ -137,6 +137,18 @@ public class CuentasServlet extends HttpServlet {
 	                }
 					break;
 				}
+				
+				case "seleccionCuenta":{
+					String nroParam = request.getParameter("id");
+					if (nroParam != null) {
+	                    int nroCuenta = Integer.parseInt(nroParam);
+	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorNumeroCuentaListado(nroCuenta));
+	                    request.getRequestDispatcher("/JSP/cliente/transferencia.jsp").forward(request, response);  
+	                }
+					
+					break;
+				}
+				
 			}
 
 		}

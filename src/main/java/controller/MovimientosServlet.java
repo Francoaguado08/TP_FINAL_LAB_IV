@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Movimiento;
+import entidades.Cuenta;
 import negocio.IClienteNegocio;
 import negocio.IMovimientoNegocio;
+import negocio.ICuentaNegocio;
+import negocioImpl.CuentaNegocio;
 import negocioImpl.ClienteNegocio;
 import negocioImpl.MovimientoNegocio;
 
@@ -61,8 +64,54 @@ public class MovimientosServlet extends HttpServlet {
 				}
 				case "nuevaTransferencia":
 				{
-				
-					break;
+					String paramDestino = request.getParameter("destino");
+				    String paramCuentaOrigen = request.getParameter("nCuentaOrigen");
+				    String paramImporte = request.getParameter("suma");
+				    
+				    int nroCuentaDestino = -1;
+				    int nroCuentaOrigen = -1;
+				    double importe = 0;
+				    
+				    //es para tomar el nroCuenta a partir del cbu
+				    ICuentaNegocio cuentaNeg = new CuentaNegocio();
+
+				    try {
+				        if (paramCuentaOrigen != null) {
+				            nroCuentaOrigen = Integer.parseInt(paramCuentaOrigen);
+				        }
+
+				        if (paramImporte != null) {
+				            importe = Double.parseDouble(paramImporte);
+				        }
+
+				        if (paramDestino != null) {
+				            try {
+				                nroCuentaDestino = Integer.parseInt(paramDestino);
+				            } catch (NumberFormatException e) {
+				            	//si entra aca, tengo que buscar con el CBU
+				                Cuenta cuentaDest = cuentaNeg.obtenerPorCBU(paramDestino);
+				                if (cuentaDest != null) {
+				                    nroCuentaDestino = cuentaDest.getNroCuenta();
+				                }
+				            }
+				        }
+
+				        // Validar datos antes de ejecutar
+				        if (nroCuentaOrigen > 0 && nroCuentaDestino > 0 && importe > 0) {
+				            boolean exito = movimientoNegocio.transferencia(nroCuentaOrigen, nroCuentaDestino, importe);
+				            if (exito) {
+				                response.sendRedirect("CuentasServlet?Param=seleccionCuenta&id=" + nroCuentaOrigen + "&msg=ok");
+				            } else {
+				                response.sendRedirect("CuentasServlet?Param=seleccionCuenta&id=" + nroCuentaOrigen + "&msg=error");
+				            }
+				        } else {
+				            response.sendRedirect("CuentasServlet?Param=seleccionCuenta&id=" + nroCuentaOrigen + "&msg=paramError");
+				        }
+				    } catch (Exception e) {
+				        e.printStackTrace();
+				        response.sendRedirect("CuentasServlet?Param=seleccionCuentar&id=" + nroCuentaOrigen + "&msg=excepcion");
+				    }
+				    break;
 				}
 			}
 		}

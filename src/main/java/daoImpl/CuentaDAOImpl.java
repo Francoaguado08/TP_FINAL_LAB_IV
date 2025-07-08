@@ -400,6 +400,65 @@ public class CuentaDAOImpl implements ICuentaDAO{
 		return proximoID;
 	}
 
+	@Override
+	public boolean existe(int nroCuenta) {
+		conexion = Conexion.getConexion();
+        Connection cn = conexion.getSQLConexion();
+        
+        String query = "SELECT NroCuenta FROM Cuentas WHERE NroCuenta = ? AND Estado = 1";
+        try {
+			PreparedStatement statement = cn.prepareStatement(query);
+			statement.setInt(1, nroCuenta);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        finally {
+        	conexion.cerrarConexion();
+        }
+        return false;
+        
+	}
+
+	@Override
+	public Cuenta obtenerPorCBU(String cbu) {
+		Cuenta cuenta = null;
+	    
+	    conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    
+	    String query = "SELECT * FROM Cuentas WHERE CBU = ? AND Estado = 1";
+	    
+	    try {
+	        PreparedStatement statement = cn.prepareStatement(query);
+	        statement.setString(1, cbu);
+	        ResultSet rs = statement.executeQuery();
+
+	        if(rs.next()) 
+	        {
+	            cuenta = new Cuenta();
+	            cuenta.setNroCuenta(rs.getInt("NroCuenta"));
+	            cuenta.setIdCliente(rs.getInt("ID_Cliente"));
+	            cuenta.setCodTipoCuenta(rs.getInt("Cod_TipoCuenta"));
+	            cuenta.setCbu(rs.getString("CBU"));
+	            cuenta.setFechaCreacion(rs.getDate("Fecha_creacion"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	        }
+	    }
+	    catch(Exception e) 
+	    {
+	        e.printStackTrace();
+	    }
+	    finally
+	    {
+	        conexion.cerrarConexion();
+	    }
+	    return cuenta;
+	}
+
 		
 	
 

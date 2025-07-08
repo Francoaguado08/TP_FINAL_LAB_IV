@@ -16,5 +16,6 @@ public interface IMovimientoDAO {
 	
     public ReporteResultado obtenerReporte(java.sql.Date desde, java.sql.Date hasta);
 
+    public boolean transferencia(int nroCuentaOrigen, int nroCuentaDestino, double importe);
 
 }

@@ -14,6 +14,7 @@ public interface ICuentaNegocio {
     boolean eliminar(int nroCuenta);
     public boolean modificar(Cuenta cuenta);
 	public Cuenta obtenerPorNumeroCuenta(int id);
+	public Cuenta obtenerPorCBU(String CBU);
 	public CuentaListado obtenerPorNumeroCuentaListado(int id);
 	public boolean clienteTieneTresCuentasActivas(int idCliente);
 	
