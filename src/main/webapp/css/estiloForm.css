@@ -141,3 +141,44 @@ button:hover {
     background-color: #b71c1c;
     box-shadow: 0 2px 8px rgba(30, 43, 55, 0.2);
 }
+
+
+
+
+
+.formulario-reporte {
+    background-color: #f7f4ee;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.formulario-reporte label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formulario-reporte input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-generar {
+    padding: 8px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-generar:hover {
+    background-color: #0056b3;
+}
+
+.resultado-reporte {
+    font-size: 1.1rem;
+}

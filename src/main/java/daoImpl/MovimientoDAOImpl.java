@@ -4,10 +4,12 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dao.IMovimientoDAO;
 import entidades.Movimiento;
+import entidades.ReporteResultado;
 import entidades.TipoMovimiento;
 
 public class MovimientoDAOImpl implements IMovimientoDAO{
@@ -73,5 +75,56 @@ public class MovimientoDAOImpl implements IMovimientoDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ReporteResultado obtenerReporte(java.sql.Date desde, java.sql.Date hasta){
+		//establezco la conexion.
+		conexion = Conexion.getConexion();
+		Connection cn = conexion.getSQLConexion();
+		
+		double ingresos = 0;
+		double egresos = 0;
+		
+		String query = "{CALL sp_Ingresos_Egresos(?,?)}";
+		
+		try {
+			CallableStatement cs = cn.prepareCall(query);
+			cs.setDate(1, new java.sql.Date(desde.getTime()) );
+			cs.setDate(2, new java.sql.Date(hasta.getTime()));
+		
+			ResultSet rs = cs.executeQuery();
+		
+			if (rs.next()) {
+			    ingresos = rs.getDouble("TotalIngresos");
+			    if (rs.wasNull()) ingresos = 0.0;
+
+			    egresos = rs.getDouble("TotalEgresos");
+			    if (rs.wasNull()) egresos = 0.0;
+			}
+			
+			
+			rs.close();
+			cs.close();
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			conexion.cerrarConexion();
+		}
+			
+		return new ReporteResultado(ingresos, egresos);
+		
+	}
+	
+			
+			
+		
+		
+		
+		
+		
 
 }

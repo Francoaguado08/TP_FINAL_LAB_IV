@@ -1,6 +1,6 @@
-/entidades/
-/controller/
 /dao/
+/entidades/
 /daoImpl/
 /negocio/
 /negocioImpl/
+/controller/
