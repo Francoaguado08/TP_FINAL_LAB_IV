@@ -18,7 +18,7 @@
 						<a href="${pageContext.request.contextPath}/PrestamosServlet?Param=click">Solicitar Préstamo</a>
 					</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/JSP/cliente/pagoCuotas.jsp">Pagar Préstamos</a>
+						<a href="${pageContext.request.contextPath}/CuotasServlet?Param=pagar">Pagar Préstamos</a>
 					</li>
 					
 					<li>
