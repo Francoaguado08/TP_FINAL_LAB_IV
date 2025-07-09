@@ -17,7 +17,6 @@
 <body>
 	<jsp:include page="../navbar/navAdmin.jsp"/>
 	
-	
 	<%
 		List<Prestamo> l = null;
 		if(request.getAttribute("listaP")!=null){
@@ -29,13 +28,13 @@
 		<section>
                 <h1>Solicitudes de préstamo</h1>
                 
-                   <% if(request.getAttribute("mensaje") != null) { %>
+    <% if(request.getAttribute("mensaje") != null) { %>
   	<div style="color:green">
    	<%= request.getAttribute("mensaje") %>
    	 </div>
 	<% } %>
 	
-	   <% if(request.getAttribute("error") != null) { %>
+	<% if(request.getAttribute("error") != null) { %>
   	<div style="color:red">
    	<%= request.getAttribute("error") %>
    	 </div>
@@ -48,7 +47,15 @@
 	<% } %>
 	
             </section>
-                <table>
+            
+            	
+			<form action="${pageContext.request.contextPath}PrestamosAcepRechServlet" method="get">
+  			<label for="busqueda">Buscar por numero de cliente</label>
+  			<input type="text" name="filtro" placeholder="ej: 1" required> 
+  			<button type="submit" name = "filtroBtn">Buscar</button>
+  			</form>
+            
+                <table id="tablaPrestamos">
                     <thead>
                         <tr>
                         	<th>Prestamo</th>
@@ -84,6 +91,37 @@
                     </tbody>
                 </table>
             </section>
+	 <!-- CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <!-- jQuery (requerido por DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- JS de DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    
+    
+    
+    
+   <script>
+  $(document).ready(function () {
+    $('#tablaPrestamos').DataTable({
+      "searching": false,       
+      "lengthChange": false,     
+      "info": false,             
+      "pagingType": "simple",   
+      "pageLength": 5,           
+      "language": {
+        "paginate": {
+          "previous": "Anterior",
+          "next": "Siguiente"
+        },
+        "emptyTable": "No hay prestamos disponibles"
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
