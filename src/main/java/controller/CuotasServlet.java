@@ -69,7 +69,7 @@ public class CuotasServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("click") != null) {
 	        HttpSession session = request.getSession(false);
-	        if (session != null && session.getAttribute("IdCliente") != null) {
+	        if (session != null && session.getAttribute("IdCliente") != null && request.getParameter("cuentaSeleccionada")!=null) {
 	            int idCliente = (Integer) session.getAttribute("IdCliente");
 	            Movimiento mov = new Movimiento();
 	            boolean pagoExitoso = false;
@@ -113,6 +113,16 @@ public class CuotasServlet extends HttpServlet {
 	            RequestDispatcher rd = request.getRequestDispatcher("/JSP/cliente/pagoCuotas.jsp"); 
 	            rd.forward(request, response);
 	        }
+	        int idCliente = (Integer) session.getAttribute("IdCliente");
+	        List<Cuota> l = c.obtenerCuotas(idCliente);  
+            List<Cuenta> lc = p.misCuentas(idCliente);
+
+            request.setAttribute("listacuotas", l);
+            request.setAttribute("listacuentas", lc);
+            request.setAttribute("mensajeError", "Error de sesion/No eligió una cuenta");
+            
+	        RequestDispatcher rd = request.getRequestDispatcher("/JSP/cliente/pagoCuotas.jsp"); 
+            rd.forward(request, response);
 	    }
 	}
 	
