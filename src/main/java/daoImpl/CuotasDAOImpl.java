@@ -129,6 +129,30 @@ public class CuotasDAOImpl implements ICuotasDAO {
 		    return generado;
 		}
 
+	@Override
+	public double obtenerSaldo(int nroCuenta) {
+	    Conexion conexion;
+	    double saldo = 0;
+	    conexion = Conexion.getConexion();
+	    Connection cn = conexion.getSQLConexion();
+	    String query = "SELECT Saldo FROM cuentas WHERE NroCuenta = ?";
+
+	    try {
+	        PreparedStatement ps = cn.prepareStatement(query);
+	        ps.setInt(1, nroCuenta);
+	        ResultSet rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            saldo = rs.getInt("Saldo");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return saldo;
+	}
+
+
 	
 	
 }

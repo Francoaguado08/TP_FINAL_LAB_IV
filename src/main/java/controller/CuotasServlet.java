@@ -66,65 +66,81 @@ public class CuotasServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("click") != null) {
-	        HttpSession session = request.getSession(false);
-	        if (session != null && session.getAttribute("IdCliente") != null && request.getParameter("cuentaSeleccionada")!=null) {
-	            int idCliente = (Integer) session.getAttribute("IdCliente");
-	            Movimiento mov = new Movimiento();
-	            boolean pagoExitoso = false;
-	            boolean movGenerado = false;
-	            try {
-	                Date fecha = new Date();
-	                int idPrestamo = Integer.parseInt(request.getParameter("idPrestamo"));
-	                int nroCuota = Integer.parseInt(request.getParameter("nroCuota"));
-	                double monto = Double.parseDouble(request.getParameter("monto"));
-	                String cuentaSeleccionada = request.getParameter("cuentaSeleccionada");
-	                
-	                pagoExitoso = c.pagoCuota(nroCuota, idPrestamo, cuentaSeleccionada, fecha, monto, idCliente);
-	                
-	                int	cuentaElegida = Integer.parseInt(request.getParameter("cuentaSeleccionada"));
-	                TipoMovimiento t = new TipoMovimiento();
-	                t.setCodigoTipoMov(3);
-	                mov.setDetalle("Pago de cuota");
-	                mov.setFecha(fecha);
-	                mov.setImporte(monto);
-	                mov.setNumeroCuenta(cuentaElegida);
-	                mov.setTipoMovimiento(t);
-	                movGenerado = c.generarMovimiento(mov);
-	                
-	                
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	                request.setAttribute("mensajeError", "Ocurrió un error al procesar el pago");
-	            }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("click") != null) {
+            HttpSession session = request.getSession(false);
 
-	            if (pagoExitoso && movGenerado) {
-	                List<Cuota> l = c.obtenerCuotas(idCliente);  
-	                List<Cuenta> lc = p.misCuentas(idCliente);
+            if (session != null && session.getAttribute("IdCliente") != null && request.getParameter("cuentaSeleccionada") != null) {
+                int idCliente = (Integer) session.getAttribute("IdCliente");
+                int cuentaElegidaT = Integer.parseInt(request.getParameter("cuentaSeleccionada"));
+                double saldoActual = c.obtenerSaldo(cuentaElegidaT);
+                double montoPago = Double.parseDouble(request.getParameter("monto"));
 
-	                request.setAttribute("listacuotas", l);
-	                request.setAttribute("listacuentas", lc);
-	                request.setAttribute("mensajeExito", "Pago realizado correctamente");
-	            } else {
-	                request.setAttribute("mensajeError", "No se pudo procesar el pago");
-	            }
+                if (saldoActual >= montoPago) {
+                    Movimiento mov = new Movimiento();
+                    boolean pagoExitoso = false;
+                    boolean movGenerado = false;
 
-	            RequestDispatcher rd = request.getRequestDispatcher("/JSP/cliente/pagoCuotas.jsp"); 
-	            rd.forward(request, response);
-	        }
-	        int idCliente = (Integer) session.getAttribute("IdCliente");
-	        List<Cuota> l = c.obtenerCuotas(idCliente);  
-            List<Cuenta> lc = p.misCuentas(idCliente);
+                    try {
+                        Date fecha = new Date();
+                        int idPrestamo = Integer.parseInt(request.getParameter("idPrestamo"));
+                        int nroCuota = Integer.parseInt(request.getParameter("nroCuota"));
+                        double monto = Double.parseDouble(request.getParameter("monto"));
+                        String cuentaSeleccionada = request.getParameter("cuentaSeleccionada");
 
-            request.setAttribute("listacuotas", l);
-            request.setAttribute("listacuentas", lc);
-            request.setAttribute("mensajeError", "Error de sesion/No eligió una cuenta");
-            
-	        RequestDispatcher rd = request.getRequestDispatcher("/JSP/cliente/pagoCuotas.jsp"); 
+                        pagoExitoso = c.pagoCuota(nroCuota, idPrestamo, cuentaSeleccionada, fecha, monto, idCliente);
+
+                        int cuentaElegida = Integer.parseInt(cuentaSeleccionada);
+                        TipoMovimiento t = new TipoMovimiento();
+                        t.setCodigoTipoMov(3);
+                        mov.setDetalle("Pago de cuota");
+                        mov.setFecha(fecha);
+                        mov.setImporte(monto);
+                        mov.setNumeroCuenta(cuentaElegida);
+                        mov.setTipoMovimiento(t);
+
+                        movGenerado = c.generarMovimiento(mov);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        request.setAttribute("mensajeError", "Ocurrió un error al procesar el pago.");
+                    }
+
+                    if (pagoExitoso && movGenerado) {
+                        List<Cuota> l = c.obtenerCuotas(idCliente);
+                        List<Cuenta> lc = p.misCuentas(idCliente);
+                        request.setAttribute("listacuotas", l);
+                        request.setAttribute("listacuentas", lc);
+                        request.setAttribute("mensajeExito", "Pago realizado correctamente.");
+                    } else {
+                        request.setAttribute("mensajeError", "No se pudo procesar el pago.");
+                    }
+
+                } else {
+                    List<Cuota> l = c.obtenerCuotas(idCliente);
+                    List<Cuenta> lc = p.misCuentas(idCliente);
+                    request.setAttribute("listacuotas", l);
+                    request.setAttribute("listacuentas", lc);
+                    request.setAttribute("mensajeError", "Cuenta con saldo insuficiente para realizar el pago.");
+                }
+
+            } else {
+                if (session != null && session.getAttribute("IdCliente") != null) {
+                    int idCliente = (Integer) session.getAttribute("IdCliente");
+                    List<Cuota> l = c.obtenerCuotas(idCliente);
+                    List<Cuenta> lc = p.misCuentas(idCliente);
+                    request.setAttribute("listacuotas", l);
+                    request.setAttribute("listacuentas", lc);
+                }
+
+                request.setAttribute("mensajeError", "seleccionar una cuenta.");
+            }
+
+            RequestDispatcher rd = request.getRequestDispatcher("/JSP/cliente/pagoCuotas.jsp");
             rd.forward(request, response);
-	    }
-	}
+        }
+    }
+
 	
 	
 	

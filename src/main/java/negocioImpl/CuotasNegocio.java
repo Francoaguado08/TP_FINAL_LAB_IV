@@ -28,4 +28,9 @@ public class CuotasNegocio implements ICuotasNegocio{
 		return c.generarMovimiento(m);
 	}
 
+	@Override
+	public double obtenerSaldo(int nroCuenta) {
+		return c.obtenerSaldo(nroCuenta);
+	}
+
 }
