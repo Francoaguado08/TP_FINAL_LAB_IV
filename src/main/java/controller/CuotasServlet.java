@@ -14,7 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import entidades.Cuenta;
 import entidades.Cuota;
+import entidades.Movimiento;
+import entidades.TipoMovimiento;
 import negocioImpl.CuotasNegocio;
+import negocioImpl.MovimientoNegocio;
 import negocioImpl.PrestamoNegocio;
 
 /**
@@ -68,24 +71,35 @@ public class CuotasServlet extends HttpServlet {
 	        HttpSession session = request.getSession(false);
 	        if (session != null && session.getAttribute("IdCliente") != null) {
 	            int idCliente = (Integer) session.getAttribute("IdCliente");
-
+	            Movimiento mov = new Movimiento();
 	            boolean pagoExitoso = false;
-
+	            boolean movGenerado = false;
 	            try {
 	                Date fecha = new Date();
 	                int idPrestamo = Integer.parseInt(request.getParameter("idPrestamo"));
 	                int nroCuota = Integer.parseInt(request.getParameter("nroCuota"));
 	                double monto = Double.parseDouble(request.getParameter("monto"));
 	                String cuentaSeleccionada = request.getParameter("cuentaSeleccionada");
-
+	                
 	                pagoExitoso = c.pagoCuota(nroCuota, idPrestamo, cuentaSeleccionada, fecha, monto, idCliente);
-
+	                
+	                int	cuentaElegida = Integer.parseInt(request.getParameter("cuentaSeleccionada"));
+	                TipoMovimiento t = new TipoMovimiento();
+	                t.setCodigoTipoMov(3);
+	                mov.setDetalle("Pago de cuota");
+	                mov.setFecha(fecha);
+	                mov.setImporte(monto);
+	                mov.setNumeroCuenta(cuentaElegida);
+	                mov.setTipoMovimiento(t);
+	                movGenerado = c.generarMovimiento(mov);
+	                
+	                
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	                request.setAttribute("mensajeError", "Ocurrió un error al procesar el pago");
 	            }
 
-	            if (pagoExitoso) {
+	            if (pagoExitoso && movGenerado) {
 	                List<Cuota> l = c.obtenerCuotas(idCliente);  
 	                List<Cuenta> lc = p.misCuentas(idCliente);
 

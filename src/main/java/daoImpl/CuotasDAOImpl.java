@@ -1,5 +1,6 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import dao.ICuotasDAO;
 import entidades.Cuota;
+import entidades.Movimiento;
 
 public class CuotasDAOImpl implements ICuotasDAO {
 
@@ -90,6 +92,41 @@ public class CuotasDAOImpl implements ICuotasDAO {
 	    }
 
 	    return actualizado;
+		}
+
+	@Override
+		public boolean generarMovimiento(Movimiento m) {
+			Conexion conexion;
+			boolean generado = false;
+			conexion = Conexion.getConexion();
+		    Connection cn = conexion.getSQLConexion();
+		    String query = "{CALL sp_insertarMovimiento(?, ?, ?, ?, ?)}";
+
+		    try {
+		        CallableStatement cs = cn.prepareCall(query);	        
+		        cs.setInt(1, m.getNumeroCuenta());
+		        cs.setInt(2, m.getTipoMovimiento().getCodigoTipoMov());
+		        cs.setString(3, m.getDetalle());
+		        cs.setDouble(4, m.getImporte());
+		        cs.setDate(5, new java.sql.Date(m.getFecha().getTime()));
+		        
+		        if (cs.executeUpdate() > 0) {
+		            cn.commit();
+		            generado = true;
+		        }
+		    } catch (Exception e) {
+		        try {
+		            cn.rollback();
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        }
+		        System.out.println("Error al generar movimiento (SP): " + e.getMessage());
+		    }
+		    finally {
+		    	conexion.cerrarConexion();
+		    }
+
+		    return generado;
 		}
 
 	

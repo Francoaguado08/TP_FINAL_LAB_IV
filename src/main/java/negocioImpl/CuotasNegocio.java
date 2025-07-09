@@ -6,6 +6,7 @@ import java.util.List;
 import dao.ICuotasDAO;
 import daoImpl.CuotasDAOImpl;
 import entidades.Cuota;
+import entidades.Movimiento;
 import negocio.ICuotasNegocio;
 
 public class CuotasNegocio implements ICuotasNegocio{
@@ -20,6 +21,11 @@ public class CuotasNegocio implements ICuotasNegocio{
 	@Override
 	public boolean pagoCuota(int nCuota, int idP, String nro, Date fecha, double monto, int idCliente) {
 		return c.pagoCuota(nCuota, idP, nro, fecha, monto, idCliente);
+	}
+
+	@Override
+	public boolean generarMovimiento(Movimiento m) {
+		return c.generarMovimiento(m);
 	}
 
 }
