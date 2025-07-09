@@ -7,6 +7,9 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
+	<!-- CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    
 	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet">
@@ -48,7 +51,7 @@
 	
 	
 		<section class="grid-container">
-				<table class="contenido.listado">
+				<table id="tablaMovimientos" class="contenido.listado">
 					<thead>
 					    <tr>
 					        <th>Fecha</th>
@@ -82,29 +85,36 @@
                 	
 	                </tbody>
 				</table>
-				
-				<%
-				    int paginaActual = (int) request.getAttribute("paginaActual");
-				    int totalPaginas = (int) request.getAttribute("totalPaginas");
-				    int nCuenta = (int) request.getAttribute("nCuenta");
-				%>
-				
-				<div class="paginacion">
-				    <ul>
-				        <% for (int i = 1; i <= totalPaginas; i++) { %>
-				            <li style="display:inline; margin:0 5px;">
-				                <% if (i == paginaActual) { %>
-				                    <strong><%= i %></strong>
-				                <% } else { %>
-				                    <a href="MovimientosServlet?Param=lista&nCuenta=<%= nCuenta %>&pagina=<%= i %>"><%= i %></a>
-				                <% } %>
-				            </li>
-				        <% } %>
-				    </ul>
-				</div>
-				
+			
 			</section>
 		</main>
+		
+		
+		<!-- jQuery (requerido por DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- JS de DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    
+   <script>
+	  $(document).ready(function () {
+	    $('#tablaMovimientos').DataTable({
+	      "searching": false,       
+	      "lengthChange": false,     
+	      "info": false,             
+	      "pagingType": "simple_numbers",   
+	      "pageLength": 10,           
+	      "language": {
+	        "paginate": {
+	          "previous": "Anterior",
+	          "next": "Siguiente"
+	        },
+	        "emptyTable": "No hay movimientos disponibles"
+	      },
+	    });
+	  });
+  </script>
 
 	</body>
 </html>

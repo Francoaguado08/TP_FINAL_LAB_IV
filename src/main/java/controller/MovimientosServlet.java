@@ -47,40 +47,17 @@ public class MovimientosServlet extends HttpServlet {
 			{
 				case "lista":
 				{
-					
-					int pagina = 1;
-					int registrosPorPagina = 10;
-
-					if (request.getParameter("pagina") != null) {
-					    try {
-					        pagina = Integer.parseInt(request.getParameter("pagina"));
-					    } catch (NumberFormatException e) {
-					        pagina = 1; // fuera de limites vuelte al 1
-					    }
-					}
-					
 					String nParam = request.getParameter("nCuenta");
 					
 					if(nParam != null) {
 						int nCuenta = Integer.parseInt(nParam);
 						List<Movimiento> movimientos = movimientoNegocio.listarPorNumeroCuenta(nCuenta);
 						int totalRegistros = movimientos.size();
-						int inicio = (pagina - 1) * registrosPorPagina;
-						int fin = Math.min(inicio + registrosPorPagina, totalRegistros);
-						List<Movimiento> movimientosPaginados = movimientos.subList(inicio, fin);
-
-						// Pasa los datos al JSP
-						request.setAttribute("listaMovimientos", movimientosPaginados);
-						request.setAttribute("paginaActual", pagina);
-						request.setAttribute("totalPaginas", (int) Math.ceil((double) totalRegistros / registrosPorPagina)); // si son mas de 10 registros redondea para arriba
-																															//por ejemplo si es 11/10=1.1 el redondea daria 2
-						request.setAttribute("nCuenta", nCuenta);
+						request.setAttribute("listaMovimientos", movimientos);
 					}
 					
 					request.getRequestDispatcher("/JSP/cliente/movimientos.jsp").forward(request, response);
-					
 					break;
-					
 				}
 				case "nuevaTransferencia":
 				{

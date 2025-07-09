@@ -7,30 +7,13 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8" />
+	<!-- CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    
 	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet">
 	
-	
-	
-	 <!-- CSS de DataTables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-
-    <!-- jQuery (requerido por DataTables) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
-    <!-- JS de DataTables -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    
-    
-    
-    
-    
-    <script type="text/javascript">
-  	$(document).ready(function () {
-   		 $('#tablaClientes').DataTable();
-  	});
-						</script>
 
 	
 	<title>Listado Clientes</title>
@@ -160,6 +143,39 @@
 	
 		
 	</main>
+   
+   <!-- jQuery (requerido por DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- JS de DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    
+   <script>
+	  $(document).ready(function () {
+	    $('#tablaClientes').DataTable({
+	      "searching": false,       
+	      "lengthChange": false,     
+	      "info": false,             
+	      "pagingType": "simple_numbers",   
+	      "pageLength": 10,           
+	      "language": {
+	        "paginate": {
+	          "previous": "Anterior",
+	          "next": "Siguiente"
+	        },
+	        "emptyTable": "No hay clientes disponibles"
+	      },
+	      "columnDefs": [
+          {
+			"targets": [14, 15],  // Índices de las columnas que querés desactivar (empieza en 0)
+			"orderable": false
+			}
+		]
+	    });
+	  });
+  </script>
+   
    
 </body>
 </html>

@@ -1,16 +1,15 @@
 <%@page import="entidades.CuentaListado"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
+	<!-- CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    
 	<link href="${pageContext.request.contextPath}/css/normalize.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estilos.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/estiloLista.css" rel="stylesheet">
@@ -77,7 +76,7 @@
 			
             <!-- Tabla -->
             <section class="grid-container">
-                <table>
+                <table id="tablaCuentas">
                     <thead>
                         <tr>
                             <th>N° Cuenta</th>
@@ -86,6 +85,7 @@
                             <th>CUIL</th>
                             <th>Saldo</th>
                             <th>Fecha de creación</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -104,7 +104,8 @@
 					        <td>
 					            <a href="CuentasServlet?Param=editar&id=<%=cuenta.getNroCuenta()%>" class="btnAccion">Editar</a>
 					         </td>
-							<td><a href="CuentasServlet?Param=eliminar&nro=<%=cuenta.getNroCuenta()%>" 
+							<td>
+							<a href="CuentasServlet?Param=eliminar&nro=<%=cuenta.getNroCuenta()%>" 
 							   class="btnEliminar" 
 							   onclick="return confirm('¿Estás seguro de que querés eliminar esta cuenta?');">Eliminar</a> <!-- msj localhost -->
 							</td>
@@ -124,6 +125,39 @@
             </section>
         </div>
     </main>
+    
+    
+    <!-- jQuery (requerido por DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- JS de DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    
+   <script>
+	  $(document).ready(function () {
+	    $('#tablaCuentas').DataTable({
+	      "searching": false,       
+	      "lengthChange": false,     
+	      "info": false,             
+	      "pagingType": "simple_numbers",   
+	      "pageLength": 10,           
+	      "language": {
+	        "paginate": {
+	          "previous": "Anterior",
+	          "next": "Siguiente"
+	        },
+	        "emptyTable": "No hay cuentas disponibles"
+	      },
+	      "columnDefs": [
+          {
+			"targets": [6, 7],  // Índices de las columnas que querés desactivar (empieza en 0)
+			"orderable": false
+			}
+		]
+	    });
+	  });
+  </script>
 
     
 </body>
