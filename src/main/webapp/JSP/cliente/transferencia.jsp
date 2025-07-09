@@ -53,9 +53,9 @@
 	<!-- Form -->
 	<main class="contenido-principal">
 		
-		<form method ="get" action="${pageContext.request.contextPath}/MovimientosServlet">
+		<form method ="post" action="${pageContext.request.contextPath}/MovimientosServlet">
 			<input type="hidden" name="nCuentaOrigen" value="<%= c.getNroCuenta() %>" />
-			<input type="hidden" name="Param" value="nuevaTransferencia" />
+			<input type="hidden" name="Param" value="transferir" />
 			<h2>Transferencia</h2>
 			<div>
 			

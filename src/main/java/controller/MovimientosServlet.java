@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Movimiento;
 import entidades.Cuenta;
-import negocio.IClienteNegocio;
 import negocio.IMovimientoNegocio;
 import negocio.ICuentaNegocio;
 import negocioImpl.CuentaNegocio;
-import negocioImpl.ClienteNegocio;
 import negocioImpl.MovimientoNegocio;
 
 /**
@@ -27,7 +24,7 @@ public class MovimientosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// Instancia de la capa de negocio que maneja la lógica de movimientos
-	private IClienteNegocio clienteNegocio = new ClienteNegocio();
+	private ICuentaNegocio cuentaNegocio = new CuentaNegocio();
     
 	private IMovimientoNegocio movimientoNegocio = new MovimientoNegocio();
     /**
@@ -63,6 +60,32 @@ public class MovimientosServlet extends HttpServlet {
 					break;
 				}
 				case "nuevaTransferencia":
+				{
+					
+					String nParam = request.getParameter("nCuenta");
+					if (nParam != null) {
+	                    int nCuenta = Integer.parseInt(nParam);
+	                    request.setAttribute("cuenta", cuentaNegocio.obtenerPorNumeroCuentaListado(nCuenta));
+	                    request.getRequestDispatcher("/JSP/cliente/transferencia.jsp").forward(request, response);  
+	                }
+				    break;
+				}
+			}
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("Param")!=null) 
+		{
+			String accion = request.getParameter("Param").toString();
+			
+			switch (accion) 
+			{
+				case "transferir":
 				{
 					String paramDestino = request.getParameter("destino");
 				    String paramCuentaOrigen = request.getParameter("nCuentaOrigen");
@@ -100,29 +123,26 @@ public class MovimientosServlet extends HttpServlet {
 				        if (nroCuentaOrigen > 0 && nroCuentaDestino > 0 && importe > 0) {
 				            boolean exito = movimientoNegocio.transferencia(nroCuentaOrigen, nroCuentaDestino, importe);
 				            if (exito) {
-				                response.sendRedirect("CuentasServlet?Param=seleccionCuenta&id=" + nroCuentaOrigen + "&msg=ok");
+				                response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=ok");
 				            } else {
-				                response.sendRedirect("CuentasServlet?Param=seleccionCuenta&id=" + nroCuentaOrigen + "&msg=error");
+				                response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=error");
 				            }
 				        } else {
-				            response.sendRedirect("CuentasServlet?Param=seleccionCuenta&id=" + nroCuentaOrigen + "&msg=paramError");
+				            response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=paramError");
 				        }
 				    } catch (Exception e) {
 				        e.printStackTrace();
-				        response.sendRedirect("CuentasServlet?Param=seleccionCuentar&id=" + nroCuentaOrigen + "&msg=excepcion");
+				        response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=excepcion");
 				    }
-				    break;
+				    
+					break;
 				}
+				
 			}
+			
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		
 	}
 
 }

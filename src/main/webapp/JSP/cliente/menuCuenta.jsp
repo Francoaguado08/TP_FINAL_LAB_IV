@@ -27,9 +27,8 @@
 	 <!-- Contenido principal -->
     <main class="contenido-principal">
 
-        <form method="get" action="${pageContext.request.contextPath}/CuentasServlet">
-       		<input type="hidden" name="id" value="<%=c.getNroCuenta() %>" />
-       		<input type="hidden" name="Param" value="seleccionCuenta" />
+        <form method="get" action="${pageContext.request.contextPath}/MovimientosServlet">
+       		<input type="hidden" name="nCuenta" value="<%=c.getNroCuenta() %>" />
     
 	    	<h1>Resumen de Cuenta</h1>
        
