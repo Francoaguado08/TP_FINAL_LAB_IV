@@ -82,6 +82,27 @@
                 	
 	                </tbody>
 				</table>
+				
+				<%
+				    int paginaActual = (int) request.getAttribute("paginaActual");
+				    int totalPaginas = (int) request.getAttribute("totalPaginas");
+				    int nCuenta = (int) request.getAttribute("nCuenta");
+				%>
+				
+				<div class="paginacion">
+				    <ul>
+				        <% for (int i = 1; i <= totalPaginas; i++) { %>
+				            <li style="display:inline; margin:0 5px;">
+				                <% if (i == paginaActual) { %>
+				                    <strong><%= i %></strong>
+				                <% } else { %>
+				                    <a href="MovimientosServlet?Param=lista&nCuenta=<%= nCuenta %>&pagina=<%= i %>"><%= i %></a>
+				                <% } %>
+				            </li>
+				        <% } %>
+				    </ul>
+				</div>
+				
 			</section>
 		</main>
 
