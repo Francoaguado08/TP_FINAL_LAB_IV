@@ -26,27 +26,48 @@
 		<!-- Mensaje -->
 		
 	<div class="mensajes">
-		<%
-			String msg = request.getParameter("msg");
-			if ("ok".equals(msg)) {
-		%>
-			<p class="mensajeCorrecto">Transferencia realizada con éxito.</p>
-		<%
-			} else if ("error".equals(msg)) {
-		%>
-			<p class="mensajeIncorrecto">Error al realizar la transferencia, posible saldo insuficiente.</p>
-		<%
-			} else if ("paramError".equals(msg)) {
-		%>
-			<p class="mensajeIncorrecto">Faltan datos o el importe es inválido.</p>
-		<%
-			} else if ("excepcion".equals(msg)) {
-		%>
-			<p class="mensajeIncorrecto">Se produjo un error inesperado. Intente nuevamente.</p>
-		<%
-			}
-		%>
-	</div>
+    <%
+        String msg = request.getParameter("msg");
+        if ("ok".equals(msg)) {
+    %>
+        <p class="mensajeCorrecto">Transferencia realizada con éxito.</p>
+    <%
+        } else if ("cuentaOrigenInexistente".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">La cuenta origen no existe o está inactiva.</p>
+    <%
+        } else if ("cuentaDestinoInexistente".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">La cuenta destino no existe o está inactiva.</p>
+    <%
+        } else if ("importeInvalido".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">El importe ingresado es inválido.</p>
+    <%
+        } else if ("saldoInsuficiente".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">Saldo insuficiente para realizar la transferencia.</p>
+    <%
+        } else if ("mismaCuenta".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">No se puede transferir a la misma cuenta.</p>
+    <%
+        } else if ("falloTransferencia".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">Error inesperado al realizar la transferencia.</p>
+    <%
+        } else if ("excepcion".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">Se produjo un error inesperado. Intente nuevamente.</p>
+    <%
+        } else if ("paramError".equals(msg)) {
+    %>
+        <p class="mensajeIncorrecto">Faltan datos o el importe es inválido.</p>
+    <%
+        }
+    %>
+</div>
+
 			
 			
 			

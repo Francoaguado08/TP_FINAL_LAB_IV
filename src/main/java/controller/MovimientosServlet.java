@@ -118,18 +118,38 @@ public class MovimientosServlet extends HttpServlet {
 				                }
 				            }
 				        }
-
+				        
 				        // Validar datos antes de ejecutar
 				        if (nroCuentaOrigen > 0 && nroCuentaDestino > 0 && importe > 0) {
-				            boolean exito = movimientoNegocio.transferencia(nroCuentaOrigen, nroCuentaDestino, importe);
-				            if (exito) {
-				                response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=ok");
-				            } else {
-				                response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=error");
-				            }
-				        } else {
-				            response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=paramError");
+				        	int resultado = movimientoNegocio.transferencia(nroCuentaOrigen, nroCuentaDestino, importe);
+				        	String msg = "";
+
+				        	switch (resultado) {
+				        	    case 0:
+				        	        msg = "ok";
+				        	        break;
+				        	    case 1:
+				        	        msg = "cuentaOrigenInexistente";
+				        	        break;
+				        	    case 2:
+				        	        msg = "cuentaDestinoInexistente";
+				        	        break;
+				        	    case 3: //este es por las dudas, pero el html ya lo valida
+				        	        msg = "importeInvalido";
+				        	        break;
+				        	    case 4: 
+				        	        msg = "saldoInsuficiente";
+				        	        break;
+				        	    case 5:
+				        	    	msg = "mismaCuenta";
+				        	    	break;
+				        	    default:
+				        	        msg = "falloTransferencia";
+				        	        break;
+				        	}
+				        	response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=" + msg);
 				        }
+				        	
 				    } catch (Exception e) {
 				        e.printStackTrace();
 				        response.sendRedirect("MovimientosServlet?Param=nuevaTransferencia&nCuenta=" + nroCuentaOrigen + "&msg=excepcion");

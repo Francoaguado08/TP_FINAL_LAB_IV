@@ -16,7 +16,7 @@
 	
 	<main class="contenido-central">
 		<img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo del Banco" class="logo-central">
-    	<h1>Bienvenido! <span>usuario</span></h1>
+    	<h1>Bienvenido! <span><%=session.getAttribute("usuario")%></span></h1>
 	</main>
 
 

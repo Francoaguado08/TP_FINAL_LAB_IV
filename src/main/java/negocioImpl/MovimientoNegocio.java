@@ -31,31 +31,35 @@ public class MovimientoNegocio implements IMovimientoNegocio{
 		return null;
 	}
 	
-	public boolean transferencia(int nroCuentaOrigen, int nroCuentaDestino, double importe) {
+	public int transferencia(int nroCuentaOrigen, int nroCuentaDestino, double importe) {
 		
-		//verifico que exista solo como validación, esta debería existir
-		if(!cuentaDAO.existe(nroCuentaOrigen)) {
-			System.out.println("Error, cuenta origen inexistente o inactiva");
-			return false;
-			}
-		//verifico que exista y esté activa
-		if(!cuentaDAO.existe(nroCuentaDestino)) {
-			System.out.println("Error, cuenta destino inexistente o inactiva");
-			return false;
-			} 
-		if (importe <=0) {
-			System.out.println("Error, el valor del importe es incorrecto");
-			return false;
-		}
+	    if (nroCuentaOrigen == nroCuentaDestino) {
+	        return 5; // transferencia en la misma cuenta
+	    }
 		
-		if ((cuentaDAO.obtenerPorNumeroCuenta(nroCuentaOrigen).getSaldo())< importe) {
-			System.out.println("Error, saldo insuficiente");
-			return false;
-		}
+	    if (!cuentaDAO.existe(nroCuentaOrigen)) {
+	        return 1; // cuenta origen inhabilitada o no existe (no debería pasar por este por como está hecho todo)
+	    }
+
+	    if (!cuentaDAO.existe(nroCuentaDestino)) {
+	        return 2; // cuenta destino inhabilitada o no existe
+	    }
+
+	    if (importe <= 0) {
+	        return 3; // importe inválido
+	    }
+
+	    if (cuentaDAO.obtenerPorNumeroCuenta(nroCuentaOrigen).getSaldo() < importe) {
+	        return 4; // saldo insuficiente en cuenta origen
+	    }
 		
-		return movimientoDAO.transferencia(nroCuentaOrigen, nroCuentaDestino, importe);
-		
-		
+	    if (movimientoDAO.transferencia(nroCuentaOrigen, nroCuentaDestino, importe)) {
+	    	return 0; //transferencia exitosa
+	    }
+	    else {
+	    	return -1; //error inesperado
+	    }
+
 	}
 
 	
