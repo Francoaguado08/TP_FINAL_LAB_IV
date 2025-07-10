@@ -28,7 +28,7 @@
             <h1>Acceder a una Cuenta</h1>
         </section>
 
-        <table class="contenido.listado">
+        <table>
             <thead>
                 <tr>
                     <th>N° Cuenta</th>

@@ -109,14 +109,6 @@ table tr:hover {
     }
 }
 
-/* Contenedor principal de listado */
-.contenido-listado {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
 button {
     width: 100%;
     padding: 1rem;

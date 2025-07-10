@@ -51,7 +51,7 @@
 	
 	
 		<section class="grid-container">
-				<table id="tablaMovimientos" class="contenido.listado">
+				<table id="tablaMovimientos">
 					<thead>
 					    <tr>
 					        <th>Fecha</th>
