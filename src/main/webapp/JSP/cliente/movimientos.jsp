@@ -34,21 +34,7 @@
 
 	<main class="contenido-principal">
 	
-		<section class="filter-box">
-			
-		    <h3>Filtrar por Importe</h3>
-		    
-		    <form>
-		    	 <label>Mínimo</label>
-	             <input type="text" name="importeMinimo" id="importeMinimo" placeholder="Ej: 1000">
-	             
-	             <label>Máximo</label>
-	             <input type="text" name="importeMaximo" id="importeMaximo" placeholder="Ej: 5000">
-	             
-		        <button type="submit">Aplicar Filtros</button>
-			</form>
-		</section>
-	
+		
 	
 		<section class="grid-container">
 				<table id="tablaMovimientos">

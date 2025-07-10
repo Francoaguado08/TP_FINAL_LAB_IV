@@ -53,11 +53,7 @@
             
             
             
-			<form class="filter-box" action="${pageContext.request.contextPath}PrestamosAcepRechServlet" method="get">
-            	<label for="busqueda">Buscar por numero de cliente</label>
-  				<input type="text" name="filtro" placeholder="Ejemplo: 1" required> 
-  				<button type="submit" name = "filtroBtn">Buscar</button>
-  			</form>
+			
             
                 <table id="tablaPrestamos">
                     <thead>
