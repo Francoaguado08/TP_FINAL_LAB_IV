@@ -14,7 +14,7 @@
 	<jsp:include page="../navbar/navCliente.jsp"/>
 	
 	<main class="contenido-central">
-		<img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo del Banco" class="logo-central">
+		<img src="${pageContext.request.contextPath}/images/banco.webp" alt="Logo del Banco" class="logo-central">
 		<div>
 	    	<h1>Bienvenido! <b><%=session.getAttribute("usuario") %></b></h1>
 	    	<h3>Para consultar movimientos o realizar una transferencia seleccione una cuenta!</h3>

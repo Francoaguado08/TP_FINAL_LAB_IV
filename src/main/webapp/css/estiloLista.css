@@ -67,7 +67,7 @@ table tr:hover {
 
 /* Botones acción */
 .btnAccion {
-    background-color: var(--color-principal);
+    background-color: var(--color-editar);
     color: white;
     padding: 6px 12px;
     border-radius: 4px;
@@ -76,7 +76,7 @@ table tr:hover {
 }
 
 .btnAccion:hover {
-    background-color: var(--color-texto-secundario);
+    background-color: var(--color-editar);
 }
 
 .btnEliminar {

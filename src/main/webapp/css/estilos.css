@@ -2,13 +2,14 @@
 
 /* COLORES GLOBALES */
 :root {
-    --color-principal: #7bb3ea;
+    --color-principal: #fff !important;
     --color-secundario: #f6f4f0;
-    --color-texto: #1e2b37;
-    --color-texto-secundario: #808080;
+    --color-texto: #000;
+    --color-texto-secundario: #d32f2f !important;
     --color-blanco: #fff;
     --color-negro: #000;
     --color-eliminar: #d32f2f;
+    --color-editar: yellow;
     font-size: 62.5%; 
 }
 
